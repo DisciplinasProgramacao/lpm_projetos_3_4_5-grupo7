@@ -13,4 +13,8 @@ public class ClienteTest {
   public void testaRetirarDaLista() {
 
   }
+
+  public void testaFiltrarPorGenero() {
+    
+  }
 }
