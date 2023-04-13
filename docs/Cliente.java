@@ -2,6 +2,8 @@ package codigo;
 
 import java.util.List;
 
+import src.Serie;
+
 public class Cliente {
     String nomeDeUsuario;
     String senha;
