@@ -13,14 +13,27 @@ public class Cliente {
         this.listaParaVer = new ArrayList<Serie>();
         this.listaJaVistas = new ArrayList<Serie>();
     }
+
+    /**
+     * Adiciona uma série em uma lista de séries para serem assistidas
+     * @param serie
+     */
     public void adicionarNaLista(Serie serie) {
         listaParaVer.add(serie);
     }
 
+    /**
+     * Remove uma série em uma lista de séries para serem assistidas
+     * @param nomeSerie
+     */
     public void retirarDaLista(String nomeSerie) {
         listaParaVer.removeIf(x-> x.getNome().equals(nomeSerie));
     }
 
+    /**
+     * Junta duas listas retornando somente uma lista
+     * @return Lista de séries
+     */
     private List<Serie> combinarListas(){
         List<Serie> combinacaoListas = new ArrayList<Serie>();
         combinacaoListas.addAll(this.listaParaVer);
@@ -28,6 +41,11 @@ public class Cliente {
         return combinacaoListas; 
     }
 
+    /**
+     * Retorna uma lista de séries filtradas por gênero
+     * @param genero
+     * @return Lista de séries filtradas por gênero
+     */
     public List<Serie> filtrarPorGenero(String genero){
         List<Serie> lista = new ArrayList<Serie>();
         List<Serie> combinacaoListas = combinarListas();
@@ -41,6 +59,11 @@ public class Cliente {
         return lista;
     }
 
+    /**
+     * Retorna uma lista de séries filtradas por idioma
+     * @param idioma
+     * @return Lista de séries filtradas por idioma
+     */
     public List<Serie> filtrarPorIdioma(String idioma){
         List<Serie> lista = new ArrayList<Serie>();
         List<Serie> combinacaoListas = combinarListas();
@@ -54,6 +77,11 @@ public class Cliente {
         return lista;
     }
 
+    /**
+     * Retorna uma lista de séries filtradas por quantidade de episódios
+     * @param quantEpisodios
+     * @return Lista de séries filtradas por quantidade de episódios
+     */
     public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios){
         List<Serie> lista = new ArrayList<Serie>();
         List<Serie> combinacaoListas = combinarListas();
@@ -67,6 +95,10 @@ public class Cliente {
         return lista;
     }
 
+    /**
+     * Registra audiência a partir da classe Serie
+     * @param serie
+     */
     public void registrarAudiencia(Serie serie){
         serie.registrarAudiencia();
     }
