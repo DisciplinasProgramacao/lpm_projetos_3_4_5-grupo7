@@ -11,6 +11,9 @@ public class Serie {
         this.audiencia = 0;
     }
 
+    /**
+     * A cada cliente conectado, é incrementado 1 na audiência
+     */
     public void registrarAudiencia() {
         this.audiencia++;
     }
