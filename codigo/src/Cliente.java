@@ -71,6 +71,12 @@ public class Cliente {
         serie.registrarAudiencia();
     }
 
+    // vai ter get e set de usuario e senha?
+    public String getNomeUsuario() {
+        return this.nomeDeUsuario;
+    }
 
-   
+    public String getSenha() {
+        return this.senha;
+    }
 }
