@@ -1,5 +1,7 @@
 package src;
 
+import java.util.List;
+
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +25,16 @@ public class PlataformaStreamingTest {
 
   @Test
   public void testaAdicionarSerie() {
-
+    PlataformaStreaming ps = new PlataformaStreaming();
+    Boolean adicionou = ps.adicionarSerie(new Serie());
+    Assertions.assertTrue(adicionou);
   }
 
   @Test
   public void testaAdicionarCliente() {
-
+    PlataformaStreaming ps = new PlataformaStreaming();
+    Boolean adicionou = ps.adicionarCliente(new Cliente());
+    Assertions.assertTrue(adicionou);
   }
 
   @Test
@@ -48,6 +54,6 @@ public class PlataformaStreamingTest {
 
   @Test
   public void testaRegistrarAudiencia() {
-    
+
   }
 }

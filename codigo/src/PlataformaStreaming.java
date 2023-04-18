@@ -10,8 +10,10 @@ public class PlataformaStreaming {
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
-    /** 
-     * Valida as informações do usuário, efetuando assim seu login e retornando um novo cliente
+    /**
+     * Valida as informações do usuário, efetuando assim seu login e retornando um
+     * novo cliente
+     * 
      * @param nomeUsuario
      * @param senha
      * @return Retorna um novo cliente
@@ -26,34 +28,45 @@ public class PlataformaStreaming {
 
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
+     * 
      * @param serie
+     * @return boolean
      */
-    public void adicionarSerie(Serie serie) {
-        this.series.add(serie);
+    public boolean adicionarSerie(Serie serie) {
+        Boolean adicionouSerie = this.series.add(serie);
+        return adicionouSerie;
     }
 
     /**
      * Adiciona um cliente em uma lista de clientes dentro da plataforma
+     * 
      * @param cliente
+     * @return boolean
      */
-    public void adicionarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+    public boolean adicionarCliente(Cliente cliente) {
+        Boolean adicionouCliente = this.clientes.add(cliente);
+        return adicionouCliente;
     }
 
     /**
      * Retorna uma lista de séries de acordo com um gênero específico
+     * 
      * @param genero
      * @return Lista de séries de um gênero específico
      */
     public List<Serie> filtrarPorGenero(String genero) {
         List<Serie> series = new ArrayList<Serie>();
-        // for(Serie serie : this.series)
-            
+
+        for (Serie serie : this.series)
+            if (serie.getGenero() == genero)
+                series.add((Serie) series);
+
         return series;
     }
 
     /**
      * Retorna uma lista de séries de acordo com o idioma informado
+     * 
      * @param idioma
      * @return Lista de séries de um idioma específico
      */
@@ -61,8 +74,9 @@ public class PlataformaStreaming {
         return new ArrayList<Serie>();
     }
 
-    /** 
+    /**
      * Retorna uma lista de séries de acordo com a quantidade de episódeos informada
+     * 
      * @param idioma
      * @return Lista de séries de uma determinada quantidade de episódeos
      */
@@ -72,6 +86,7 @@ public class PlataformaStreaming {
 
     /**
      * -------------------
+     * 
      * @param serie
      */
     public void registrarAudiencia(Serie serie) {
@@ -85,8 +100,9 @@ public class PlataformaStreaming {
         this.clienteAtual = null;
     }
 
-    /** 
+    /**
      * O método acima retorna uma série de acordo com o nome informado
+     * 
      * @param nomeSerie
      * @return Retorna uma série específica
      */
