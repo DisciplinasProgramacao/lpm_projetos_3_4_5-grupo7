@@ -37,7 +37,7 @@ public class PlataformaStreaming {
                 return cliente;
             }
 
-        return new Cliente();
+        return null;
     }
 
     /**

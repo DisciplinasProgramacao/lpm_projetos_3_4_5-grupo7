@@ -1,4 +1,5 @@
 package src;
+
 public class Serie {
     private static String[] GENEROS;
     private String nome;
@@ -21,7 +22,7 @@ public class Serie {
     public int getAudiencia() {
         return audiencia;
     }
-    
+
     public String getIdioma() {
         return idioma;
     }
