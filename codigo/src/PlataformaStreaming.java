@@ -10,6 +10,18 @@ public class PlataformaStreaming {
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
+    PlataformaStreaming() {
+        this.series = new HashSet<Serie>();
+        this.clientes = new HashSet<Cliente>();
+        this.clienteAtual = new Cliente();
+    }
+
+    // #region Get Set
+    public Cliente getcClienteAtual() {
+        return this.clienteAtual;
+    }
+    // #endregion
+
     /**
      * Valida as informações do usuário, efetuando assim seu login e retornando um
      * novo cliente
@@ -20,8 +32,10 @@ public class PlataformaStreaming {
      */
     public Cliente login(String nomeUsuario, String senha) {
         for (Cliente cliente : this.clientes)
-            if (cliente.getSenha() == senha && cliente.getNomeUsuario() == nomeUsuario)
+            if (cliente.getSenha() == senha && cliente.getNomeUsuario() == nomeUsuario) {
+                this.clienteAtual = cliente;
                 return cliente;
+            }
 
         return new Cliente();
     }
@@ -59,7 +73,7 @@ public class PlataformaStreaming {
 
         for (Serie serie : this.series)
             if (serie.getGenero() == genero)
-                series.add((Serie) series);
+                series.add(serie);
 
         return series;
     }
@@ -71,26 +85,41 @@ public class PlataformaStreaming {
      * @return Lista de séries de um idioma específico
      */
     public List<Serie> filtrarPorIdioma(String idioma) {
-        return new ArrayList<Serie>();
+        List<Serie> series = new ArrayList<Serie>();
+
+        for (Serie serie : this.series)
+            if (serie.getIdioma() == idioma)
+                series.add(serie);
+
+        return series;
     }
 
     /**
      * Retorna uma lista de séries de acordo com a quantidade de episódeos informada
      * 
-     * @param idioma
+     * @param quantEpisodios
      * @return Lista de séries de uma determinada quantidade de episódeos
      */
-    public List<Serie> filtrarPorQtdEpisodios(String idioma) {
-        return new ArrayList<Serie>();
+    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
+        List<Serie> series = new ArrayList<Serie>();
+
+        for (Serie serie : this.series)
+            if (serie.getQuantidadeEpisodios() == quantEpisodios)
+                series.add(serie);
+
+        return series;
     }
 
     /**
-     * -------------------
+     * 
+     * metodo responsavel por registrar audiencia de acordo com o
+     * objeto serie passado
      * 
      * @param serie
+     * 
      */
     public void registrarAudiencia(Serie serie) {
-
+        series.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
     }
 
     /**
@@ -106,8 +135,14 @@ public class PlataformaStreaming {
      * @param nomeSerie
      * @return Retorna uma série específica
      */
-    public Serie buscaSerie(String nomeSerie) {
-        return new Serie();
+    public Serie buscarSerie(String nomeSerie) {
+        Serie serieEncontrada = new Serie();
+
+        for (Serie serie : this.series)
+            if (serie.getNome() == nomeSerie)
+                serieEncontrada = serie;
+
+        return serieEncontrada;
     }
 
 }
