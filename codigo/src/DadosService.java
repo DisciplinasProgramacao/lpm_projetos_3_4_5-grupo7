@@ -151,7 +151,7 @@ public class DadosService {
         Serie serie = new Serie(IdSerie);
         Cliente cliente = new Cliente(nomeUsuario, null);
 
-        this.ps.adicionarAudiencia();
+        this.ps.registrarAudiencia(serie);
       }
 
       scanner.close();
