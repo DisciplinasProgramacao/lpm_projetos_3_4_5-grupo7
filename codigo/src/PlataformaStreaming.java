@@ -13,7 +13,7 @@ public class PlataformaStreaming {
     PlataformaStreaming() {
         this.series = new HashSet<Serie>();
         this.clientes = new HashSet<Cliente>();
-        this.clienteAtual = new Cliente();
+        this.clienteAtual = null;
     }
 
     // #region Get Set

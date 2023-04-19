@@ -8,7 +8,8 @@ public class Serie {
     private int quantidadeEpisodios;
     private int audiencia;
 
-    Serie() {
+    Serie(String nome) {
+        this.nome = nome;
         this.audiencia = 0;
     }
 

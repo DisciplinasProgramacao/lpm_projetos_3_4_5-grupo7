@@ -9,7 +9,9 @@ public class Cliente {
     private List<Serie> listaParaVer;
     private List<Serie> listaJaVistas;
 
-    public Cliente() {
+    public Cliente(String usuario, String senha) {
+        this.nomeDeUsuario = usuario;
+        this.senha = senha;
         this.listaParaVer = new ArrayList<Serie>();
         this.listaJaVistas = new ArrayList<Serie>();
     }
