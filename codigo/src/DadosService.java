@@ -124,7 +124,7 @@ public class DadosService {
   }
 
   public void geraListaAudiencia(String arquivoAudiencia) {
-
+    List<String> audiencias = new ArrayList<>();
     File arquivo;
 
     try {
