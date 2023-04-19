@@ -26,6 +26,15 @@ public class Cliente {
     }
 
     /**
+     *  Adiciona uma série em uma lista de séries que já foram assistidas pelo cliente
+     *
+     * @param serie
+     * */
+    public void adicionarNaListaJaVistas(Serie serie) {
+        listaJaVistas.add(serie);
+    }
+
+    /**
      * Remove uma série em uma lista de séries para serem assistidas
      * 
      * @param nomeSerie

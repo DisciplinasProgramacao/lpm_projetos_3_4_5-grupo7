@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Random;
+
 public class Serie {
     private static String[] GENEROS;
     private String nome;
@@ -9,6 +11,11 @@ public class Serie {
     private int audiencia;
 
     Serie(String nome) {
+        GENEROS = new String[]{"Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama"};
+        Random random = new Random();
+
+        this.genero = GENEROS[(random.nextInt(8))];
+
         this.nome = nome;
         this.audiencia = 0;
     }

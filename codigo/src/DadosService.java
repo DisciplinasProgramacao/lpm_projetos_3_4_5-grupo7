@@ -19,7 +19,7 @@ public class DadosService {
     List<String> clientes = criarArrayDeClientes();
 
     clientes.forEach(clienteLine -> {
-      String[] dados = splitLine(clienteLine);
+      String[] dados = splitLine(clienteLine, ";");
       String login = formatLine(dados[1]);
       String senha = formatLine(dados[2]);
       Cliente cliente = new Cliente(login, senha);
@@ -33,7 +33,7 @@ public class DadosService {
     List<String> series = criarArrayDeSeries();
 
     series.forEach(serieLine -> {
-      String[] dados = splitLine(serieLine);
+      String[] dados = splitLine(serieLine, ";");
       String nome = formatLine(dados[1]);
       plataformaStreaming.adicionarSerie(new Serie(nome));
     });
@@ -44,19 +44,25 @@ public class DadosService {
     List<String> series = criarArrayDeSeries();
 
     audiencias.forEach(audienciaLine -> {
-      String[] dadosAudiencia = splitLine(audienciaLine);
+      String[] dadosAudiencia = splitLine(audienciaLine, ";");
       String loginClienteParaBuscar = formatLine(dadosAudiencia[0]);
+      String serieParaAssistir = formatLine(dadosAudiencia[1]);
       String idSerieParaBuscar = formatLine(dadosAudiencia[2]);
 
       if(compararString(loginClienteParaBuscar, cliente.getNomeUsuario())) {
         series.forEach(serieLine -> {
-          String[] dadosSerie = splitLine(serieLine);
+          String[] dadosSerie = splitLine(serieLine, ";");
           String idSerie = formatLine(dadosSerie[0]);
           String nome = formatLine(dadosSerie[1]);
 
           if(compararString(idSerieParaBuscar, idSerie)) {
             Serie serie = plataformaStreaming.buscarSerie(nome);
-            cliente.adicionarNaLista(serie);
+
+            if(compararString(serieParaAssistir, "F")) {
+              cliente.adicionarNaLista(serie);
+            } else {
+              cliente.adicionarNaListaJaVistas(serie);
+            }
           }
         });
       }
@@ -108,8 +114,8 @@ public class DadosService {
     return dados;
   }
 
-  private String[] splitLine(String line) {
-    return line.split(";");
+  private String[] splitLine(String line, String separador) {
+    return line.split(separador);
   }
 
   private String formatLine(String line) {
