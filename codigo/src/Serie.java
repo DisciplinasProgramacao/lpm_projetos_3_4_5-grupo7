@@ -39,4 +39,20 @@ public class Serie {
     public String getNome() {
         return nome;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public void setIdioma(String idioma) {
+        this.idioma = idioma;
+    }
+
+    public void setQuantidadeEpisodios(int quantidadeEpisodios) {
+        this.quantidadeEpisodios = quantidadeEpisodios;
+    }
 }

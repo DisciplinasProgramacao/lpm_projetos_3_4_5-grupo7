@@ -38,7 +38,6 @@ public class DadosService {
 
         Cliente cliente = new Cliente(nomeUsuario, senha);
 
-
         this.ps.adicionarCliente(cliente);
         System.out.println(line);
       }
@@ -49,7 +48,7 @@ public class DadosService {
     }
   }
 
-  public List<Cliente> geraVetorCliente(String nomeArquivo) {
+  public List<Cliente> geraListaCliente(String nomeArquivo) {
     File arquivo;
     List<Cliente> todosOsClientes = new ArrayList<>();
 
@@ -76,7 +75,6 @@ public class DadosService {
         Cliente cliente = new Cliente(nomeUsuario, senha);
 
         this.ps.adicionarCliente(cliente);
-        System.out.println(line);
       }
 
       scanner.close();
@@ -87,8 +85,7 @@ public class DadosService {
     return todosOsClientes;
   }
 
-
-  public List<Serie> geraVetorSerie(String nomeArquivo) {
+  public List<Serie> geraListaSerie(String nomeArquivo) {
     File arquivo;
     List<Serie> todasAsSeries = new ArrayList<>();
 
@@ -113,9 +110,7 @@ public class DadosService {
 
         Serie serie = new Serie(nomeSerie);
 
-
         this.ps.adicionarSerie(serie);
-        System.out.println(line);
       }
 
       scanner.close();

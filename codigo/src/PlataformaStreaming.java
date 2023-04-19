@@ -20,6 +20,10 @@ public class PlataformaStreaming {
     public Cliente getcClienteAtual() {
         return this.clienteAtual;
     }
+
+    public String getNome() {
+        return this.nome;
+    }
     // #endregion
 
     /**
@@ -136,7 +140,7 @@ public class PlataformaStreaming {
      * @return Retorna uma série específica
      */
     public Serie buscarSerie(String nomeSerie) {
-        Serie serieEncontrada = new Serie();
+        Serie serieEncontrada = null;
 
         for (Serie serie : this.series)
             if (serie.getNome() == nomeSerie)

@@ -13,61 +13,97 @@ public class PlataformaStreamingTest {
   @BeforeEach
   public void adicionaCliente() {
     ps = new PlataformaStreaming();
-    ps.adicionarCliente(new Cliente());
+    ps.adicionarCliente(new Cliente("user", "senha"));
   }
 
   @Test
   public void testaLogin() {
-    PlataformaStreaming ps = new PlataformaStreaming();
-    Cliente c = ps.login("usuarioteste", "senhaforte");
+    ps = new PlataformaStreaming();
+    ps.adicionarCliente(new Cliente("user", "senha"));
+    Cliente c = ps.login("user", "senha");
 
     Assertions.assertTrue(c instanceof Cliente);
   }
 
   @Test
   public void testaAdicionarSerie() {
-    PlataformaStreaming ps = new PlataformaStreaming();
-    Boolean adicionou = ps.adicionarSerie(new Serie());
-    Assertions.assertTrue(adicionou);
+    ps = new PlataformaStreaming();
+    Assertions.assertTrue(ps.adicionarSerie(new Serie("serie")));
   }
 
   @Test
   public void testaAdicionarCliente() {
-    PlataformaStreaming ps = new PlataformaStreaming();
-    Boolean adicionou = ps.adicionarCliente(new Cliente());
+    ps = new PlataformaStreaming();
+    Boolean adicionou = ps.adicionarCliente(new Cliente("user", "senha"));
     Assertions.assertTrue(adicionou);
   }
 
   @Test
   public void testaFiltrarPorGenero() {
+    ps = new PlataformaStreaming();
+    Serie serie = new Serie("shrek serie");
+    Serie serie2 = new Serie("shrek serie 2");
+    Serie serie3 = new Serie("shrek serie 3");
+    Serie serie4 = new Serie("shrek serie 4");
     List<Serie> filtradas = new ArrayList<>();
-    String genero = "Ação";
 
-    filtradas = ps.filtrarPorGenero(genero);
-    Assertions.assertEquals(1, filtradas.size());
+    serie.setGenero("Comédia");
+    serie2.setGenero("Ação");
+    serie3.setGenero("Drama");
+    serie4.setGenero("Comédia");
+
+    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie2);
+    ps.adicionarSerie(serie3);
+    ps.adicionarSerie(serie4);
+
+    filtradas = ps.filtrarPorGenero("Comédia");
+    Assertions.assertEquals(2, filtradas.size());
   }
 
   @Test
   public void testaFiltrarIdioma() {
+    ps = new PlataformaStreaming();
+    Serie serie = new Serie("serie");
+    Serie serie2 = new Serie("shrek 3");
+    Serie serie3 = new Serie("shrek 2");
     List<Serie> filtradas = new ArrayList<>();
-    String idioma = "Português";
 
-    filtradas = ps.filtrarPorIdioma(idioma);
+    serie.setIdioma("Português");
+    serie2.setIdioma("Inglês");
+    serie3.setIdioma("Espanhol");
+
+    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie2);
+    ps.adicionarSerie(serie3);
+
+    filtradas = ps.filtrarPorIdioma("Português");
     Assertions.assertEquals(1, filtradas.size());
   }
 
   @Test
   public void testaFiltrarPorQtdEpisodios() {
+    ps = new PlataformaStreaming();
+    Serie serie = new Serie("shrek serie");
+    Serie serie2 = new Serie("shrek serie 2");
+    Serie serie3 = new Serie("shrek serie 3");
     List<Serie> filtradas = new ArrayList<>();
-    int qtdEpisodios = 10;
 
-    filtradas = ps.filtrarPorQtdEpisodios(qtdEpisodios);
-    Assertions.assertEquals(1, filtradas.size());
+    serie.setQuantidadeEpisodios(5);
+    serie2.setQuantidadeEpisodios(10);
+    serie3.setQuantidadeEpisodios(5);
+
+    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie2);
+    ps.adicionarSerie(serie3);
+
+    filtradas = ps.filtrarPorQtdEpisodios(5);
+    Assertions.assertEquals(2, filtradas.size());
   }
 
   @Test
   public void testaRegistrarAudiencia() {
-    Serie serie = new Serie();
+    Serie serie = new Serie("serie");
     serie.registrarAudiencia();
     serie.registrarAudiencia();
     serie.registrarAudiencia();
