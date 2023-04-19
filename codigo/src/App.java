@@ -8,7 +8,8 @@ public class App {
         PlataformaStreaming ps = new PlataformaStreaming();
         DadosService meusDados = new DadosService(ps);
 
-        meusDados.show();
+        meusDados.carregarClientes();
+        meusDados.carregarSeries();
 //        DadosService clientes = new DadosService();
 //        clientes.geraListaCliente(arquivoEspectadores);
 //        DadosService audiencia = new DadosService();

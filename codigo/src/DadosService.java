@@ -10,17 +10,9 @@ import java.util.Scanner;
 
 public class DadosService {
   private final PlataformaStreaming plataformaStreaming;
-  private final List<String> idDeSeries;
 
   public DadosService(PlataformaStreaming ps) {
     plataformaStreaming = ps;
-    idDeSeries = new ArrayList<>();
-  }
-
-  public void show() {
-    criarArrayDeClientes().forEach(System.out::println);
-    criarArrayDeSeries().forEach(System.out::println);
-    criarArrayDeAudiencias().forEach(System.out::println);
   }
 
   public void carregarClientes() {
@@ -28,9 +20,12 @@ public class DadosService {
 
     clientes.forEach(clienteLine -> {
       String[] dados = splitLine(clienteLine);
-      String login = dados[1];
-      String senha = dados[2];
-      plataformaStreaming.adicionarCliente(new Cliente(login, senha));
+      String login = formatLine(dados[1]);
+      String senha = formatLine(dados[2]);
+      Cliente cliente = new Cliente(login, senha);
+
+      buscarAudiencia(cliente);
+      plataformaStreaming.adicionarCliente(cliente);
     });
   }
 
@@ -39,10 +34,32 @@ public class DadosService {
 
     series.forEach(serieLine -> {
       String[] dados = splitLine(serieLine);
-      String id = dados[0];
-      String nome = dados[1];
-      idDeSeries.add(id);
+      String nome = formatLine(dados[1]);
       plataformaStreaming.adicionarSerie(new Serie(nome));
+    });
+  }
+
+  private void buscarAudiencia(Cliente cliente) {
+    List<String> audiencias = criarArrayDeAudiencias();
+    List<String> series = criarArrayDeSeries();
+
+    audiencias.forEach(audienciaLine -> {
+      String[] dadosAudiencia = splitLine(audienciaLine);
+      String loginClienteParaBuscar = formatLine(dadosAudiencia[0]);
+      String idSerieParaBuscar = formatLine(dadosAudiencia[2]);
+
+      if(compararString(loginClienteParaBuscar, cliente.getNomeUsuario())) {
+        series.forEach(serieLine -> {
+          String[] dadosSerie = splitLine(serieLine);
+          String idSerie = formatLine(dadosSerie[0]);
+          String nome = formatLine(dadosSerie[1]);
+
+          if(compararString(idSerieParaBuscar, idSerie)) {
+            Serie serie = plataformaStreaming.buscarSerie(nome);
+            cliente.adicionarNaLista(serie);
+          }
+        });
+      }
     });
   }
 
@@ -93,6 +110,10 @@ public class DadosService {
 
   private String[] splitLine(String line) {
     return line.split(";");
+  }
+
+  private String formatLine(String line) {
+    return line.trim();
   }
 
   private boolean compararString(String s1, String s2) {

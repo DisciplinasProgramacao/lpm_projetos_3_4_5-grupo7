@@ -3,6 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 public class PlataformaStreaming {
     private String nome;
@@ -46,7 +47,7 @@ public class PlataformaStreaming {
 
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
-     * 
+     *
      * @param serie
      * @return boolean
      */
@@ -141,10 +142,9 @@ public class PlataformaStreaming {
         Serie serieEncontrada = null;
 
         for (Serie serie : this.series)
-            if (serie.getNome() == nomeSerie)
+            if (serie.getNome().equals(nomeSerie))
                 serieEncontrada = serie;
 
         return serieEncontrada;
     }
-
 }
