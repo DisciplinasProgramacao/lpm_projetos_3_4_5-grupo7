@@ -70,17 +70,17 @@ public class DadosService {
   }
 
   private List<String> criarArrayDeClientes() {
-    String arquivoCliente = "codigo/POO_Series_2023/POO_Espectadores.csv";
+    String arquivoCliente = "codigo/src/files/POO_Espectadores.csv";
     return carregarDados(arquivoCliente);
   }
 
   private List<String> criarArrayDeSeries() {
-    String nomeArquivo = "codigo/POO_Series_2023/POO_Series.csv";
+    String nomeArquivo = "codigo/src/files/POO_Series.csv";
     return carregarDados(nomeArquivo);
   }
 
   private List<String> criarArrayDeAudiencias() {
-    String nomeArquivo = "codigo/POO_Series_2023/POO_Audiencia.csv";
+    String nomeArquivo = "codigo/src/files/POO_Audiencia.csv";
     return carregarDados(nomeArquivo);
   }
 
@@ -103,7 +103,9 @@ public class DadosService {
 
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
+        System.out.println("["+ dados +"]\n");
         dados.add(line);
+        
       }
 
       scanner.close();

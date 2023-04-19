@@ -14,7 +14,7 @@ public class Serie {
         GENEROS = new String[]{"Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama"};
         Random random = new Random();
 
-        this.genero = GENEROS[(random.nextInt(8))];
+        this.genero = GENEROS[(random.nextInt(7))];
 
         this.nome = nome;
         this.audiencia = 0;
