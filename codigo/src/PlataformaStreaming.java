@@ -50,9 +50,8 @@ public class PlataformaStreaming {
      * @param serie
      * @return boolean
      */
-    public boolean adicionarSerie(Serie serie) {
-        Boolean adicionouSerie = this.series.add(serie);
-        return adicionouSerie;
+    public void adicionarSerie(Serie serie) {
+        this.series.add(serie);
     }
 
     /**
@@ -61,9 +60,8 @@ public class PlataformaStreaming {
      * @param cliente
      * @return boolean
      */
-    public boolean adicionarCliente(Cliente cliente) {
-        Boolean adicionouCliente = this.clientes.add(cliente);
-        return adicionouCliente;
+    public void adicionarCliente(Cliente cliente) {
+        this.clientes.add(cliente);
     }
 
     /**

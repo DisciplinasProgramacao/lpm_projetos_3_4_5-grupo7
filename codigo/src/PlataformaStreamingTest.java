@@ -28,14 +28,13 @@ public class PlataformaStreamingTest {
   @Test
   public void testaAdicionarSerie() {
     ps = new PlataformaStreaming();
-    Assertions.assertTrue(ps.adicionarSerie(new Serie("serie")));
+    Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie("serie")));
   }
 
   @Test
   public void testaAdicionarCliente() {
     ps = new PlataformaStreaming();
-    Boolean adicionou = ps.adicionarCliente(new Cliente("user", "senha"));
-    Assertions.assertTrue(adicionou);
+    Assertions.assertDoesNotThrow(() -> ps.adicionarCliente(new Cliente("usuario", "senha")));
   }
 
   @Test

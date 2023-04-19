@@ -9,154 +9,93 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DadosService {
-  private PlataformaStreaming ps;
+  private final PlataformaStreaming plataformaStreaming;
+  private final List<String> idDeSeries;
 
-  public DadosService() {
-    this.ps = new PlataformaStreaming();
+  public DadosService(PlataformaStreaming ps) {
+    plataformaStreaming = ps;
+    idDeSeries = new ArrayList<>();
   }
 
-  public void carregarDados(String nomeArquivo) {
+  public void show() {
+    criarArrayDeClientes().forEach(System.out::println);
+    criarArrayDeSeries().forEach(System.out::println);
+    criarArrayDeAudiencias().forEach(System.out::println);
+  }
+
+  public void carregarClientes() {
+    List<String> clientes = criarArrayDeClientes();
+
+    clientes.forEach(clienteLine -> {
+      String[] dados = splitLine(clienteLine);
+      String login = dados[1];
+      String senha = dados[2];
+      plataformaStreaming.adicionarCliente(new Cliente(login, senha));
+    });
+  }
+
+  public void carregarSeries() {
+    List<String> series = criarArrayDeSeries();
+
+    series.forEach(serieLine -> {
+      String[] dados = splitLine(serieLine);
+      String id = dados[0];
+      String nome = dados[1];
+      idDeSeries.add(id);
+      plataformaStreaming.adicionarSerie(new Serie(nome));
+    });
+  }
+
+  private List<String> criarArrayDeClientes() {
+    String arquivoCliente = "codigo/POO_Series_2023/POO_Espectadores.csv";
+    return carregarDados(arquivoCliente);
+  }
+
+  private List<String> criarArrayDeSeries() {
+    String nomeArquivo = "codigo/POO_Series_2023/POO_Series.csv";
+    return carregarDados(nomeArquivo);
+  }
+
+  private List<String> criarArrayDeAudiencias() {
+    String nomeArquivo = "codigo/POO_Series_2023/POO_Audiencia.csv";
+    return carregarDados(nomeArquivo);
+  }
+
+  private List<String> carregarDados(String nomeArquivo) {
+    List<String> dados = new ArrayList<>();
     File arquivo;
 
     try {
       arquivo = new File(nomeArquivo);
       if (!arquivo.exists()) {
-        return;
+        return null;
       }
 
       Scanner scanner = new Scanner(arquivo);
 
       if (!scanner.hasNext()) {
         scanner.close();
-        return;
+        return null;
       }
 
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
-        String[] dadosEspectador = line.split(";");
-
-        String nomeUsuario = dadosEspectador[1];
-        String senha = dadosEspectador[2];
-
-        Cliente cliente = new Cliente(nomeUsuario, senha);
-
-        this.ps.adicionarCliente(cliente);
-        System.out.println(line);
+        dados.add(line);
       }
 
       scanner.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    return dados;
   }
 
-  public List<Cliente> geraListaCliente(String nomeArquivo) {
-    File arquivo;
-    List<Cliente> todosOsClientes = new ArrayList<>();
-
-    try {
-      arquivo = new File(nomeArquivo);
-      if (!arquivo.exists()) {
-        return null;
-      }
-
-      Scanner scanner = new Scanner(arquivo);
-
-      if (!scanner.hasNext()) {
-        scanner.close();
-        return null;
-      }
-
-      while (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
-        String[] dadosCliente = line.split(";");
-
-        String nomeUsuario = dadosCliente[1];
-        String senha = dadosCliente[2];
-
-        Cliente cliente = new Cliente(nomeUsuario, senha);
-
-        this.ps.adicionarCliente(cliente);
-      }
-
-      scanner.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    return todosOsClientes;
+  private String[] splitLine(String line) {
+    return line.split(";");
   }
 
-  public List<Serie> geraListaSerie(String nomeArquivo) {
-    File arquivo;
-    List<Serie> todasAsSeries = new ArrayList<>();
-
-    try {
-      arquivo = new File(nomeArquivo);
-      if (!arquivo.exists()) {
-        return null;
-      }
-
-      Scanner scanner = new Scanner(arquivo);
-
-      if (!scanner.hasNext()) {
-        scanner.close();
-        return null;
-      }
-
-      while (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
-        String[] dadosSerie = line.split(";");
-
-        String nomeSerie = dadosSerie[1];
-
-        Serie serie = new Serie(nomeSerie);
-
-        this.ps.adicionarSerie(serie);
-      }
-
-      scanner.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    return todasAsSeries;
-  }
-
-  public void geraListaAudiencia(String arquivoAudiencia) {
-    List<String> audiencias = new ArrayList<>();
-    File arquivo;
-
-    try {
-      arquivo = new File(arquivoAudiencia);
-      if (!arquivo.exists()) {
-        return;
-      }
-
-      Scanner scanner = new Scanner(arquivo);
-
-      if (!scanner.hasNext()) {
-        scanner.close();
-        return;
-      }
-
-      while (scanner.hasNextLine()) {
-        String line = scanner.nextLine();
-        String[] dadosAudiencia = line.split(";");
-
-        String nomeUsuario = dadosAudiencia[1];
-        String lista = dadosAudiencia[2];
-        String IdSerie = dadosAudiencia[3];
-
-        Serie serie = new Serie(IdSerie);
-        Cliente cliente = new Cliente(nomeUsuario, null);
-
-        this.ps.registrarAudiencia(serie);
-      }
-
-      scanner.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  private boolean compararString(String s1, String s2) {
+    return s1.equals(s2);
   }
 }

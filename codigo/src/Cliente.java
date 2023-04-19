@@ -12,8 +12,8 @@ public class Cliente {
     public Cliente(String usuario, String senha) {
         this.nomeDeUsuario = usuario;
         this.senha = senha;
-        this.listaParaVer = new ArrayList<Serie>();
-        this.listaJaVistas = new ArrayList<Serie>();
+        this.listaParaVer = new ArrayList<>();
+        this.listaJaVistas = new ArrayList<>();
     }
 
     /**
