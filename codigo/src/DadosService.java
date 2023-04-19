@@ -1,6 +1,8 @@
 package src;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,5 +121,42 @@ public class DadosService {
     }
 
     return todasAsSeries;
+  }
+
+  public void geraListaAudiencia(String arquivoAudiencia) {
+
+    File arquivo;
+
+    try {
+      arquivo = new File(arquivoAudiencia);
+      if (!arquivo.exists()) {
+        return;
+      }
+
+      Scanner scanner = new Scanner(arquivo);
+
+      if (!scanner.hasNext()) {
+        scanner.close();
+        return;
+      }
+
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        String[] dadosAudiencia = line.split(";");
+
+        String nomeUsuario = dadosAudiencia[1];
+        String lista = dadosAudiencia[2];
+        String IdSerie = dadosAudiencia[3];
+
+        Serie serie = new Serie(IdSerie);
+        Cliente cliente = new Cliente(nomeUsuario, null);
+
+        this.ps.adicionarAudiencia();
+      }
+
+      scanner.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
