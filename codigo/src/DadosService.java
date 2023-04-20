@@ -86,24 +86,15 @@ public class DadosService {
 
   private List<String> carregarDados(String nomeArquivo) {
     List<String> dados = new ArrayList<>();
-    File arquivo;
+    
 
     try {
-      arquivo = new File(nomeArquivo);
-      if (!arquivo.exists()) {
-        return null;
-      }
-
-      Scanner scanner = new Scanner(arquivo);
-
-      if (!scanner.hasNext()) {
-        scanner.close();
-        return null;
-      }
+      
+      Scanner scanner = new Scanner(new File(nomeArquivo));
 
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
-        System.out.println("["+ dados +"]\n");
+        System.out.println("["+ line +"]\n");
         dados.add(line);
         
       }
@@ -115,6 +106,7 @@ public class DadosService {
 
     return dados;
   }
+  
 
   private String[] splitLine(String line, String separador) {
     return line.split(separador);
