@@ -1,62 +1,19 @@
-package src;
 
-import java.util.Random;
-
-public class Serie {
-    private static String[] GENEROS;
-    private String nome;
-    private String genero;
-    private String idioma;
+public class Serie extends Audiovisual{
     private int quantidadeEpisodios;
-    private int audiencia;
+
 
     Serie(String nome) {
-        GENEROS = new String[]{"Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama"};
-        Random random = new Random();
-
-        this.genero = GENEROS[(random.nextInt(7))];
-
-        this.nome = nome;
-        this.audiencia = 0;
+        super(nome);
     }
 
     /**
      * A cada cliente conectado, é incrementado 1 na audiência
      */
-    public void registrarAudiencia() {
-        this.audiencia++;
-    }
 
-    public int getAudiencia() {
-        return audiencia;
-    }
-
-    public String getIdioma() {
-        return idioma;
-    }
 
     public int getQuantidadeEpisodios() {
         return quantidadeEpisodios;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
     }
 
     public void setQuantidadeEpisodios(int quantidadeEpisodios) {
