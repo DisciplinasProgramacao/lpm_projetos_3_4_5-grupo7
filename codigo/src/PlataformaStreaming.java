@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class PlataformaStreaming {
+public class PlataformaStreaming<T> {
     private String nome;
-    private HashSet<Serie> series;
+    private HashSet<T> genericList;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
     PlataformaStreaming() {
-        this.series = new HashSet<Serie>();
-        this.clientes = new HashSet<Cliente>();
+        this.genericList = new HashSet<>();
+        this.clientes = new HashSet<>();
         this.clienteAtual = null;
     }
 
@@ -45,83 +45,79 @@ public class PlataformaStreaming {
     }
 
     /**
-     * Adiciona uma série em uma lista de séries dentro da plataforma
+     * Adiciona uma instância do tipo T em uma lista de T dentro da plataforma
      *
-     * @param serie
-     * @return boolean
+     * @param t
      */
-    public void adicionarSerie(Serie serie) {
-        this.series.add(serie);
+    public void adicionarSerie(T t) {
+        this.genericList.add(t);
     }
 
     /**
      * Adiciona um cliente em uma lista de clientes dentro da plataforma
      * 
      * @param cliente
-     * @return boolean
      */
     public void adicionarCliente(Cliente cliente) {
         this.clientes.add(cliente);
     }
 
     /**
-     * Retorna uma lista de séries de acordo com um gênero específico
+     * Retorna uma lista de T de acordo com um gênero específico
      * 
      * @param genero
-     * @return Lista de séries de um gênero específico
+     * @return Lista de dados filtrados por genero
      */
-    public List<Serie> filtrarPorGenero(String genero) {
-        List<Serie> series = new ArrayList<Serie>();
+    public List<T> filtrarPorGenero(String genero) {
+        List<T> list = new ArrayList<>();
 
-        for (Serie serie : this.series)
-            if (serie.getGenero() == genero)
-                series.add(serie);
+        for (T t : this.genericList)
+            if (t.getGenero() == genero)
+                list.add(t);
 
-        return series;
+        return list;
     }
 
     /**
-     * Retorna uma lista de séries de acordo com o idioma informado
+     * Retorna uma lista de T de acordo com o idioma informado
      * 
      * @param idioma
-     * @return Lista de séries de um idioma específico
+     * @return Lista de dados filtrados por idioma
      */
-    public List<Serie> filtrarPorIdioma(String idioma) {
-        List<Serie> series = new ArrayList<Serie>();
+    public List<T> filtrarPorIdioma(String idioma) {
+        List<T> list = new ArrayList<>();
 
-        for (Serie serie : this.series)
-            if (serie.getIdioma() == idioma)
-                series.add(serie);
+        for (T t : this.genericList)
+            if (list.getIdioma() == idioma)
+                list.add(t);
 
-        return series;
+        return list;
     }
 
     /**
-     * Retorna uma lista de séries de acordo com a quantidade de episódeos informada
+     * Retorna uma lista de T de acordo com a quantidade de episódeos informada
      * 
      * @param quantEpisodios
-     * @return Lista de séries de uma determinada quantidade de episódeos
+     * @return Lista de dados filtrados por quantidade de episódeos
      */
-    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> series = new ArrayList<Serie>();
+    public List<T> filtrarPorQtdEpisodios(int quantEpisodios) {
+        List<T> list = new ArrayList<>();
 
-        for (Serie serie : this.series)
-            if (serie.getQuantidadeEpisodios() == quantEpisodios)
-                series.add(serie);
+        for (T t : this.genericList)
+            if (t.getQuantidadeEpisodios() == quantEpisodios)
+                list.add(t);
 
-        return series;
+        return list;
     }
 
     /**
      * 
-     * metodo responsavel por registrar audiencia de acordo com o
-     * objeto serie passado
+     * Método responsável por registrar audiência de acordo com a referência t passada como argumento
      * 
-     * @param serie
-     * 
+     * @param t
      */
-    public void registrarAudiencia(Serie serie) {
-        series.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
+    public void registrarAudiencia(T t) {
+        genericList.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
     }
 
     /**
@@ -137,13 +133,13 @@ public class PlataformaStreaming {
      * @param nomeSerie
      * @return Retorna uma série específica
      */
-    public Serie buscarSerie(String nomeSerie) {
-        Serie serieEncontrada = null;
+    public T buscar(String nomeSerie) {
+        T value = null;
 
-        for (Serie serie : this.series)
-            if (serie.getNome().equals(nomeSerie))
-                serieEncontrada = serie;
+        for (T t : this.genericList)
+            if (t.getNome().equals(nomeSerie))
+                value = t;
 
-        return serieEncontrada;
+        return value;
     }
 }

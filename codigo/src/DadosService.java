@@ -13,6 +13,18 @@ public class DadosService {
     plataformaStreaming = ps;
   }
 
+  public void carregarFilmes() {
+    List<String> filmes = criarArrayDeFilmes();
+
+    filmes.forEach(filmeLine -> {
+      String[] dados = splitLine(filmeLine, ";");
+      String idFilme = dados[0];
+      String nome = dados[1];
+      String dataDeLancamento = dados[2];
+      String duracaoEmMinutos = dados[3];
+    });
+  }
+
   public void carregarClientes() {
     List<String> clientes = criarArrayDeClientes();
 
@@ -54,7 +66,7 @@ public class DadosService {
           String nome = formatLine(dadosSerie[1]);
 
           if (compararString(idSerieParaBuscar, idSerie)) {
-            Serie serie = plataformaStreaming.buscarSerie(nome);
+            Serie serie = plataformaStreaming.buscar(nome);
 
             if (compararString(serieParaAssistir, "F")) {
               cliente.adicionarNaLista(serie);
@@ -79,6 +91,11 @@ public class DadosService {
 
   private List<String> criarArrayDeAudiencias() {
     String nomeArquivo = "codigo/src/files/POO_Audiencia.csv";
+    return carregarDados(nomeArquivo);
+  }
+
+  public List<String> criarArrayDeFilmes() {
+    String nomeArquivo = "codigo/src/files/POO_Filmes.csv";
     return carregarDados(nomeArquivo);
   }
 
