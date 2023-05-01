@@ -1,10 +1,9 @@
 package src;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class PlataformaStreaming implements IPlataformaStreaming<Filme> {
+public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
     private String nome;
     private HashSet<Object> genericList;
     private HashSet<Cliente> clientes;
@@ -128,27 +127,27 @@ public class PlataformaStreaming implements IPlataformaStreaming<Filme> {
     }
 
     @Override
-    public void adicionar(Filme filme) {
+    public void adicionar(Serie filme) {
 
     }
 
     @Override
-    public List<Filme> filtrarPorGenero(String genero) {
+    public List<Serie> filtrarPorGenero(List<Serie> lista, String genero) {
         return null;
     }
 
     @Override
-    public List<Filme> filtrarPorIdioma(String idioma) {
+    public List<Serie> filtrarPorIdioma(List<Serie> lista, String idioma) {
         return null;
     }
 
     @Override
-    public List<Filme> filtrarPorQtdEpisodios(int quantEpisodios) {
+    public List<Serie> filtrarPorQtdEpisodios(List<Serie> lista, int quantEpisodios) {
         return null;
     }
 
     @Override
-    public Filme buscar(String nome) {
+    public Serie buscar(String nome) {
         return null;
     }
 
