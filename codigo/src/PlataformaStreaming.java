@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class PlataformaStreaming<T> {
+public class PlataformaStreaming implements IPlataformaStreaming<Filme> {
     private String nome;
-    private HashSet<T> genericList;
+    private HashSet<Object> genericList;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
@@ -49,9 +49,9 @@ public class PlataformaStreaming<T> {
      *
      * @param t
      */
-    public void adicionarSerie(T t) {
-        this.genericList.add(t);
-    }
+//    public void adicionar(T t) {
+//        this.genericList.add(t);
+//    }
 
     /**
      * Adiciona um cliente em uma lista de clientes dentro da plataforma
@@ -68,15 +68,15 @@ public class PlataformaStreaming<T> {
      * @param genero
      * @return Lista de dados filtrados por genero
      */
-    public List<T> filtrarPorGenero(String genero) {
-        List<T> list = new ArrayList<>();
-
-        for (T t : this.genericList)
-            if (t.getGenero() == genero)
-                list.add(t);
-
-        return list;
-    }
+//    public List<T> filtrarPorGenero(String genero) {
+//        List<T> list = new ArrayList<>();
+//
+//        for (T t : this.genericList)
+//            if (t.getGenero() == genero)
+//                list.add(t);
+//
+//        return list;
+//    }
 
     /**
      * Retorna uma lista de T de acordo com o idioma informado
@@ -84,15 +84,15 @@ public class PlataformaStreaming<T> {
      * @param idioma
      * @return Lista de dados filtrados por idioma
      */
-    public List<T> filtrarPorIdioma(String idioma) {
-        List<T> list = new ArrayList<>();
-
-        for (T t : this.genericList)
-            if (list.getIdioma() == idioma)
-                list.add(t);
-
-        return list;
-    }
+//    public List<T> filtrarPorIdioma(String idioma) {
+//        List<T> list = new ArrayList<>();
+//
+//        for (T t : this.genericList)
+//            if (list.getIdioma() == idioma)
+//                list.add(t);
+//
+//        return list;
+//    }
 
     /**
      * Retorna uma lista de T de acordo com a quantidade de episódeos informada
@@ -100,15 +100,15 @@ public class PlataformaStreaming<T> {
      * @param quantEpisodios
      * @return Lista de dados filtrados por quantidade de episódeos
      */
-    public List<T> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<T> list = new ArrayList<>();
-
-        for (T t : this.genericList)
-            if (t.getQuantidadeEpisodios() == quantEpisodios)
-                list.add(t);
-
-        return list;
-    }
+//    public List<T> filtrarPorQtdEpisodios(int quantEpisodios) {
+//        List<T> list = new ArrayList<>();
+//
+//        for (T t : this.genericList)
+//            if (t.getQuantidadeEpisodios() == quantEpisodios)
+//                list.add(t);
+//
+//        return list;
+//    }
 
     /**
      * 
@@ -116,9 +116,9 @@ public class PlataformaStreaming<T> {
      * 
      * @param t
      */
-    public void registrarAudiencia(T t) {
-        genericList.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
-    }
+//    public void registrarAudiencia(T t) {
+//        genericList.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
+//    }
 
     /**
      * Desconecta/desloga o usuário da plataforma
@@ -127,19 +127,44 @@ public class PlataformaStreaming<T> {
         this.clienteAtual = null;
     }
 
+    @Override
+    public void adicionar(Filme filme) {
+
+    }
+
+    @Override
+    public List<Filme> filtrarPorGenero(String genero) {
+        return null;
+    }
+
+    @Override
+    public List<Filme> filtrarPorIdioma(String idioma) {
+        return null;
+    }
+
+    @Override
+    public List<Filme> filtrarPorQtdEpisodios(int quantEpisodios) {
+        return null;
+    }
+
+    @Override
+    public Filme buscar(String nome) {
+        return null;
+    }
+
     /**
      * O método acima retorna uma série de acordo com o nome informado
      * 
      * @param nomeSerie
      * @return Retorna uma série específica
      */
-    public T buscar(String nomeSerie) {
-        T value = null;
-
-        for (T t : this.genericList)
-            if (t.getNome().equals(nomeSerie))
-                value = t;
-
-        return value;
-    }
+//    public T buscar(String nome) {
+//        T value = null;
+//
+//        for (T t : this.genericList)
+//            if (t.getNome().equals(nome))
+//                value = t;
+//
+//        return value;
+//    }
 }

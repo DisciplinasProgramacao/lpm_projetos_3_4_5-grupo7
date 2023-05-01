@@ -45,7 +45,7 @@ public class DadosService {
     series.forEach(serieLine -> {
       String[] dados = splitLine(serieLine, ";");
       String nome = formatLine(dados[1]);
-      plataformaStreaming.adicionarSerie(new Serie(nome));
+      plataformaStreaming.adicionar(new Serie(nome));
     });
   }
 
