@@ -1,7 +1,5 @@
-
-public class Serie extends Audiovisual{
+public class Serie extends Audiovisual {
     private int quantidadeEpisodios;
-
 
     Serie(String nome) {
         super(nome);
@@ -11,6 +9,9 @@ public class Serie extends Audiovisual{
      * A cada cliente conectado, é incrementado 1 na audiência
      */
 
+    public String getNome() {
+        return getNome();
+    }
 
     public int getQuantidadeEpisodios() {
         return quantidadeEpisodios;
