@@ -1,3 +1,5 @@
+package src;
+
 public class Filme extends Audiovisual {
   int duracao;
 

@@ -1,3 +1,5 @@
+package src;
+
 public class Serie extends Audiovisual {
     private int quantidadeEpisodios;
 
