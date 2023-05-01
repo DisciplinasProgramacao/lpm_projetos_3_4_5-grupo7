@@ -126,6 +126,23 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
         this.clienteAtual = null;
     }
 
+
+    /**
+     * O método acima retorna uma série de acordo com o nome informado
+     *
+     * @param nome
+     * @return Retorna uma série específica
+     */
+//    public T buscar(String nome) {
+//        T value = null;
+//
+//        for (T t : this.genericList)
+//            if (t.getNome().equals(nome))
+//                value = t;
+//
+//        return value;
+//    }
+
     @Override
     public void adicionar(Serie filme) {
 
@@ -150,20 +167,4 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
     public Serie buscar(String nome) {
         return null;
     }
-
-    /**
-     * O método acima retorna uma série de acordo com o nome informado
-     * 
-     * @param nomeSerie
-     * @return Retorna uma série específica
-     */
-//    public T buscar(String nome) {
-//        T value = null;
-//
-//        for (T t : this.genericList)
-//            if (t.getNome().equals(nome))
-//                value = t;
-//
-//        return value;
-//    }
 }
