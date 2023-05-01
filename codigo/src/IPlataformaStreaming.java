@@ -2,7 +2,7 @@ package src;
 
 import java.util.List;
 
-public interface IPlataformaStreaming<T> {
+public interface IPlataformaStreaming<T extends Audiovisual> {
     void adicionar(T t);
     List<T> filtrarPorGenero(String genero);
     List<T> filtrarPorIdioma(String idioma);
