@@ -1,6 +1,7 @@
 package src;
 
 import java.util.HashSet;
+import java.io.*;
 import java.util.List;
 
 public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
@@ -48,9 +49,9 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
      *
      * @param t
      */
-//    public void adicionar(T t) {
-//        this.genericList.add(t);
-//    }
+    // public void adicionar(T t) {
+    // this.genericList.add(t);
+    // }
 
     /**
      * Adiciona um cliente em uma lista de clientes dentro da plataforma
@@ -61,21 +62,36 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
         this.clientes.add(cliente);
     }
 
+    public void salvarCliente(Cliente cliente) throws IOException {
+        try {
+            // Fluxo de saida de um arquivo
+        
+            BufferedWriter br = new BufferedWriter(new FileWriter("codigo/src/files/POO_Espectadores.csv")); // adiciono a um escritor de buffer
+            br.write(cliente.get cliente.getNomeUsuario() + " " + cliente.getSenha() + ";\n"); // escrita no arquivo
+            br.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
     /**
      * Retorna uma lista de T de acordo com um gênero específico
      * 
      * @param genero
      * @return Lista de dados filtrados por genero
      */
-//    public List<T> filtrarPorGenero(String genero) {
-//        List<T> list = new ArrayList<>();
-//
-//        for (T t : this.genericList)
-//            if (t.getGenero() == genero)
-//                list.add(t);
-//
-//        return list;
-//    }
+    // public List<T> filtrarPorGenero(String genero) {
+    // List<T> list = new ArrayList<>();
+    //
+    // for (T t : this.genericList)
+    // if (t.getGenero() == genero)
+    // list.add(t);
+    //
+    // return list;
+    // }
 
     /**
      * Retorna uma lista de T de acordo com o idioma informado
@@ -83,15 +99,15 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
      * @param idioma
      * @return Lista de dados filtrados por idioma
      */
-//    public List<T> filtrarPorIdioma(String idioma) {
-//        List<T> list = new ArrayList<>();
-//
-//        for (T t : this.genericList)
-//            if (list.getIdioma() == idioma)
-//                list.add(t);
-//
-//        return list;
-//    }
+    // public List<T> filtrarPorIdioma(String idioma) {
+    // List<T> list = new ArrayList<>();
+    //
+    // for (T t : this.genericList)
+    // if (list.getIdioma() == idioma)
+    // list.add(t);
+    //
+    // return list;
+    // }
 
     /**
      * Retorna uma lista de T de acordo com a quantidade de episódeos informada
@@ -99,25 +115,27 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
      * @param quantEpisodios
      * @return Lista de dados filtrados por quantidade de episódeos
      */
-//    public List<T> filtrarPorQtdEpisodios(int quantEpisodios) {
-//        List<T> list = new ArrayList<>();
-//
-//        for (T t : this.genericList)
-//            if (t.getQuantidadeEpisodios() == quantEpisodios)
-//                list.add(t);
-//
-//        return list;
-//    }
+    // public List<T> filtrarPorQtdEpisodios(int quantEpisodios) {
+    // List<T> list = new ArrayList<>();
+    //
+    // for (T t : this.genericList)
+    // if (t.getQuantidadeEpisodios() == quantEpisodios)
+    // list.add(t);
+    //
+    // return list;
+    // }
 
     /**
      * 
-     * Método responsável por registrar audiência de acordo com a referência t passada como argumento
+     * Método responsável por registrar audiência de acordo com a referência t
+     * passada como argumento
      * 
      * @param t
      */
-//    public void registrarAudiencia(T t) {
-//        genericList.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
-//    }
+    // public void registrarAudiencia(T t) {
+    // genericList.stream().filter(x -> x.getNome() ==
+    // serie.getNome()).findFirst().get().registrarAudiencia();
+    // }
 
     /**
      * Desconecta/desloga o usuário da plataforma
@@ -126,22 +144,21 @@ public class PlataformaStreaming implements IPlataformaStreaming<Serie> {
         this.clienteAtual = null;
     }
 
-
     /**
      * O método acima retorna uma série de acordo com o nome informado
      *
      * @param nome
      * @return Retorna uma série específica
      */
-//    public T buscar(String nome) {
-//        T value = null;
-//
-//        for (T t : this.genericList)
-//            if (t.getNome().equals(nome))
-//                value = t;
-//
-//        return value;
-//    }
+    // public T buscar(String nome) {
+    // T value = null;
+    //
+    // for (T t : this.genericList)
+    // if (t.getNome().equals(nome))
+    // value = t;
+    //
+    // return value;
+    // }
 
     @Override
     public void adicionar(Serie filme) {
