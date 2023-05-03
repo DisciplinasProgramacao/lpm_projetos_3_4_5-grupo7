@@ -8,14 +8,17 @@ public class Audiovisual {
     private String genero;
     private String idioma;
     private int audiencia;
+    private int id;
+    private String dataLancamento;
 
-    Audiovisual(String nome) {
-        GENEROS = new String[]{"Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama"};
+    Audiovisual(int id, String nome, String dataLancamento) {
+        GENEROS = new String[] { "Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama" };
         Random random = new Random();
 
-        this.genero = GENEROS[(random.nextInt(7))];
-
-        this.nome = nome;
+        setGenero(GENEROS[(random.nextInt(7))]);
+        setNome(nome);
+        setDataLancamento(dataLancamento);
+        setId(id);
         this.audiencia = 0;
     }
 
@@ -52,6 +55,22 @@ public class Audiovisual {
 
     public void setIdioma(String idioma) {
         this.idioma = idioma;
+    }
+
+    public String getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(String dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
 }

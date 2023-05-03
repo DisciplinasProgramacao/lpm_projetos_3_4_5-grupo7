@@ -34,8 +34,12 @@ public class DadosService {
 
     series.forEach(serieLine -> {
       String[] dados = splitLine(serieLine, ";");
+
+      int id = Integer.parseInt(formatLine(dados[0]));
       String nome = formatLine(dados[1]);
-      plataformaStreaming.adicionarSerie(new Serie(nome));
+      String dataLancamento = formatLine(dados[2]);
+
+      plataformaStreaming.adicionarSerie(new Serie(id, nome, dataLancamento));
     });
   }
 
@@ -49,16 +53,16 @@ public class DadosService {
       String serieParaAssistir = formatLine(dadosAudiencia[1]);
       String idSerieParaBuscar = formatLine(dadosAudiencia[2]);
 
-      if(compararString(loginClienteParaBuscar, cliente.getNomeUsuario())) {
+      if (compararString(loginClienteParaBuscar, cliente.getNomeUsuario())) {
         series.forEach(serieLine -> {
           String[] dadosSerie = splitLine(serieLine, ";");
           String idSerie = formatLine(dadosSerie[0]);
           String nome = formatLine(dadosSerie[1]);
 
-          if(compararString(idSerieParaBuscar, idSerie)) {
+          if (compararString(idSerieParaBuscar, idSerie)) {
             Serie serie = plataformaStreaming.buscarSerie(nome);
 
-            if(compararString(serieParaAssistir, "F")) {
+            if (compararString(serieParaAssistir, "F")) {
               cliente.adicionarNaLista(serie);
             } else {
               cliente.adicionarNaListaJaVistas(serie);
@@ -86,17 +90,16 @@ public class DadosService {
 
   private List<String> carregarDados(String nomeArquivo) {
     List<String> dados = new ArrayList<>();
-    
 
     try {
-      
+
       Scanner scanner = new Scanner(new File(nomeArquivo));
 
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
-        System.out.println("["+ line +"]\n");
+        System.out.println("[" + line + "]\n");
         dados.add(line);
-        
+
       }
 
       scanner.close();
@@ -106,7 +109,6 @@ public class DadosService {
 
     return dados;
   }
-  
 
   private String[] splitLine(String line, String separador) {
     return line.split(separador);

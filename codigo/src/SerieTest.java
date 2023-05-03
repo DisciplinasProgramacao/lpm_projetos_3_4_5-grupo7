@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class SerieTest {
   @Test
   public void testaRegistraAudiencia() {
-    Serie serie = new Serie("serie");
+    Serie serie = new Serie(123, "serie", "01/01/2021");
 
     serie.registrarAudiencia();
     serie.registrarAudiencia();

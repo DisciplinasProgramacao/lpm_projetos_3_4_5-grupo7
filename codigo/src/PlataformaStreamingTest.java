@@ -29,7 +29,7 @@ public class PlataformaStreamingTest {
   @Test
   public void testaAdicionarSerie() {
     ps = new PlataformaStreaming();
-    Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie("serie")));
+    Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie(1, "serie", "01/01/2021")));
   }
 
   @Test
@@ -41,10 +41,10 @@ public class PlataformaStreamingTest {
   @Test
   public void testaFiltrarPorGenero() {
     ps = new PlataformaStreaming();
-    Serie serie = new Serie("shrek serie");
-    Serie serie2 = new Serie("shrek serie 2");
-    Serie serie3 = new Serie("shrek serie 3");
-    Serie serie4 = new Serie("shrek serie 4");
+    Serie serie = new Serie(1, "shrek serie", "01/01/2021");
+    Serie serie2 = new Serie(2, "shrek serie 2", "01/01/2021");
+    Serie serie3 = new Serie(3, "shrek serie 3", "01/01/2021");
+    Serie serie4 = new Serie(4, "shrek serie 4", "01/01/2021");
     List<Serie> filtradas = new ArrayList<>();
 
     serie.setGenero("Comédia");
@@ -61,12 +61,12 @@ public class PlataformaStreamingTest {
     Assertions.assertEquals(2, filtradas.size());
   }
 
-    @Test
+  @Test
   public void testaFiltrarIdioma() {
     ps = new PlataformaStreaming();
-    Serie serie = new Serie("serie");
-    Serie serie2 = new Serie("shrek 3");
-    Serie serie3 = new Serie("shrek 2");
+    Serie serie = new Serie(1, "serie", "01/01/2021");
+    Serie serie2 = new Serie(2, "shrek 3", "01/01/2021");
+    Serie serie3 = new Serie(3, "shrek 2", "01/01/2021");
     List<Serie> filtradas = new ArrayList<>();
 
     serie.setIdioma("Português");
@@ -82,11 +82,11 @@ public class PlataformaStreamingTest {
   }
 
   @Test
- public void testaFiltrarPorQtdEpisodios() {
+  public void testaFiltrarPorQtdEpisodios() {
     ps = new PlataformaStreaming();
-    Serie serie = new Serie("shrek serie");
-    Serie serie2 = new Serie("shrek serie 2");
-    Serie serie3 = new Serie("shrek serie 3");
+    Serie serie = new Serie(1, "shrek serie", "01/01/2021");
+    Serie serie2 = new Serie(2, "shrek serie 2", "01/01/2021");
+    Serie serie3 = new Serie(3, "shrek serie 3", "01/01/2021");
     List<Serie> filtradas = new ArrayList<>();
 
     serie.setQuantidadeEpisodios(5);
@@ -103,7 +103,7 @@ public class PlataformaStreamingTest {
 
   @Test
   public void testaRegistrarAudiencia() {
-    Serie serie = new Serie("serie");
+    Serie serie = new Serie(1, "serie", "01/01/2021");
     serie.registrarAudiencia();
     serie.registrarAudiencia();
     serie.registrarAudiencia();
@@ -111,9 +111,8 @@ public class PlataformaStreamingTest {
     Assertions.assertEquals(3, serie.getAudiencia());
   }
 
-
   @Test
-  public void TesteSalvarCliente() throws IOException{
+  public void TesteSalvarCliente() throws IOException {
     ps = new PlataformaStreaming();
     Cliente cliente = new Cliente("usuario", "senha");
     ps.adicionarCliente(cliente);

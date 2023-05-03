@@ -3,8 +3,8 @@ package src;
 public class Serie extends Audiovisual {
     private int quantidadeEpisodios;
 
-    Serie(String nome) {
-        super(nome);
+    Serie(int id, String nome, String dataLancamento) {
+        super(id, nome, dataLancamento);
     }
 
     /**
