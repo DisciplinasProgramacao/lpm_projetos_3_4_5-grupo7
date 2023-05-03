@@ -26,7 +26,7 @@ public class PlataformaStreamingTest {
     Assertions.assertTrue(c instanceof Cliente);
   }
 
- /* @Test
+  @Test
   public void testaAdicionarSerie() {
     ps = new PlataformaStreaming();
     Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie("serie")));
@@ -110,7 +110,6 @@ public class PlataformaStreamingTest {
 
     Assertions.assertEquals(3, serie.getAudiencia());
   }
-  */
 
 
   @Test
