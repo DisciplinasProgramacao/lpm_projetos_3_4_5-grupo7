@@ -54,6 +54,7 @@ public class DadosService {
 
       plataformaStreaming.adicionarFilme(new Filme(id, nome, dataLancamento, duracao));
     });
+
   }
 
   private void buscarAudiencia(Cliente cliente) {
@@ -112,6 +113,10 @@ public class DadosService {
     try {
 
       Scanner scanner = new Scanner(new File(nomeArquivo));
+      Scanner aux = scanner;
+
+      if (aux.hasNextLine() && aux.nextLine().contains("#"))
+        scanner.nextLine();
 
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();

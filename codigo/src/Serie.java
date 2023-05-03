@@ -1,6 +1,6 @@
 package src;
 
-public class Serie extends Audiovisual {
+public class Serie extends Audiovisual implements IDAO {
     private int quantidadeEpisodios;
 
     Serie(int id, String nome, String dataLancamento) {
@@ -13,6 +13,11 @@ public class Serie extends Audiovisual {
 
     public String getNome() {
         return getNome();
+    }
+
+    @Override
+    public String stringSalvar() {
+        return String.format("%o;%s;%s", this.getId(), this.getNome(), this.getDataLancamento());
     }
 
     public int getQuantidadeEpisodios() {

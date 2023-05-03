@@ -2,7 +2,7 @@ package src;
 
 import java.util.Random;
 
-public class Audiovisual {
+public class Audiovisual  {
     private static String[] GENEROS;
     private String nome;
     private String genero;

@@ -3,9 +3,10 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public class Cliente implements IDAO {
     private String nomeDeUsuario;
     private String senha;
+    private String login;
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
 
@@ -112,6 +113,11 @@ public class Cliente {
 
     }
 
+    @Override
+    public String stringSalvar() {
+        return String.format("%s;%s;%s", this.login, this.nomeDeUsuario, this.senha);
+    }
+
     /**
      * Registra audiência a partir da classe Audiovisual
      * 
@@ -129,4 +135,5 @@ public class Cliente {
     public String getSenha() {
         return this.senha;
     }
+
 }

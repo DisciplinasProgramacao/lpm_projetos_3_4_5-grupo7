@@ -75,23 +75,13 @@ public class PlataformaStreaming {
      */
     public void adicionarCliente(Cliente cliente) {
         this.clientes.add(cliente);
-    }
+        DAO<Cliente> dao = new DAO<Cliente>();
 
-    public void salvarCliente(Cliente cliente) throws IOException {
         try {
-            // Fluxo de saida de um arquivo
-
-            // adiciona um escritor de buffer
-            BufferedWriter br = new BufferedWriter(new FileWriter("codigo/src/files/POO_Espectadores.csv"));
-
-            br.write(cliente.getNomeUsuario() + " " + cliente.getSenha() + ";\n"); // escrita no arquivo
-            br.close();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+            dao.append("POO_Filmes.csv", cliente);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -198,4 +188,33 @@ public class PlataformaStreaming {
         return AudiovisualEncontrada;
     }
 
+    // #region persistem
+    public void salvarFilme() {
+        try {
+            DAO<Filme> dao = new DAO<Filme>();
+            dao.save("POO_Filmes.csv", this.filmes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void salvarSerie() {
+        try {
+            DAO<Serie> dao = new DAO<Serie>();
+            dao.save("POO_Filmes.csv", this.series);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void salvarClientes() {
+        try {
+            DAO<Cliente> dao = new DAO<Cliente>();
+            dao.save("POO_Filmes.csv", this.clientes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // #endregion
 }

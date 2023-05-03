@@ -42,6 +42,10 @@ public class App {
                     System.out.println("Saindo...");
                     sair = true;
                     break;
+                case 999:
+                    System.out.println("Test...");
+                    ps.salvarFilme();
+                    break;
                 default:
                     System.out.println("Opção inválida!");
                     break;
