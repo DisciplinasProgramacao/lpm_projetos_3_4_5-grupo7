@@ -8,12 +8,12 @@ import java.io.*;
 
 public class PlataformaStreaming {
     private String nome;
-    private HashSet<Serie> series;
+    private HashSet<Audiovisual> audiovisuais;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
     PlataformaStreaming() {
-        this.series = new HashSet<Serie>();
+        this.audiovisuais = new HashSet<Audiovisual>();
         this.clientes = new HashSet<Cliente>();
         this.clienteAtual = null;
     }
@@ -49,11 +49,11 @@ public class PlataformaStreaming {
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
      *
-     * @param serie
+     * @param Audiovisual
      * @return boolean
      */
-    public void adicionarSerie(Serie serie) {
-        this.series.add(serie);
+    public void adicionarAudioVisual(Audiovisual audiovisual) {
+        this.audiovisuais.add(audiovisual);
     }
 
     /**
@@ -88,14 +88,14 @@ public class PlataformaStreaming {
      * @param genero
      * @return Lista de séries de um gênero específico
      */
-    public List<Serie> filtrarPorGenero(String genero) {
-        List<Serie> series = new ArrayList<Serie>();
+    public List<Audiovisual> filtrarPorGenero(String genero) {
+        List<Audiovisual> audiovisuais = new ArrayList<Audiovisual>();
 
-        for (Serie serie : this.series)
-            if (serie.getGenero() == genero)
-                series.add(serie);
+        for (Audiovisual audiovisual : this.audiovisuais)
+            if (audiovisual.getGenero() == genero)
+                audiovisuais.add(audiovisual);
 
-        return series;
+        return audiovisuais;
     }
 
     /**
@@ -104,14 +104,14 @@ public class PlataformaStreaming {
      * @param idioma
      * @return Lista de séries de um idioma específico
      */
-    public List<Serie> filtrarPorIdioma(String idioma) {
-        List<Serie> series = new ArrayList<Serie>();
+    public List<Audiovisual> filtrarPorIdioma(String idioma) {
+        List<Audiovisual> audiovisuais = new ArrayList<Audiovisual>();
 
-        for (Serie serie : this.series)
-            if (serie.getIdioma() == idioma)
-                series.add(serie);
+        for (Audiovisual audiovisual : this.audiovisuais)
+            if (audiovisual.getIdioma() == idioma)
+                audiovisuais.add(audiovisual);
 
-        return series;
+        return audiovisuais;
     }
 
     /**
@@ -121,25 +121,25 @@ public class PlataformaStreaming {
      * @return Lista de séries de uma determinada quantidade de episódeos
      */
     public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> series = new ArrayList<Serie>();
+        List<Serie> audiovisuais = new ArrayList<Serie>();
 
-        for (Serie serie : this.series)
-            if (serie.getQuantidadeEpisodios() == quantEpisodios)
-                series.add(serie);
+        for (Serie Audiovisual : this.audiovisuais)
+            if (Audiovisual.getQuantidadeEpisodios() == quantEpisodios)
+                audiovisuais.add(Audiovisual);
 
-        return series;
+        return audiovisuais;
     }
 
     /**
      * 
      * metodo responsavel por registrar audiencia de acordo com o
-     * objeto serie passado
+     * objeto Audiovisual passado
      * 
-     * @param serie
+     * @param Audiovisual
      * 
      */
-    public void registrarAudiencia(Serie serie) {
-        series.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
+    public void registrarAudiencia(Audiovisual Audiovisual) {
+        audiovisuais.stream().filter(x -> x.getNome() == Audiovisual.getNome()).findFirst().get().registrarAudiencia();
     }
 
     /**
@@ -152,16 +152,16 @@ public class PlataformaStreaming {
     /**
      * O método acima retorna uma série de acordo com o nome informado
      * 
-     * @param nomeSerie
+     * @param nomeAudiovisual
      * @return Retorna uma série específica
      */
-    public Serie buscarSerie(String nomeSerie) {
-        Serie serieEncontrada = null;
+    public Audiovisual buscarAudiovisual(String nomeAudiovisual) {
+        Audiovisual AudiovisualEncontrada = null;
 
-        for (Serie serie : this.series)
-            if (serie.getNome().equals(nomeSerie))
-                serieEncontrada = serie;
+        for (Audiovisual Audiovisual : this.audiovisuais)
+            if (Audiovisual.getNome().equals(nomeAudiovisual))
+                AudiovisualEncontrada = Audiovisual;
 
-        return serieEncontrada;
+        return AudiovisualEncontrada;
     }
 }

@@ -22,7 +22,7 @@ public class App {
             switch (opcao) {
                 case 1:
                     System.out.println("Catálogo de filmes:");
-                    // listar filmes
+                    meusDados.carregarFilmes();
                     break;
                 case 2:
                     System.out.println("Catálogo de séries:");
@@ -30,9 +30,9 @@ public class App {
                     break;
                 case 3:
                     System.out.println("Buscar Séries:");
-                    System.out.println("Digite o nome da Serie:");
-                    String serie = scanner.next();
-                    System.out.println(ps.buscarSerie(serie));
+                    System.out.println("Digite o nome do titulo:");
+                    String audiovisual = scanner.next();
+                    System.out.println(ps.buscarAudiovisual(audiovisual));
                     break;
                 case 4:
                     System.out.println("Perfil:");

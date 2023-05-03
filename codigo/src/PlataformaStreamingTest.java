@@ -29,7 +29,7 @@ public class PlataformaStreamingTest {
   @Test
   public void testaAdicionarSerie() {
     ps = new PlataformaStreaming();
-    Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie(1, "serie", "01/01/2021")));
+    Assertions.assertDoesNotThrow(() -> ps.adicionarAudioVisual(new Serie(1, "serie", "01/01/2021")));
   }
 
   @Test
@@ -45,17 +45,17 @@ public class PlataformaStreamingTest {
     Serie serie2 = new Serie(2, "shrek serie 2", "01/01/2021");
     Serie serie3 = new Serie(3, "shrek serie 3", "01/01/2021");
     Serie serie4 = new Serie(4, "shrek serie 4", "01/01/2021");
-    List<Serie> filtradas = new ArrayList<>();
+    List<Audiovisual> filtradas = new ArrayList<>();
 
     serie.setGenero("Comédia");
     serie2.setGenero("Ação");
     serie3.setGenero("Drama");
     serie4.setGenero("Comédia");
 
-    ps.adicionarSerie(serie);
-    ps.adicionarSerie(serie2);
-    ps.adicionarSerie(serie3);
-    ps.adicionarSerie(serie4);
+    ps.adicionarAudioVisual(serie);
+    ps.adicionarAudioVisual(serie2);
+    ps.adicionarAudioVisual(serie3);
+    ps.adicionarAudioVisual(serie4);
 
     filtradas = ps.filtrarPorGenero("Comédia");
     Assertions.assertEquals(2, filtradas.size());
@@ -67,15 +67,15 @@ public class PlataformaStreamingTest {
     Serie serie = new Serie(1, "serie", "01/01/2021");
     Serie serie2 = new Serie(2, "shrek 3", "01/01/2021");
     Serie serie3 = new Serie(3, "shrek 2", "01/01/2021");
-    List<Serie> filtradas = new ArrayList<>();
+    List<Audiovisual> filtradas = new ArrayList<>();
 
     serie.setIdioma("Português");
     serie2.setIdioma("Inglês");
     serie3.setIdioma("Espanhol");
 
-    ps.adicionarSerie(serie);
-    ps.adicionarSerie(serie2);
-    ps.adicionarSerie(serie3);
+    ps.adicionarAudioVisual(serie);
+    ps.adicionarAudioVisual(serie2);
+    ps.adicionarAudioVisual(serie3);
 
     filtradas = ps.filtrarPorIdioma("Português");
     Assertions.assertEquals(1, filtradas.size());
@@ -93,9 +93,9 @@ public class PlataformaStreamingTest {
     serie2.setQuantidadeEpisodios(10);
     serie3.setQuantidadeEpisodios(5);
 
-    ps.adicionarSerie(serie);
-    ps.adicionarSerie(serie2);
-    ps.adicionarSerie(serie3);
+    ps.adicionarAudioVisual(serie);
+    ps.adicionarAudioVisual(serie2);
+    ps.adicionarAudioVisual(serie3);
 
     filtradas = ps.filtrarPorQtdEpisodios(5);
     Assertions.assertEquals(2, filtradas.size());

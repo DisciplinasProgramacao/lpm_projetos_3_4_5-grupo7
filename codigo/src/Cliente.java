@@ -6,8 +6,8 @@ import java.util.List;
 public class Cliente {
     private String nomeDeUsuario;
     private String senha;
-    private List<Serie> listaParaVer;
-    private List<Serie> listaJaVistas;
+    private List<Audiovisual> listaParaVer;
+    private List<Audiovisual> listaJaVistas;
 
     public Cliente(String usuario, String senha) {
         this.nomeDeUsuario = usuario;
@@ -19,28 +19,28 @@ public class Cliente {
     /**
      * Adiciona uma série em uma lista de séries para serem assistidas
      * 
-     * @param serie
+     * @param audiovisual
      */
-    public void adicionarNaLista(Serie serie) {
-        listaParaVer.add(serie);
+    public void adicionarNaLista(Audiovisual audiovisual) {
+        listaParaVer.add(audiovisual);
     }
 
     /**
      *  Adiciona uma série em uma lista de séries que já foram assistidas pelo cliente
      *
-     * @param serie
+     * @param audiovisual
      * */
-    public void adicionarNaListaJaVistas(Serie serie) {
-        listaJaVistas.add(serie);
+    public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
+        listaJaVistas.add(audiovisual);
     }
 
     /**
      * Remove uma série em uma lista de séries para serem assistidas
      * 
-     * @param nomeSerie
+     * @param nomeAudiovisual
      */
-    public void retirarDaLista(String nomeSerie) {
-        listaParaVer.removeIf(x -> x.getNome().equals(nomeSerie));
+    public void retirarDaLista(String nomeAudiovisual) {
+        listaParaVer.removeIf(x -> x.getNome().equals(nomeAudiovisual));
     }
 
     /**
@@ -48,8 +48,8 @@ public class Cliente {
      * 
      * @return Lista de séries
      */
-    private List<Serie> combinarListas() {
-        List<Serie> combinacaoListas = new ArrayList<Serie>();
+    private List<Audiovisual> combinarListas() {
+        List<Audiovisual> combinacaoListas = new ArrayList<Audiovisual>();
         combinacaoListas.addAll(this.listaParaVer);
         combinacaoListas.addAll(this.listaJaVistas);
         return combinacaoListas;
@@ -61,13 +61,13 @@ public class Cliente {
      * @param genero
      * @return Lista de séries filtradas por gênero
      */
-    public List<Serie> filtrarPorGenero(String genero) {
-        List<Serie> lista = new ArrayList<Serie>();
-        List<Serie> combinacaoListas = combinarListas();
+    public List<Audiovisual> filtrarPorGenero(String genero) {
+        List<Audiovisual> lista = new ArrayList<Audiovisual>();
+        List<Audiovisual> combinacaoListas = combinarListas();
 
-        for (Serie serie : combinacaoListas) {
-            if (serie.getGenero().equals(genero)) {
-                lista.add(serie);
+        for (Audiovisual audiovisual : combinacaoListas) {
+            if (audiovisual.getGenero().equals(genero)) {
+                lista.add(audiovisual);
             }
         }
 
@@ -80,13 +80,13 @@ public class Cliente {
      * @param idioma
      * @return Lista de séries filtradas por idioma
      */
-    public List<Serie> filtrarPorIdioma(String idioma) {
-        List<Serie> lista = new ArrayList<Serie>();
-        List<Serie> combinacaoListas = combinarListas();
+    public List<Audiovisual> filtrarPorIdioma(String idioma) {
+        List<Audiovisual> lista = new ArrayList<Audiovisual>();
+        List<Audiovisual> combinacaoListas = combinarListas();
 
-        for (Serie serie : combinacaoListas) {
-            if (serie.getIdioma().equals(idioma)) {
-                lista.add(serie);
+        for (Audiovisual audiovisual : combinacaoListas) {
+            if (audiovisual.getIdioma().equals(idioma)) {
+                lista.add(audiovisual);
             }
         }
 
@@ -99,13 +99,13 @@ public class Cliente {
      * @param quantEpisodios
      * @return Lista de séries filtradas por quantidade de episódios
      */
-    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> lista = new ArrayList<Serie>();
-        List<Serie> combinacaoListas = combinarListas();
+    public List<Audiovisual> filtrarPorQtdEpisodios(int quantEpisodios) {
+        List<Audiovisual> lista = new ArrayList<Audiovisual>();
+        List<Audiovisual> combinacaoListas = combinarListas();
 
-        for (Serie serie : combinacaoListas) {
-            if (serie.getQuantidadeEpisodios() == quantEpisodios) {
-                lista.add(serie);
+        for (Audiovisual audiovisual : combinacaoListas) {
+            if (audiovisual.getQuantidadeEpisodios() == quantEpisodios) {
+                lista.add(audiovisual);
             }
         }
 
@@ -113,12 +113,12 @@ public class Cliente {
     }
 
     /**
-     * Registra audiência a partir da classe Serie
+     * Registra audiência a partir da classe Audiovisual
      * 
-     * @param serie
+     * @param audiovisual
      */
-    public void registrarAudiencia(Serie serie) {
-        serie.registrarAudiencia();
+    public void registrarAudiencia(Audiovisual audiovisual) {
+        audiovisual.registrarAudiencia();
     }
 
     // vai ter get e set de usuario e senha?
