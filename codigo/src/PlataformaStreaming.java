@@ -92,8 +92,8 @@ public class PlataformaStreaming {
     public List<Audiovisual> filtrarPorGenero(String genero) {
         HashSet<Audiovisual> audiovisuais = new HashSet<>();
 
+        audiovisuais.addAll(filmes);
         for (Audiovisual serie : series) {
-            audiovisuais.addAll(filmes);
             audiovisuais.add(serie);
         }
         return this.filtrador.filtrarPorGenero(audiovisuais, genero);
@@ -107,9 +107,9 @@ public class PlataformaStreaming {
      */
     public List<Audiovisual> filtrarPorIdioma(String idioma) {
         HashSet<Audiovisual> audiovisuais = new HashSet<>();
-
+        audiovisuais.addAll(filmes);
         for (Audiovisual serie : series) {
-            audiovisuais.addAll(filmes);
+
             audiovisuais.add(serie);
         }
         return this.filtrador.filtrarPorIdioma(audiovisuais, idioma);
