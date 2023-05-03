@@ -90,7 +90,12 @@ public class PlataformaStreaming {
      * @return Lista de séries de um gênero específico
      */
     public List<Audiovisual> filtrarPorGenero(String genero) {
-        HashSet<Audiovisual> audiovisuais = this.filtrador.juntaHashSet(series, filmes);
+        HashSet<Audiovisual> audiovisuais = new HashSet<>();
+
+        for (Audiovisual serie : series) {
+            audiovisuais.addAll(filmes);
+            audiovisuais.add(serie);
+        }
         return this.filtrador.filtrarPorGenero(audiovisuais, genero);
     }
 
@@ -101,7 +106,12 @@ public class PlataformaStreaming {
      * @return Lista de séries de um idioma específico
      */
     public List<Audiovisual> filtrarPorIdioma(String idioma) {
-        HashSet<Audiovisual> audiovisuais = this.filtrador.juntaHashSet(series, filmes);
+        HashSet<Audiovisual> audiovisuais = new HashSet<>();
+
+        for (Audiovisual serie : series) {
+            audiovisuais.addAll(filmes);
+            audiovisuais.add(serie);
+        }
         return this.filtrador.filtrarPorIdioma(audiovisuais, idioma);
     }
 

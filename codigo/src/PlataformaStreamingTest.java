@@ -45,7 +45,7 @@ public class PlataformaStreamingTest {
     Serie serie2 = new Serie(2, "shrek serie 2", "01/01/2021");
     Serie serie3 = new Serie(3, "shrek serie 3", "01/01/2021");
     Serie serie4 = new Serie(4, "shrek serie 4", "01/01/2021");
-    List<Audiovisual> filtradas = new ArrayList<>();
+    List<Audiovisual> filtradas;
 
     serie.setGenero("Comédia");
     serie2.setGenero("Ação");
