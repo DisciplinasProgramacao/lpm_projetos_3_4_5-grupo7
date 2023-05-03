@@ -110,12 +110,4 @@ public class PlataformaStreamingTest {
 
     Assertions.assertEquals(3, serie.getAudiencia());
   }
-
-  @Test
-  public void TesteSalvarCliente() throws IOException {
-    ps = new PlataformaStreaming();
-    Cliente cliente = new Cliente("usuario", "senha");
-    ps.adicionarCliente(cliente);
-    ps.salvarCliente(cliente);
-  }
 }

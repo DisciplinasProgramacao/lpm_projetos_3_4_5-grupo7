@@ -11,12 +11,14 @@ public class PlataformaStreaming {
     private HashSet<Filme> filmes;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
+    private Filtro filtrador;
 
     PlataformaStreaming() {
         this.series = new HashSet<Serie>();
         this.filmes = new HashSet<Filme>();
         this.clientes = new HashSet<Cliente>();
         this.clienteAtual = null;
+        this.filtrador = new Filtro();
     }
 
     // #region Get Set
@@ -50,8 +52,7 @@ public class PlataformaStreaming {
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
      *
-     * @param Audiovisual
-     * @return boolean
+     * @param filme
      */
     public void adicionarFilme(Filme filme) {
         this.filmes.add(filme);
@@ -60,8 +61,7 @@ public class PlataformaStreaming {
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
      *
-     * @param Audiovisual
-     * @return boolean
+     * @param serie
      */
     public void adicionarSerie(Serie serie) {
         this.series.add(serie);
@@ -71,7 +71,6 @@ public class PlataformaStreaming {
      * Adiciona um cliente em uma lista de clientes dentro da plataforma
      * 
      * @param cliente
-     * @return boolean
      */
     public void adicionarCliente(Cliente cliente) {
         this.clientes.add(cliente);
@@ -91,18 +90,8 @@ public class PlataformaStreaming {
      * @return Lista de séries de um gênero específico
      */
     public List<Audiovisual> filtrarPorGenero(String genero) {
-        List<Audiovisual> audiovisuais = new ArrayList<Audiovisual>();
-
-        for (Audiovisual serie : this.series) {
-            for (Audiovisual filme : this.filmes) {
-                if (filme.getGenero() == genero)
-                    audiovisuais.add(filme);
-                if (serie.getGenero() == genero)
-                    audiovisuais.add(serie);
-            }
-        }
-
-        return audiovisuais;
+        HashSet<Audiovisual> audiovisuais = this.filtrador.juntaHashSet(series, filmes);
+        return this.filtrador.filtrarPorGenero(audiovisuais, genero);
     }
 
     /**
@@ -112,17 +101,8 @@ public class PlataformaStreaming {
      * @return Lista de séries de um idioma específico
      */
     public List<Audiovisual> filtrarPorIdioma(String idioma) {
-        List<Audiovisual> audiovisuais = new ArrayList<Audiovisual>();
-
-        for (Audiovisual serie : this.series) {
-            for (Audiovisual filme : this.filmes) {
-                if (filme.getIdioma() == idioma)
-                    audiovisuais.add(filme);
-                if (serie.getIdioma() == idioma)
-                    audiovisuais.add(serie);
-            }
-        }
-        return audiovisuais;
+        HashSet<Audiovisual> audiovisuais = this.filtrador.juntaHashSet(series, filmes);
+        return this.filtrador.filtrarPorIdioma(audiovisuais, idioma);
     }
 
     /**
@@ -132,7 +112,7 @@ public class PlataformaStreaming {
      * @return Lista de séries de uma determinada quantidade de episódeos
      */
     public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> seriesFiltradas = new ArrayList<Serie>();
+        List<Serie> seriesFiltradas = new ArrayList<>();
 
         for (Serie serie : this.series)
             if (serie.getQuantidadeEpisodios() == quantEpisodios)
@@ -146,8 +126,7 @@ public class PlataformaStreaming {
      * metodo responsavel por registrar audiencia de acordo com o
      * objeto Audiovisual passado
      * 
-     * @param Audiovisual
-     * 
+     * @param filme
      */
     public void registrarAudienciaFilme(Filme filme) {
         filmes.stream().filter(x -> x.getNome() == filme.getNome()).findFirst().get().registrarAudiencia();
