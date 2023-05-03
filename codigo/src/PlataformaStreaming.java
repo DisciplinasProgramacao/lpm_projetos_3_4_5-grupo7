@@ -190,7 +190,7 @@ public class PlataformaStreaming {
     public void salvarSerie() {
         try {
             DAO<Serie> dao = new DAO<Serie>();
-            dao.save("POO_Filmes.csv", this.series);
+            dao.save("POO_Series.csv", this.series);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,7 +199,7 @@ public class PlataformaStreaming {
     public void salvarClientes() {
         try {
             DAO<Cliente> dao = new DAO<Cliente>();
-            dao.save("POO_Filmes.csv", this.clientes);
+            dao.save("POO_Espectadores.csv", this.clientes);
         } catch (IOException e) {
             e.printStackTrace();
         }
