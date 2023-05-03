@@ -1,8 +1,6 @@
 package src;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +37,7 @@ public class DadosService {
       String nome = formatLine(dados[1]);
       String dataLancamento = formatLine(dados[2]);
 
-      plataformaStreaming.adicionarAudioVisual(new Serie(id, nome, dataLancamento));
+      plataformaStreaming.adicionarSerie(new Serie(id, nome, dataLancamento));
     });
   }
 
@@ -54,10 +52,9 @@ public class DadosService {
       String dataLancamento = formatLine(dados[2]);
       int duracao = Integer.parseInt(formatLine(dados[3]));
 
-      plataformaStreaming.adicionarAudioVisual(new Filme(id, nome, dataLancamento, duracao ));
+      plataformaStreaming.adicionarFilme(new Filme(id, nome, dataLancamento, duracao));
     });
   }
-
 
   private void buscarAudiencia(Cliente cliente) {
     List<String> audiencias = criarArrayDeAudiencias();

@@ -3,17 +3,18 @@ package src;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.io.*;
 
 public class PlataformaStreaming {
     private String nome;
-    private HashSet<Audiovisual> audiovisuais;
+    private HashSet<Serie> series;
+    private HashSet<Filme> filmes;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
 
     PlataformaStreaming() {
-        this.audiovisuais = new HashSet<Audiovisual>();
+        this.series = new HashSet<Serie>();
+        this.filmes = new HashSet<Filme>();
         this.clientes = new HashSet<Cliente>();
         this.clienteAtual = null;
     }
@@ -52,8 +53,18 @@ public class PlataformaStreaming {
      * @param Audiovisual
      * @return boolean
      */
-    public void adicionarAudioVisual(Audiovisual audiovisual) {
-        this.audiovisuais.add(audiovisual);
+    public void adicionarFilme(Filme filme) {
+        this.filmes.add(filme);
+    }
+
+    /**
+     * Adiciona uma série em uma lista de séries dentro da plataforma
+     *
+     * @param Audiovisual
+     * @return boolean
+     */
+    public void adicionarSerie(Serie serie) {
+        this.series.add(serie);
     }
 
     /**
@@ -70,7 +81,9 @@ public class PlataformaStreaming {
         try {
             // Fluxo de saida de um arquivo
 
-            BufferedWriter br = new BufferedWriter(new FileWriter("codigo/src/files/POO_Espectadores.csv")); // adiciono a um escritor de buffer
+            // adiciona um escritor de buffer
+            BufferedWriter br = new BufferedWriter(new FileWriter("codigo/src/files/POO_Espectadores.csv"));
+
             br.write(cliente.getNomeUsuario() + " " + cliente.getSenha() + ";\n"); // escrita no arquivo
             br.close();
 
@@ -81,7 +94,6 @@ public class PlataformaStreaming {
 
     }
 
-
     /**
      * Retorna uma lista de séries de acordo com um gênero específico
      * 
@@ -91,9 +103,14 @@ public class PlataformaStreaming {
     public List<Audiovisual> filtrarPorGenero(String genero) {
         List<Audiovisual> audiovisuais = new ArrayList<Audiovisual>();
 
-        for (Audiovisual audiovisual : this.audiovisuais)
-            if (audiovisual.getGenero() == genero)
-                audiovisuais.add(audiovisual);
+        for (Audiovisual serie : this.series) {
+            for (Audiovisual filme : this.filmes) {
+                if (filme.getGenero() == genero)
+                    audiovisuais.add(filme);
+                if (serie.getGenero() == genero)
+                    audiovisuais.add(serie);
+            }
+        }
 
         return audiovisuais;
     }
@@ -107,10 +124,14 @@ public class PlataformaStreaming {
     public List<Audiovisual> filtrarPorIdioma(String idioma) {
         List<Audiovisual> audiovisuais = new ArrayList<Audiovisual>();
 
-        for (Audiovisual audiovisual : this.audiovisuais)
-            if (audiovisual.getIdioma() == idioma)
-                audiovisuais.add(audiovisual);
-
+        for (Audiovisual serie : this.series) {
+            for (Audiovisual filme : this.filmes) {
+                if (filme.getIdioma() == idioma)
+                    audiovisuais.add(filme);
+                if (serie.getIdioma() == idioma)
+                    audiovisuais.add(serie);
+            }
+        }
         return audiovisuais;
     }
 
@@ -121,13 +142,13 @@ public class PlataformaStreaming {
      * @return Lista de séries de uma determinada quantidade de episódeos
      */
     public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> audiovisuais = new ArrayList<Serie>();
+        List<Serie> seriesFiltradas = new ArrayList<Serie>();
 
-        for (Serie Audiovisual : this.audiovisuais)
-            if (Audiovisual.getQuantidadeEpisodios() == quantEpisodios)
-                audiovisuais.add(Audiovisual);
+        for (Serie serie : this.series)
+            if (serie.getQuantidadeEpisodios() == quantEpisodios)
+                seriesFiltradas.add(serie);
 
-        return audiovisuais;
+        return seriesFiltradas;
     }
 
     /**
@@ -138,8 +159,12 @@ public class PlataformaStreaming {
      * @param Audiovisual
      * 
      */
-    public void registrarAudiencia(Audiovisual Audiovisual) {
-        audiovisuais.stream().filter(x -> x.getNome() == Audiovisual.getNome()).findFirst().get().registrarAudiencia();
+    public void registrarAudienciaFilme(Filme filme) {
+        filmes.stream().filter(x -> x.getNome() == filme.getNome()).findFirst().get().registrarAudiencia();
+    }
+
+    public void registrarAudienciaSerie(Serie serie) {
+        series.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
     }
 
     /**
@@ -158,10 +183,19 @@ public class PlataformaStreaming {
     public Audiovisual buscarAudiovisual(String nomeAudiovisual) {
         Audiovisual AudiovisualEncontrada = null;
 
-        for (Audiovisual Audiovisual : this.audiovisuais)
-            if (Audiovisual.getNome().equals(nomeAudiovisual))
-                AudiovisualEncontrada = Audiovisual;
+        for (Audiovisual filme : this.filmes) {
+            for (Audiovisual serie : this.series) {
+                if (filme.getNome().equals(nomeAudiovisual)) {
+                    AudiovisualEncontrada = filme;
+                } else if (serie.getNome().equals(nomeAudiovisual)) {
+                    AudiovisualEncontrada = serie;
+                }
+
+            }
+
+        }
 
         return AudiovisualEncontrada;
     }
+
 }

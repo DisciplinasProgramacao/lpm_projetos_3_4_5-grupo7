@@ -29,7 +29,7 @@ public class PlataformaStreamingTest {
   @Test
   public void testaAdicionarSerie() {
     ps = new PlataformaStreaming();
-    Assertions.assertDoesNotThrow(() -> ps.adicionarAudioVisual(new Serie(1, "serie", "01/01/2021")));
+    Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie(1, "serie", "01/01/2021")));
   }
 
   @Test
@@ -52,10 +52,10 @@ public class PlataformaStreamingTest {
     serie3.setGenero("Drama");
     serie4.setGenero("Comédia");
 
-    ps.adicionarAudioVisual(serie);
-    ps.adicionarAudioVisual(serie2);
-    ps.adicionarAudioVisual(serie3);
-    ps.adicionarAudioVisual(serie4);
+    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie2);
+    ps.adicionarSerie(serie3);
+    ps.adicionarSerie(serie4);
 
     filtradas = ps.filtrarPorGenero("Comédia");
     Assertions.assertEquals(2, filtradas.size());
@@ -73,9 +73,9 @@ public class PlataformaStreamingTest {
     serie2.setIdioma("Inglês");
     serie3.setIdioma("Espanhol");
 
-    ps.adicionarAudioVisual(serie);
-    ps.adicionarAudioVisual(serie2);
-    ps.adicionarAudioVisual(serie3);
+    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie2);
+    ps.adicionarSerie(serie3);
 
     filtradas = ps.filtrarPorIdioma("Português");
     Assertions.assertEquals(1, filtradas.size());
@@ -93,9 +93,9 @@ public class PlataformaStreamingTest {
     serie2.setQuantidadeEpisodios(10);
     serie3.setQuantidadeEpisodios(5);
 
-    ps.adicionarAudioVisual(serie);
-    ps.adicionarAudioVisual(serie2);
-    ps.adicionarAudioVisual(serie3);
+    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie2);
+    ps.adicionarSerie(serie3);
 
     filtradas = ps.filtrarPorQtdEpisodios(5);
     Assertions.assertEquals(2, filtradas.size());

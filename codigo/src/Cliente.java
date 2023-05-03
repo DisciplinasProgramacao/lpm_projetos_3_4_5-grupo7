@@ -26,10 +26,11 @@ public class Cliente {
     }
 
     /**
-     *  Adiciona uma série em uma lista de séries que já foram assistidas pelo cliente
+     * Adiciona uma série em uma lista de séries que já foram assistidas pelo
+     * cliente
      *
      * @param audiovisual
-     * */
+     */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         listaJaVistas.add(audiovisual);
     }
@@ -85,11 +86,9 @@ public class Cliente {
         List<Audiovisual> combinacaoListas = combinarListas();
 
         for (Audiovisual audiovisual : combinacaoListas) {
-            if (audiovisual.getIdioma().equals(idioma)) {
+            if (audiovisual.getIdioma() == idioma)
                 lista.add(audiovisual);
-            }
         }
-
         return lista;
     }
 
@@ -99,17 +98,18 @@ public class Cliente {
      * @param quantEpisodios
      * @return Lista de séries filtradas por quantidade de episódios
      */
-    public List<Audiovisual> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Audiovisual> lista = new ArrayList<Audiovisual>();
+    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
+        List<Serie> lista = new ArrayList<Serie>();
         List<Audiovisual> combinacaoListas = combinarListas();
 
-        for (Audiovisual audiovisual : combinacaoListas) {
-            if (audiovisual.getQuantidadeEpisodios() == quantEpisodios) {
-                lista.add(audiovisual);
-            }
-        }
-
+        /*
+         * for (Audiovisual audiovisual : combinacaoListas) {
+         * if (audiovisual.getQuantidadeEpisodios() == quantEpisodios)
+         * lista.add(audiovisual);
+         * }
+         */
         return lista;
+
     }
 
     /**
