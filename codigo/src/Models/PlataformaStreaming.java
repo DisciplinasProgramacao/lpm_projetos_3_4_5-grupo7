@@ -81,10 +81,10 @@ public class PlataformaStreaming {
      */
     public void adicionarCliente(Cliente cliente) {
         this.clientes.add(cliente);
-        DAO<Cliente> dao = new DAO<Cliente>();
+        DAO<Cliente> dao = new DAO<Cliente>("POO_Filmes.csv");
 
         try {
-            dao.append("POO_Filmes.csv", cliente);
+            dao.append(cliente);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -191,8 +191,8 @@ public class PlataformaStreaming {
      */
     public void salvarFilme() {
         try {
-            DAO<Filme> dao = new DAO<Filme>();
-            dao.save("POO_Filmes.csv", this.filmes);
+            DAO<Filme> dao = new DAO<Filme>("POO_Filmes.csv");
+            dao.save(this.filmes);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -203,8 +203,8 @@ public class PlataformaStreaming {
      */
     public void salvarSerie() {
         try {
-            DAO<Serie> dao = new DAO<Serie>();
-            dao.save("POO_Series.csv", this.series);
+            DAO<Serie> dao = new DAO<Serie>("POO_Series.csv");
+            dao.save(this.series);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -215,8 +215,8 @@ public class PlataformaStreaming {
      */
     public void salvarClientes() {
         try {
-            DAO<Cliente> dao = new DAO<Cliente>();
-            dao.save("POO_Espectadores.csv", this.clientes);
+            DAO<Cliente> dao = new DAO<Cliente>("POO_Espectadores.csv");
+            dao.save(this.clientes);
         } catch (IOException e) {
             e.printStackTrace();
         }

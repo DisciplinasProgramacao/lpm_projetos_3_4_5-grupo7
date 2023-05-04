@@ -2,33 +2,27 @@ package src.Services;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class DAO<T extends IDAO> {
-    private final static String baseUrl = "/filesSave";
-    
-    
-    /** Método que salva um conjunto de dados em um arquivo
-     * @param nomeArquivo
+    private final String baseUrl;
+
+    public DAO(String arquivo) {
+        this.baseUrl = arquivo;
+    }
+
+    /**
+     * Método que salva um conjunto de dados em um arquivo
+     * 
      * @param objeto
      * @throws IOException
      */
-    public void save(String nomeArquivo, Collection<T> objeto) throws IOException {
+    public void save(Collection<T> objeto) throws IOException {
         try {
-            FileWriter arquivo = new FileWriter(nomeArquivo);
-            PrintWriter gravarArq = new PrintWriter(arquivo);
-            Iterator<T> iterador = objeto.iterator();
-
-            while (iterador.hasNext()) {
-                T obj = iterador.next();
-                if (iterador.hasNext()) {
-                    gravarArq.println(obj.stringSalvar());
-                } else {
-                    gravarArq.print(obj.stringSalvar());
-                }
-            }
+            FileWriter arquivo = new FileWriter(this.baseUrl);
+            arquivo.append("#Cadastro");
+            for (T obj : objeto)
+                arquivo.append("\n" + obj.stringSalvar());
 
             arquivo.close();
         } catch (IOException e) {
@@ -36,34 +30,16 @@ public class DAO<T extends IDAO> {
         }
     }
 
-    
-    /** Método de salvar um único dado do objeto em um arquivo
-     * @param nomeArquivo
+    /**
+     * Método que adiciona uma linha no final do arquivo
+     * 
      * @param objeto
      * @throws IOException
      */
-    public void save(String nomeArquivo, T objeto) throws IOException {
+    public void append(T objeto) throws IOException {
         try {
-            FileWriter arquivo = new FileWriter(nomeArquivo);
-            PrintWriter gravarArq = new PrintWriter(arquivo);
-            gravarArq.printf(objeto.stringSalvar());
-            arquivo.close();
-        } catch (IOException e) {
-            throw e;
-        }
-    }
-
-    
-    /** Método que adiciona uma linha no final do arquivo
-     * @param nomeArquivo
-     * @param objeto
-     * @throws IOException
-     */
-    public void append(String nomeArquivo, T objeto) throws IOException {
-        try {
-            FileWriter arquivo = new FileWriter(nomeArquivo);
-            PrintWriter gravarArq = new PrintWriter(arquivo);
-            gravarArq.append("\n" + objeto.stringSalvar());
+            FileWriter arquivo = new FileWriter(baseUrl, true);
+            arquivo.append("\n" + objeto.stringSalvar());
             arquivo.close();
         } catch (IOException e) {
             throw e;
