@@ -1,4 +1,11 @@
-package src;
+package src.Models;
+
+import src.Models.Audiovisual;
+import src.Models.Cliente;
+import src.Models.Filme;
+import src.Models.Serie;
+import src.Services.DAO;
+import src.Services.Filtro;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +20,7 @@ public class PlataformaStreaming {
     private Cliente clienteAtual;
     private Filtro filtrador;
 
-    PlataformaStreaming() {
+    public PlataformaStreaming() {
         this.series = new HashSet<Serie>();
         this.filmes = new HashSet<Filme>();
         this.clientes = new HashSet<Cliente>();

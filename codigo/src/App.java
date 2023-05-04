@@ -2,8 +2,10 @@ package src;
 
 import java.util.Scanner;
 
-import src.Audiovisual;
-import src.Filme;
+import src.Models.Filme;
+import src.Models.PlataformaStreaming;
+import src.Models.Serie;
+import src.Services.DadosService;
 
 public class App {
     public static void main(String[] args) {

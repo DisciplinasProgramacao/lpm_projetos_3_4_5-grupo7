@@ -1,11 +1,10 @@
-package src;
+package src.Services;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 public class DAO<T extends IDAO> {
     private final static String baseUrl = "/filesSave";

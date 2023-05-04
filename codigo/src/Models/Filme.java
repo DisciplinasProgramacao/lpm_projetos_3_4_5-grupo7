@@ -1,9 +1,11 @@
-package src;
+package src.Models;
+
+import src.Services.IDAO;
 
 public class Filme extends Audiovisual implements IDAO {
   int duracao;
 
-  Filme(int id, String nome, String dataLancamento, int duracao) {
+  public Filme(int id, String nome, String dataLancamento, int duracao) {
     super(id, nome, dataLancamento);
     setDuracao(duracao);
   }

@@ -1,9 +1,11 @@
-package src;
+package src.Models;
+
+import src.Services.IDAO;
 
 public class Serie extends Audiovisual implements IDAO {
     private int quantidadeEpisodios;
 
-    Serie(int id, String nome, String dataLancamento) {
+    public Serie(int id, String nome, String dataLancamento) {
         super(id, nome, dataLancamento);
     }
 
