@@ -12,6 +12,11 @@ public class Cliente implements IDAO {
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
 
+    /**
+     * Construtor do cliente, recebendo usuário e senha e inicializando as listas vazias
+     * @param usuario
+     * @param senha
+     */
     public Cliente(String usuario, String senha) {
         this.nomeDeUsuario = usuario;
         this.senha = senha;
@@ -94,27 +99,11 @@ public class Cliente implements IDAO {
         }
         return lista;
     }
-
-    /**
-     * Retorna uma lista de séries filtradas por quantidade de episódios
-     * 
-     * @param quantEpisodios
-     * @return Lista de séries filtradas por quantidade de episódios
+    
+    /** 
+     * Implementação do método da interface: salva no arquivo de maneira formatada a linha dos dados do cliente
+     * @return String
      */
-    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> lista = new ArrayList<Serie>();
-        List<Audiovisual> combinacaoListas = combinarListas();
-
-        /*
-         * for (Audiovisual audiovisual : combinacaoListas) {
-         * if (audiovisual.getQuantidadeEpisodios() == quantEpisodios)
-         * lista.add(audiovisual);
-         * }
-         */
-        return lista;
-
-    }
-
     @Override
     public String stringSalvar() {
         return String.format("%s;%s;%s", this.login, this.nomeDeUsuario, this.senha);
@@ -129,7 +118,7 @@ public class Cliente implements IDAO {
         audiovisual.registrarAudiencia();
     }
 
-    // vai ter get e set de usuario e senha?
+    //#region getters
     public String getNomeUsuario() {
         return this.nomeDeUsuario;
     }
@@ -137,5 +126,6 @@ public class Cliente implements IDAO {
     public String getSenha() {
         return this.senha;
     }
+    //#endregion
 
 }

@@ -8,10 +8,13 @@ import java.util.Iterator;
 
 public class DAO<T extends IDAO> {
     private final static String baseUrl = "/filesSave";
-    // public DAO(String nomeAquivo){
-
-    // }
-
+    
+    
+    /** Método que salva um conjunto de dados em um arquivo
+     * @param nomeArquivo
+     * @param objeto
+     * @throws IOException
+     */
     public void save(String nomeArquivo, Collection<T> objeto) throws IOException {
         try {
             FileWriter arquivo = new FileWriter(nomeArquivo);
@@ -33,6 +36,12 @@ public class DAO<T extends IDAO> {
         }
     }
 
+    
+    /** Método de salvar um único dado do objeto em um arquivo
+     * @param nomeArquivo
+     * @param objeto
+     * @throws IOException
+     */
     public void save(String nomeArquivo, T objeto) throws IOException {
         try {
             FileWriter arquivo = new FileWriter(nomeArquivo);
@@ -44,6 +53,12 @@ public class DAO<T extends IDAO> {
         }
     }
 
+    
+    /** Método que adiciona uma linha no final do arquivo
+     * @param nomeArquivo
+     * @param objeto
+     * @throws IOException
+     */
     public void append(String nomeArquivo, T objeto) throws IOException {
         try {
             FileWriter arquivo = new FileWriter(nomeArquivo);

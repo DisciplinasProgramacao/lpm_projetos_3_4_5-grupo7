@@ -19,13 +19,17 @@ public class DadosService {
     plataformaStreaming = ps;
   }
 
+
+  /**
+   * Método para carregar clientes a partir do arquivo de clientes
+   */
   public void carregarClientes() {
     List<String> clientes = criarArrayDeClientes();
 
     clientes.forEach(clienteLine -> {
-      String[] dados = splitLine(clienteLine, ";");
-      String login = formatLine(dados[1]);
-      String senha = formatLine(dados[2]);
+      String[] dados = clienteLine.split(";");
+      String login = dados[1].trim();
+      String senha = dados[2].trim();
       Cliente cliente = new Cliente(login, senha);
 
       buscarAudiencia(cliente);
@@ -33,56 +37,66 @@ public class DadosService {
     });
   }
 
+  /**
+   * Método para carregar séries a partir do arquivo de séries
+   */
   public void carregarSeries() {
     List<String> series = criarArrayDeSeries();
 
     series.forEach(serieLine -> {
-      String[] dados = splitLine(serieLine, ";");
+      String[] dados = serieLine.split(";");
 
-      int id = Integer.parseInt(formatLine(dados[0]));
-      String nome = formatLine(dados[1]);
-      String dataLancamento = formatLine(dados[2]);
+      int id = Integer.parseInt(dados[0].trim());
+      String nome = dados[1].trim();
+      String dataLancamento = dados[2].trim();
 
       plataformaStreaming.adicionarSerie(new Serie(id, nome, dataLancamento));
     });
   }
 
+  /**
+   * Método para carregar filmes a partir do arquivo de filmes
+   */
   public void carregarFilmes() {
     List<String> filmes = criarArrayDeFilmes();
 
     filmes.forEach(filmeLine -> {
-      String[] dados = splitLine(filmeLine, ";");
+      String[] dados = filmeLine.split(";");
 
-      int id = Integer.parseInt(formatLine(dados[0]));
-      String nome = formatLine(dados[1]);
-      String dataLancamento = formatLine(dados[2]);
-      int duracao = Integer.parseInt(formatLine(dados[3]));
+      int id = Integer.parseInt(dados[0].trim());
+      String nome = dados[1].trim();
+      String dataLancamento = dados[2].trim();
+      int duracao = Integer.parseInt(dados[3].trim());
 
       plataformaStreaming.adicionarFilme(new Filme(id, nome, dataLancamento, duracao));
     });
 
   }
 
+  
+  /** Método que coloca audiência na lista de Para Ver ou de Assistidos do cliente
+   * @param cliente
+   */
   private void buscarAudiencia(Cliente cliente) {
     List<String> audiencias = criarArrayDeAudiencias();
     List<String> series = criarArrayDeSeries();
 
     audiencias.forEach(audienciaLine -> {
-      String[] dadosAudiencia = splitLine(audienciaLine, ";");
-      String loginClienteParaBuscar = formatLine(dadosAudiencia[0]);
-      String serieParaAssistir = formatLine(dadosAudiencia[1]);
-      String idSerieParaBuscar = formatLine(dadosAudiencia[2]);
+      String[] dadosAudiencia = audienciaLine.split(";");
+      String loginClienteParaBuscar = dadosAudiencia[0].trim();
+      String serieParaAssistir = dadosAudiencia[1].trim();
+      String idSerieParaBuscar = dadosAudiencia[2].trim();
 
-      if (compararString(loginClienteParaBuscar, cliente.getNomeUsuario())) {
+      if (loginClienteParaBuscar.equals(cliente.getNomeUsuario())) {
         series.forEach(serieLine -> {
-          String[] dadosSerie = splitLine(serieLine, ";");
-          String idSerie = formatLine(dadosSerie[0]);
-          String nome = formatLine(dadosSerie[1]);
+          String[] dadosSerie = serieLine.split(";");
+          String idSerie = dadosSerie[0].trim();
+          String nome = dadosSerie[1].trim();
 
-          if (compararString(idSerieParaBuscar, idSerie)) {
+          if (idSerieParaBuscar.equals(idSerie)) {
             Audiovisual serie = plataformaStreaming.buscarAudiovisual(nome);
 
-            if (compararString(serieParaAssistir, "F")) {
+            if (serieParaAssistir.equals("F")) {
               cliente.adicionarNaLista(serie);
             } else {
               cliente.adicionarNaListaJaVistas(serie);
@@ -93,26 +107,47 @@ public class DadosService {
     });
   }
 
+  
+  /** Método que lê o arquivo de Clientes e retorna uma Lista a partir do método de carregarDados
+   * @return List<String>
+   */
   private List<String> criarArrayDeClientes() {
     String arquivoCliente = "codigo/src/files/POO_Espectadores.csv";
     return carregarDados(arquivoCliente);
   }
 
+  
+  /** Método que lê o arquivo de Séries e retorna uma Lista a partir do método de carregarDados
+   * @return List<String>
+   */
   private List<String> criarArrayDeSeries() {
     String nomeArquivo = "codigo/src/files/POO_Series.csv";
     return carregarDados(nomeArquivo);
   }
 
+  
+  /** Método que lê o arquivo de Filmes e retorna uma Lista a partir do método de carregarDados
+   * @return List<String>
+   */
   private List<String> criarArrayDeFilmes() {
     String nomeArquivo = "codigo/src/files/POO_Filmes.csv";
     return carregarDados(nomeArquivo);
   }
 
+  
+  /** Método que lê o arquivo de Audiências e retorna uma Lista a partir do método de carregarDados
+   * @return List<String>
+   */
   private List<String> criarArrayDeAudiencias() {
     String nomeArquivo = "codigo/src/files/POO_Audiencia.csv";
     return carregarDados(nomeArquivo);
   }
 
+  
+  /** Método que carrega dados a partir de um arquivo e retorna uma lista de Strings
+   * @param nomeArquivo
+   * @return List<String>
+   */
   private List<String> carregarDados(String nomeArquivo) {
     List<String> dados = new ArrayList<>();
 
@@ -139,15 +174,4 @@ public class DadosService {
     return dados;
   }
 
-  private String[] splitLine(String line, String separador) {
-    return line.split(separador);
-  }
-
-  private String formatLine(String line) {
-    return line.trim();
-  }
-
-  private boolean compararString(String s1, String s2) {
-    return s1.equals(s2);
-  }
 }
