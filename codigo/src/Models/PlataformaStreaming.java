@@ -1,9 +1,5 @@
 package src.Models;
 
-import src.Models.Audiovisual;
-import src.Models.Cliente;
-import src.Models.Filme;
-import src.Models.Serie;
 import src.Services.DAO;
 import src.Services.Filtro;
 
@@ -20,6 +16,9 @@ public class PlataformaStreaming {
     private Cliente clienteAtual;
     private Filtro filtrador;
 
+    /**
+     * Construtor da PlataformaStreaming. Inicia os HashSets vazios, sem cliente logado e inicia um Filtro
+     */
     public PlataformaStreaming() {
         this.series = new HashSet<Serie>();
         this.filmes = new HashSet<Filme>();
@@ -28,6 +27,7 @@ public class PlataformaStreaming {
         this.filtrador = new Filtro();
     }
 
+    
     // #region Get Set
     public Cliente getcClienteAtual() {
         return this.clienteAtual;
@@ -39,8 +39,8 @@ public class PlataformaStreaming {
     // #endregion
 
     /**
-     * Valida as informações do usuário, efetuando assim seu login e retornando um
-     * novo cliente
+     * Valida as informações do usuário, efetuando assim seu login caso as informações estejam corretas, e retornando um
+     * novo cliente no caso positivo e nulo no caso negativo.
      * 
      * @param nomeUsuario
      * @param senha
@@ -139,16 +139,17 @@ public class PlataformaStreaming {
     }
 
     /**
-     * 
-     * metodo responsavel por registrar audiencia de acordo com o
-     * objeto Audiovisual passado
-     * 
+     * Método responsavel por registrar audiência no filme passado
      * @param filme
      */
     public void registrarAudienciaFilme(Filme filme) {
         filmes.stream().filter(x -> x.getNome() == filme.getNome()).findFirst().get().registrarAudiencia();
     }
 
+    /**
+     * Método responsavel por registrar audiência na série passada
+     * @param serie
+     */
     public void registrarAudienciaSerie(Serie serie) {
         series.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
     }
@@ -184,7 +185,10 @@ public class PlataformaStreaming {
         return AudiovisualEncontrada;
     }
 
-    // #region persistem
+    // #region salvamento
+    /**
+     * Implementação da DAO - método de salvar filme no arquivo POO_Filmes.csv
+     */
     public void salvarFilme() {
         try {
             DAO<Filme> dao = new DAO<Filme>();
@@ -194,6 +198,9 @@ public class PlataformaStreaming {
         }
     }
 
+    /**
+     * Implementação da DAO - método de salvar série no arquivo POO_Series.csv
+     */
     public void salvarSerie() {
         try {
             DAO<Serie> dao = new DAO<Serie>();
@@ -203,6 +210,9 @@ public class PlataformaStreaming {
         }
     }
 
+    /**
+     * Implementação da DAO - método de salvar cliente no arquivo POO_Espectadores.csv
+     */
     public void salvarClientes() {
         try {
             DAO<Cliente> dao = new DAO<Cliente>();

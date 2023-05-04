@@ -5,23 +5,25 @@ import src.Services.IDAO;
 public class Serie extends Audiovisual implements IDAO {
     private int quantidadeEpisodios;
 
+    /**
+     * Construtor da Serie - recebe as informações báiscas da série presentes no arquivo;
+     * @param id
+     * @param nome
+     * @param dataLancamento
+     */
     public Serie(int id, String nome, String dataLancamento) {
         super(id, nome, dataLancamento);
     }
 
     /**
-     * A cada cliente conectado, é incrementado 1 na audiência
+     * Implementação da DAO - salva a série formatada no arquivo POO_Series.cvs
      */
-
-    public String getNome() {
-        return getNome();
-    }
-
     @Override
     public String stringSalvar() {
         return String.format("%o;%s;%s", this.getId(), this.getNome(), this.getDataLancamento());
     }
 
+    //#region get/set
     public int getQuantidadeEpisodios() {
         return quantidadeEpisodios;
     }
@@ -29,4 +31,5 @@ public class Serie extends Audiovisual implements IDAO {
     public void setQuantidadeEpisodios(int quantidadeEpisodios) {
         this.quantidadeEpisodios = quantidadeEpisodios;
     }
+    //#endregion
 }
