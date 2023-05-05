@@ -1,11 +1,4 @@
-package src.Models;
-
-import src.Models.Audiovisual;
-import src.Models.Cliente;
-import src.Models.Filme;
-import src.Models.Serie;
-import src.Services.DAO;
-import src.Services.Filtro;
+package src;
 
 import java.util.ArrayList;
 import java.util.HashSet;

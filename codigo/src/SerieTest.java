@@ -1,8 +1,7 @@
-package src.Testes;
+package src;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
-import src.Models.Serie;
 
 public class SerieTest {
   @Test

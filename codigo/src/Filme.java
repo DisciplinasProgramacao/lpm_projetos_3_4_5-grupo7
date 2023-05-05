@@ -1,6 +1,4 @@
-package src.Models;
-
-import src.Services.IDAO;
+package src;
 
 public class Filme extends Audiovisual implements IDAO {
   int duracao;

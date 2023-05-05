@@ -1,10 +1,4 @@
-package src.Services;
-
-import src.Models.Audiovisual;
-import src.Models.Cliente;
-import src.Models.Filme;
-import src.Models.Serie;
-import src.Models.PlataformaStreaming;
+package src;
 
 import java.io.File;
 import java.io.IOException;

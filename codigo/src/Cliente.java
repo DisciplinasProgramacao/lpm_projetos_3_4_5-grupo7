@@ -1,6 +1,4 @@
-package src.Models;
-
-import src.Services.IDAO;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +64,7 @@ public class Cliente implements IDAO {
 
     /**
      * Retorna uma lista de séries filtradas por gênero
-     * 
+     *
      * @param genero
      * @return Lista de séries filtradas por gênero
      */

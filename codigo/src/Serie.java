@@ -1,6 +1,4 @@
-package src.Models;
-
-import src.Services.IDAO;
+package src;
 
 public class Serie extends Audiovisual implements IDAO {
     private int quantidadeEpisodios;

@@ -1,4 +1,4 @@
-package src.Testes;
+package src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,6 @@ import java.util.List;
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import src.Models.Audiovisual;
-import src.Models.Cliente;
-import src.Models.PlataformaStreaming;
-import src.Models.Serie;
 
 public class PlataformaStreamingTest {
   PlataformaStreaming ps;

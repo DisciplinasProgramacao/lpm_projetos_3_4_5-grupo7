@@ -2,11 +2,6 @@ package src;
 
 import java.util.Scanner;
 
-import src.Models.Filme;
-import src.Models.PlataformaStreaming;
-import src.Models.Serie;
-import src.Services.DadosService;
-
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);

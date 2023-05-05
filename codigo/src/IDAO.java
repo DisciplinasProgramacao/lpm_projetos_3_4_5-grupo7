@@ -1,4 +1,4 @@
-package src.Services;
+package src;
 
 public interface IDAO {
     /**
