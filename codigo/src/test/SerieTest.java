@@ -1,7 +1,8 @@
-package src;
+package src.test;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
+import src.Serie;
 
 public class SerieTest {
   @Test

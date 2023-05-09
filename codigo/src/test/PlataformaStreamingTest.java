@@ -1,4 +1,4 @@
-package src;
+package src.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,24 +6,20 @@ import java.util.List;
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import src.Audiovisual;
+import src.Cliente;
+import src.PlataformaStreaming;
+import src.Serie;
 
 public class PlataformaStreamingTest {
   PlataformaStreaming ps;
 
-  /**
-   * Este teste é executado antes de todos os outros, ele cria uma
-   * instância da classe PlataformaStreaming e adiciona um cliente na mesma.
-   * */
   @BeforeEach
   public void adicionaCliente() {
     ps = new PlataformaStreaming();
     ps.adicionarCliente(new Cliente("user", "senha"));
   }
 
-  /**
-   * Este teste verifica se existe um usuário com o usuário e senha passados por parâmetro,
-   * se existe, ele efetua o login na plataforma.
-   * */
   @Test
   public void testaLogin() {
     ps = new PlataformaStreaming();
@@ -33,28 +29,18 @@ public class PlataformaStreamingTest {
     Assertions.assertTrue(c instanceof Cliente);
   }
 
-  /**
-   * Este teste adiciona uma série na plataforma e verifica se não houve erros retornados.
-   * */
   @Test
   public void testaAdicionarSerie() {
     ps = new PlataformaStreaming();
     Assertions.assertDoesNotThrow(() -> ps.adicionarSerie(new Serie(1, "serie", "01/01/2021")));
   }
 
-  /**
-   * Este teste adiciona um cliente na plataforma e verifica se não houve erros retornados.
-   * */
   @Test
   public void testaAdicionarCliente() {
     ps = new PlataformaStreaming();
     Assertions.assertDoesNotThrow(() -> ps.adicionarCliente(new Cliente("usuario", "senha")));
   }
 
-  /**
-   * Este teste adiciona séries na plataforma e filtra por gênero, ao filtrar, verifica se o tamanho da lista
-   * é de acordo com a quantidade de séries de determinado gênero.
-   * */
   @Test
   public void testaFiltrarPorGenero() {
     ps = new PlataformaStreaming();
@@ -78,10 +64,6 @@ public class PlataformaStreamingTest {
     Assertions.assertEquals(2, filtradas.size());
   }
 
-  /**
-   * Este teste adiciona séries na plataforma e filtra por idioma, ao filtrar, verifica se o tamanho da lista
-   * é de acordo com a quantidade de séries de determinado idioma.
-   * */
   @Test
   public void testaFiltrarIdioma() {
     ps = new PlataformaStreaming();
@@ -102,10 +84,6 @@ public class PlataformaStreamingTest {
     Assertions.assertEquals(1, filtradas.size());
   }
 
-  /**
-   * Este teste adiciona séries na plataforma e filtra por quantidade de episódios, ao filtrar, verifica se o tamanho da lista
-   * é de acordo com a quantidade de séries de determinada quantia de episódios.
-   * */
   @Test
   public void testaFiltrarPorQtdEpisodios() {
     ps = new PlataformaStreaming();
@@ -126,10 +104,6 @@ public class PlataformaStreamingTest {
     Assertions.assertEquals(2, filtradas.size());
   }
 
-  /**
-   * Este teste registra audiências e vefirica se a quantidade de audiências registradas
-   * é igual a um determinado valor.
-   * */
   @Test
   public void testaRegistrarAudiencia() {
     Serie serie = new Serie(1, "serie", "01/01/2021");
