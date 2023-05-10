@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Scanner;
 
 public class App {
@@ -18,7 +16,8 @@ public class App {
             System.out.println("4 - Ver perfil");
             System.out.println("5 - Adicionar Filme");
             System.out.println("6 - Adicionar Serie");
-            System.out.println("7 - Sair");
+            System.out.println("7 - Assistir");
+            System.out.println("8 - Sair");
             int opcao = scanner.nextInt();
 
             switch (opcao) {
@@ -68,6 +67,32 @@ public class App {
                     ps.salvarSerie();
                     break;
                 case 7:
+                    System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
+                    int opcAssistir = scanner.nextInt();
+                    switch (opcAssistir) {
+                        case 1:
+                            meusDados.carregarFilmes();
+                            break;
+                        case 2:
+                            meusDados.carregarSeries();
+                            break;
+                        default:
+                            meusDados.carregarFilmes();
+                            break;
+                    }
+
+                    System.out.println("Digite o id que deseja assistir.");
+                    Audiovisual ver = ps.buscarAudiovisual(scanner.nextInt());
+                    System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
+                    int opc = scanner.nextInt();
+                    if (opc == 1) {
+                        System.out.println("Digite uma nota de 1 a 5.");
+                        ver.getAvaliacao().cadastrarAvaliacao(scanner.nextDouble());
+                        System.out.println("Avaliação cadastrada");
+                    }
+                    System.out.println("Obrigado.");
+                    break;
+                case 8:
                     System.out.println("Saindo...");
                     sair = true;
                     break;

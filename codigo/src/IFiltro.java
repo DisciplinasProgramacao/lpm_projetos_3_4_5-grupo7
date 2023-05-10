@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -9,13 +7,16 @@ import java.util.List;
 public interface IFiltro<T> {
     /**
      * Método que filtra por idioma
+     * 
      * @param lista
      * @param idioma
      * @return List<T>
      */
     List<T> filtrarPorIdioma(Collection<T> lista, String idioma);
+
     /**
      * Método que filtra por gênero
+     * 
      * @param lista
      * @param genero
      * @return

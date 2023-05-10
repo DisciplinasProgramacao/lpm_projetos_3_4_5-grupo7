@@ -1,8 +1,6 @@
-package src;
-
 import java.util.Random;
 
-public class Audiovisual  {
+public class Audiovisual {
     private static String[] GENEROS;
     private String nome;
     private String genero;
@@ -10,9 +8,11 @@ public class Audiovisual  {
     private int audiencia;
     private int id;
     private String dataLancamento;
+    private Avaliacao avaliacao;
 
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
+     * 
      * @param id
      * @param nome
      * @param dataLancamento
@@ -25,18 +25,18 @@ public class Audiovisual  {
         setNome(nome);
         setDataLancamento(dataLancamento);
         setId(id);
+        this.avaliacao = new Avaliacao();
         this.audiencia = 0;
     }
 
-    
     /**
      * Método que incrementa em 1 a audiência a cada cliente conectado
      */
     public void registrarAudiencia() {
         this.audiencia++;
     }
-    
-    //#region getters/setters
+
+    // #region getters/setters
     public int getAudiencia() {
         return audiencia;
     }
@@ -80,5 +80,9 @@ public class Audiovisual  {
     public int getId() {
         return id;
     }
-    //#endregion
+
+    public Avaliacao getAvaliacao() {
+        return this.avaliacao;
+    }
+    // #endregion
 }

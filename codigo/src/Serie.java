@@ -1,10 +1,10 @@
-package src;
-
 public class Serie extends Audiovisual implements IDAO {
     private int quantidadeEpisodios;
 
     /**
-     * Construtor da Serie - recebe as informações báiscas da série presentes no arquivo;
+     * Construtor da Serie - recebe as informações báiscas da série presentes no
+     * arquivo;
+     * 
      * @param id
      * @param nome
      * @param dataLancamento
@@ -21,7 +21,7 @@ public class Serie extends Audiovisual implements IDAO {
         return String.format("%o;%s;%s", this.getId(), this.getNome(), this.getDataLancamento());
     }
 
-    //#region get/set
+    // #region get/set
     public int getQuantidadeEpisodios() {
         return quantidadeEpisodios;
     }
@@ -29,5 +29,5 @@ public class Serie extends Audiovisual implements IDAO {
     public void setQuantidadeEpisodios(int quantidadeEpisodios) {
         this.quantidadeEpisodios = quantidadeEpisodios;
     }
-    //#endregion
+    // #endregion
 }

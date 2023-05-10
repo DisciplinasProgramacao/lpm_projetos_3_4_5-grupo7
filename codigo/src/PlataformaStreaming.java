@@ -1,8 +1,7 @@
-package src;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 import java.io.*;
 
 public class PlataformaStreaming {
@@ -160,21 +159,23 @@ public class PlataformaStreaming {
      * @return Retorna uma série específica
      */
     public Audiovisual buscarAudiovisual(String nomeAudiovisual) {
-        Audiovisual AudiovisualEncontrada = null;
+        List<Audiovisual> lista = new ArrayList<Audiovisual>();
+        lista.addAll(this.series);
+        lista.addAll(this.filmes);
+        return lista.stream().filter(x -> x.getNome().equals(nomeAudiovisual)).findFirst().get();
+    }
 
-        for (Audiovisual filme : this.filmes) {
-            for (Audiovisual serie : this.series) {
-                if (filme.getNome().equals(nomeAudiovisual)) {
-                    AudiovisualEncontrada = filme;
-                } else if (serie.getNome().equals(nomeAudiovisual)) {
-                    AudiovisualEncontrada = serie;
-                }
-
-            }
-
-        }
-
-        return AudiovisualEncontrada;
+    /**
+     * O método acima retorna uma série de acordo com o nome informado
+     * 
+     * @param id
+     * @return Retorna uma série específica
+     */
+    public Audiovisual buscarAudiovisual(int id) {
+        List<Audiovisual> lista = new ArrayList<Audiovisual>();
+        lista.addAll(this.series);
+        lista.addAll(this.filmes);
+        return lista.stream().filter(x -> x.getId() == id).findFirst().get();
     }
 
     // #region persistem
