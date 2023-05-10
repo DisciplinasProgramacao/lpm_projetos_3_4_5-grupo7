@@ -166,7 +166,7 @@ public class PlataformaStreaming {
     }
 
     /**
-     * O método acima retorna uma série de acordo com o nome informado
+     * O método acima retorna uma série de acordo com o id informado
      * 
      * @param id
      * @return Retorna uma série específica
