@@ -1,3 +1,5 @@
+import src.*;
+
 import java.util.Scanner;
 
 public class App {
@@ -15,7 +17,7 @@ public class App {
             System.out.println("3 - Buscar Séries:");
             System.out.println("4 - Ver perfil");
             System.out.println("5 - Adicionar Filme");
-            System.out.println("6 - Adicionar Serie");
+            System.out.println("6 - Adicionar src.Serie");
             System.out.println("7 - Assistir");
             System.out.println("8 - Sair");
             int opcao = scanner.nextInt();
@@ -55,7 +57,7 @@ public class App {
                     break;
 
                 case 6:
-                    System.out.println("Adicionar Serie...");
+                    System.out.println("Adicionar src.Serie...");
                     System.out.println("Digite o ID da serie");
                     int idSerie = scanner.nextInt();
                     System.out.println("Digite o nome da serie:");

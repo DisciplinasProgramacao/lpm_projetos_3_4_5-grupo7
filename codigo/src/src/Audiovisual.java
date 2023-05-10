@@ -1,3 +1,7 @@
+package src;
+
+import src.Avaliacao;
+
 import java.util.Random;
 
 public class Audiovisual {

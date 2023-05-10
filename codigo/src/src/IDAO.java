@@ -1,3 +1,5 @@
+package src;
+
 public interface IDAO {
     /**
      * Reponsavel por trazer todos os dados para salvar

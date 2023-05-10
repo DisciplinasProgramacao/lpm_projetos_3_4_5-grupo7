@@ -1,8 +1,10 @@
+package src;
+
 public class Serie extends Audiovisual implements IDAO {
     private int quantidadeEpisodios;
 
     /**
-     * Construtor da Serie - recebe as informações báiscas da série presentes no
+     * Construtor da src.Serie - recebe as informações báiscas da série presentes no
      * arquivo;
      * 
      * @param id

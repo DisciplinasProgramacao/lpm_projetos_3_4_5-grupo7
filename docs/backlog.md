@@ -1,6 +1,6 @@
 
 ## BackLog Projeto
-* Implementação das classes Cliente, Serie e PlataformaStreaming como originalmente planejadas; ☑
+* Implementação das classes Cliente, src.Serie e src.PlataformaStreaming como originalmente planejadas; ☑
 * Atualização do diagrama original para contemplar requisito de carga de dados; ☑
 * Implementação dos métodos para carga de dados de séries, clientes e audiência em funcionamento; ☐
 * Atualização do diagrama para abrigar o novo tipo de mídia: Filme; ☑

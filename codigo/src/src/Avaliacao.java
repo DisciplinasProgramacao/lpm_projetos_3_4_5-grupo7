@@ -1,17 +1,22 @@
-import java.util.List;
+package src;
+
 import java.util.Stack;
 
 public class Avaliacao {
     private static final Double avaliacaoMaxima = 5.0;
 
-    private List<Double> avaliacoes;
+    private Stack<Double> avaliacoes;
 
-    Avaliacao() {
-        this.avaliacoes = new Stack<Double>();
+    public Avaliacao() {
+        this.avaliacoes = new Stack<>();
+    }
+
+    public Stack<Double> getAvaliacoes() {
+        return (Stack<Double>) avaliacoes.clone();
     }
 
     /**
-     * Metodo responsavel por cadastrar uma nova avaliação
+     * Método responsável por cadastrar uma nova avaliação
      * 
      * @param nota
      */
@@ -21,14 +26,13 @@ public class Avaliacao {
     }
 
     /**
-     * metodo responsavel por gerar a media das avaliações
+     * Método responsável por gerar a média das avaliações
      * 
-     * @return
+     * @return double
      */
     public double gerarMedia() {
-        double total = this.avaliacoes.parallelStream().reduce(0.0, (subtotal, valor) -> subtotal + valor);
+        double total = this.avaliacoes.parallelStream().reduce(0.0, Double::sum);
         int tamanho = this.avaliacoes.size();
         return tamanho > 0 ? total / tamanho : 0;
     }
-
 }
