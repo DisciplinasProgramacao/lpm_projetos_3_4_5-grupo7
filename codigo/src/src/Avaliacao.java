@@ -31,8 +31,6 @@ public class Avaliacao {
      * @return double
      */
     public double gerarMedia() {
-        double total = this.avaliacoes.parallelStream().reduce(0.0, Double::sum);
-        int tamanho = this.avaliacoes.size();
-        return tamanho > 0 ? total / tamanho : 0;
+        return this.avaliacoes.stream().mapToDouble(num -> num).average().getAsDouble();
     }
 }
