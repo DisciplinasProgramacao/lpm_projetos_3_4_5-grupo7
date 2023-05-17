@@ -114,8 +114,11 @@ public class Audiovisual {
      * @param nota
      * @param comentario
      */
-    public void adicionarAvaliacao(Double nota, String comentario, String login) {
-        this.avaliacoes.put(login, new Avaliacao(nota, comentario));
+    public void adicionarAvaliacao(Cliente cliente, Double nota, String comentario) {
+        if (cliente.verificarEspecialista())
+            this.avaliacoes.put(cliente.getLogin(), new Avaliacao(nota, comentario));
+        else
+            this.avaliacoes.put(cliente.getLogin(), new Avaliacao(nota));
     }
 
     /**

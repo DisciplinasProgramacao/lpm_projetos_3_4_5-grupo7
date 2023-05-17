@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
+    public static Cliente clientAutenticado;
 
     public static void limparTela() {
         System.out.print("\033[H\033[2J");
@@ -92,11 +93,14 @@ public class App {
         System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
         int opc = scanner.nextInt();
         if (opc == 1) {
+            String comentario = "";
             System.out.println("Digite uma nota de 1 a 5.");
             Double nota = scanner.nextDouble();
-            System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
-            String comentario = scanner.next();
-            ver.adicionarAvaliacao(nota, comentario, "junin"); // adicionar login dinamico
+            if (clientAutenticado.verificarEspecialista()) {
+                System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
+                comentario = scanner.next();
+            }
+            ver.adicionarAvaliacao(clientAutenticado, nota, comentario); // adicionar login dinamico
             System.out.println("Avaliação cadastrada");
         }
         System.out.println("Obrigado.");
@@ -107,8 +111,9 @@ public class App {
         String genero = scanner.nextLine();
         Filtro<Audiovisual> f = new Filtro<>();
 
-        Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero().equals(filtro.getBusca());
-        
+        Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero()
+                .equals(filtro.getBusca());
+
         List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
 
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
@@ -119,8 +124,9 @@ public class App {
         String genero = scanner.nextLine();
         Filtro<Audiovisual> f = new Filtro<>();
 
-        Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma().equals(filtro.getBusca());
-        
+        Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma()
+                .equals(filtro.getBusca());
+
         List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
 
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));

@@ -8,6 +8,10 @@ public class Avaliacao {
     private Double nota;
     private String comentario;
 
+    public Avaliacao(Double nota) {
+        cadastrarAvaliacao(nota);
+    }
+
     public Avaliacao(Double nota, String comentario) {
         cadastrarAvaliacao(nota);
         this.comentario = comentario;

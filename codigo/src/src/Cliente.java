@@ -11,7 +11,9 @@ public class Cliente implements IDAO {
     private List<Audiovisual> listaJaVistas;
 
     /**
-     * Construtor do cliente, recebendo usuário e senha e inicializando as listas vazias
+     * Construtor do cliente, recebendo usuário e senha e inicializando as listas
+     * vazias
+     * 
      * @param usuario
      * @param senha
      */
@@ -97,14 +99,25 @@ public class Cliente implements IDAO {
         }
         return lista;
     }
-    
-    /** 
-     * Implementação do método da interface: salva no arquivo de maneira formatada a linha dos dados do cliente
+
+    /**
+     * Implementação do método da interface: salva no arquivo de maneira formatada a
+     * linha dos dados do cliente
+     * 
      * @return String
      */
     @Override
     public String stringSalvar() {
         return String.format("%s;%s;%s", this.login, this.nomeDeUsuario, this.senha);
+    }
+
+    /**
+     * Metodo responsavel por verificar se um cliente e especialista
+     * 
+     * @return
+     */
+    public boolean verificarEspecialista() {
+        return this.listaJaVistas.size() > 5;
     }
 
     /**
@@ -116,7 +129,7 @@ public class Cliente implements IDAO {
         audiovisual.registrarAudiencia();
     }
 
-    //#region getters
+    // #region getters
     public String getNomeUsuario() {
         return this.nomeDeUsuario;
     }
@@ -124,6 +137,10 @@ public class Cliente implements IDAO {
     public String getSenha() {
         return this.senha;
     }
-    //#endregion
+
+    public String getLogin() {
+        return this.login;
+    }
+    // #endregion
 
 }
