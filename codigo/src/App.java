@@ -7,7 +7,7 @@ public class App {
 
     public static void limparTela() {
         System.out.print("\033[H\033[2J");
-        
+
     }
 
     static void pausa() {
@@ -70,29 +70,29 @@ public class App {
 
     public static void assistir(PlataformaStreaming ps, DadosService meusDados) {
         System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
-                    int opcAssistir = scanner.nextInt();
-                    switch (opcAssistir) {
-                        case 1:
-                            meusDados.carregarFilmes();
-                            break;
-                        case 2:
-                            meusDados.carregarSeries();
-                            break;
-                        default:
-                            meusDados.carregarFilmes();
-                            break;
-                    }
+        int opcAssistir = scanner.nextInt();
+        switch (opcAssistir) {
+            case 1:
+                meusDados.carregarFilmes();
+                break;
+            case 2:
+                meusDados.carregarSeries();
+                break;
+            default:
+                meusDados.carregarFilmes();
+                break;
+        }
 
-                    System.out.println("Digite o id que deseja assistir.");
-                    Audiovisual ver = ps.buscarAudiovisual(scanner.nextInt());
-                    System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
-                    int opc = scanner.nextInt();
-                    if (opc == 1) {
-                        System.out.println("Digite uma nota de 1 a 5.");
-                        ver.getAvaliacao().cadastrarAvaliacao(scanner.nextDouble());
-                        System.out.println("Avaliação cadastrada");
-                    }
-                    System.out.println("Obrigado.");
+        System.out.println("Digite o id que deseja assistir.");
+        Audiovisual ver = ps.buscarAudiovisual(scanner.nextInt());
+        System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
+        int opc = scanner.nextInt();
+        if (opc == 1) {
+            System.out.println("Digite uma nota de 1 a 5.");
+            ver.getAvaliacao().cadastrarAvaliacao(scanner.nextDouble());
+            System.out.println("Avaliação cadastrada");
+        }
+        System.out.println("Obrigado.");
     }
 
     public static void main(String[] args) {
@@ -119,25 +119,29 @@ public class App {
                     meusDados.carregarSeries();
                     break;
                 case 3:
-                limparTela();
-                    buscarSeries(ps);
+                    limparTela();
+                    System.out.println("Buscar Séries:");
+                    System.out.println("Digite o nome do título:");
+                    String audiovisual = scanner.next();
+                    Audiovisual audiovisualEncontrado = ps.buscarAudiovisual(audiovisual);
+                    System.out.println(audiovisualEncontrado.toString());
                     break;
                 case 4:
-                limparTela();
+                    limparTela();
                     System.out.println("Perfil:");
                     meusDados.carregarClientes();
                     break;
                 case 5:
-                limparTela();
+                    limparTela();
                     adicionarFilme(ps);
                     break;
 
                 case 6:
-                limparTela();
+                    limparTela();
                     adicionarSerie(ps);
                     break;
                 case 7:
-                limparTela();
+                    limparTela();
                     assistir(ps, meusDados);
                     break;
                 default:

@@ -88,5 +88,11 @@ public class Audiovisual {
     public Avaliacao getAvaliacao() {
         return this.avaliacao;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Nome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
+                this.getNome(), getDataLancamento(), getAvaliacao(), this.getGenero());
+    }
     // #endregion
 }
