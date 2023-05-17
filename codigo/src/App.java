@@ -89,7 +89,10 @@ public class App {
         int opc = scanner.nextInt();
         if (opc == 1) {
             System.out.println("Digite uma nota de 1 a 5.");
-            ver.getAvaliacao().cadastrarAvaliacao(scanner.nextDouble());
+            Double nota = scanner.nextDouble();
+            System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
+            String comentario = scanner.next();
+            ver.adicionarAvaliacao(nota, comentario, "junin"); // adicionar login dinamico
             System.out.println("Avaliação cadastrada");
         }
         System.out.println("Obrigado.");
