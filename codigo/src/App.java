@@ -1,6 +1,8 @@
 import src.*;
 
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -26,6 +28,8 @@ public class App {
         System.out.println("5 - Adicionar Filme");
         System.out.println("6 - Adicionar Serie");
         System.out.println("7 - Assistir");
+        System.out.println("8 - Filtrar midia por genero");
+        System.out.println("9 - Filtrar midia por Idioma");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -98,6 +102,30 @@ public class App {
         System.out.println("Obrigado.");
     }
 
+    public static void filtraMidiaPorGenero(PlataformaStreaming ps) {
+        System.out.println("Digite o gênero:");
+        String genero = scanner.nextLine();
+        Filtro<Audiovisual> f = new Filtro<>();
+
+        Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero().equals(filtro.getBusca());
+        
+        List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
+
+        palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
+    }
+
+    public static void filtraMidiaPorIdioma(PlataformaStreaming ps) {
+        System.out.println("Digite o gênero:");
+        String genero = scanner.nextLine();
+        Filtro<Audiovisual> f = new Filtro<>();
+
+        Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma().equals(filtro.getBusca());
+        
+        List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
+
+        palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
+    }
+
     public static void main(String[] args) {
         PlataformaStreaming ps = new PlataformaStreaming();
         DadosService meusDados = new DadosService(ps);
@@ -151,6 +179,14 @@ public class App {
                 case 7:
                     limparTela();
                     assistir(ps, meusDados);
+                    break;
+                case 8:
+                    limparTela();
+                    filtraMidiaPorGenero(ps);
+                    break;
+                case 9:
+                    limparTela();
+                    filtraMidiaPorIdioma(ps);
                     break;
                 default:
                     System.out.println("Opção inválida!");

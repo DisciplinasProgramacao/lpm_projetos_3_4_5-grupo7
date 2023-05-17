@@ -1,47 +1,18 @@
 package src;
 
 import java.util.*;
+import java.util.function.Predicate;
 
-public class Filtro implements IFiltro<Audiovisual> {
+public class Filtro<T> {
     
-    /** 
-     * Método que filtra audiovisuais por idioma
-     * @param lista
-     * @param idioma
-     * @return List<Audiovisual>
-     */
-    @Override
-    public List<Audiovisual> filtrarPorIdioma(Collection<Audiovisual> lista, String idioma) {
-        List<Audiovisual> filtrada = new ArrayList<>();
-
-        lista.forEach(item -> {
-            if(item.getIdioma().equals(idioma)) {
-                filtrada.add(item);
+    public List<T> filtrar(List<T> lista, Predicate<FiltroPersonalizado<T>> filtro, String busca) {
+        List<T> resultado = new ArrayList<>();
+        for (T elemento : lista) {
+            FiltroPersonalizado<T> filtroPersonalizado = new FiltroPersonalizado<>(elemento, busca);
+            if (filtro.test(filtroPersonalizado)) {
+                resultado.add(elemento);
             }
-        });
-
-        return filtrada;
+        }
+        return resultado;
     }
-
-    
-    
-    /** 
-     * Método que filtra audiovisuais por gênero
-     * @param lista
-     * @param genero
-     * @return List<Audiovisual>
-     */
-    @Override
-    public List<Audiovisual> filtrarPorGenero(Collection<Audiovisual> lista, String genero) {
-        List<Audiovisual> filtrada = new ArrayList<>();
-
-        lista.forEach(item -> {
-            if(item.getGenero().equals(genero)) {
-                filtrada.add(item);
-            }
-        });
-
-        return filtrada;
-    }
-
 }

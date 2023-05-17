@@ -29,6 +29,13 @@ public class PlataformaStreaming {
     public String getNome() {
         return this.nome;
     }
+
+    public List<Audiovisual> getListaAudioVisual() {
+        List<Audiovisual> audiovisuais = new ArrayList<>();
+        audiovisuais.addAll(series);
+        audiovisuais.addAll(filmes);
+        return audiovisuais;
+    }
     // #endregion
 
     /**
@@ -81,38 +88,6 @@ public class PlataformaStreaming {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Retorna uma lista de séries de acordo com um gênero específico
-     * 
-     * @param genero
-     * @return Lista de séries de um gênero específico
-     */
-    public List<Audiovisual> filtrarPorGenero(String genero) {
-        HashSet<Audiovisual> audiovisuais = new HashSet<>();
-
-        audiovisuais.addAll(filmes);
-        for (Audiovisual serie : series) {
-            audiovisuais.add(serie);
-        }
-        return this.filtrador.filtrarPorGenero(audiovisuais, genero);
-    }
-
-    /**
-     * Retorna uma lista de séries de acordo com o idioma informado
-     * 
-     * @param idioma
-     * @return Lista de séries de um idioma específico
-     */
-    public List<Audiovisual> filtrarPorIdioma(String idioma) {
-        HashSet<Audiovisual> audiovisuais = new HashSet<>();
-        audiovisuais.addAll(filmes);
-        for (Audiovisual serie : series) {
-
-            audiovisuais.add(serie);
-        }
-        return this.filtrador.filtrarPorIdioma(audiovisuais, idioma);
     }
 
     /**
