@@ -5,14 +5,21 @@ import java.util.Stack;
 public class Avaliacao {
     private static final Double avaliacaoMaxima = 5.0;
 
-    private Stack<Double> avaliacoes;
+    private Double nota;
+    private String comentario;
 
-    public Avaliacao() {
-        this.avaliacoes = new Stack<>();
+    public Avaliacao(Double nota, String comentario) {
+        cadastrarAvaliacao(nota);
+        this.comentario = comentario;
+
     }
 
-    public Stack<Double> getAvaliacoes() {
-        return (Stack<Double>) avaliacoes.clone();
+    public Double getNota() {
+        return this.nota;
+    }
+
+    public String getComentario() {
+        return this.comentario;
     }
 
     /**
@@ -20,17 +27,11 @@ public class Avaliacao {
      * 
      * @param nota
      */
-    public void cadastrarAvaliacao(double nota) {
-        if (nota >= 1 && nota <= avaliacaoMaxima)
-            this.avaliacoes.add(nota);
+    private void cadastrarAvaliacao(double nota) {
+        this.nota = (nota >= 1 && nota <= avaliacaoMaxima) ? nota : 0;
     }
 
-    /**
-     * Método responsável por gerar a média das avaliações
-     * 
-     * @return double
-     */
-    public double gerarMedia() {
-        return this.avaliacoes.stream().mapToDouble(num -> num).average().getAsDouble();
+    public String toString() {
+        return "Nota: " + this.nota + " - Comentário: " + this.comentario;
     }
 }

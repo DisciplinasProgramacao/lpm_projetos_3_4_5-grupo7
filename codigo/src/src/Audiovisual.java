@@ -2,6 +2,7 @@ package src;
 
 import src.Avaliacao;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class Audiovisual {
@@ -12,7 +13,7 @@ public class Audiovisual {
     private int audiencia;
     private int id;
     private String dataLancamento;
-    private Avaliacao avaliacao;
+    private HashMap<String, Avaliacao> avaliacoes;
 
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
@@ -29,7 +30,7 @@ public class Audiovisual {
         setNome(nome);
         setDataLancamento(dataLancamento);
         setId(id);
-        this.avaliacao = new Avaliacao();
+        this.avaliacoes = new HashMap<String, Avaliacao>();
         this.audiencia = 0;
     }
 
@@ -85,14 +86,45 @@ public class Audiovisual {
         return id;
     }
 
-    public Avaliacao getAvaliacao() {
-        return this.avaliacao;
-    }
-
     @Override
     public String toString() {
         return String.format("\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
-                this.getNome(), getDataLancamento(), getAvaliacao(), this.getGenero());
+                this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero());
+    }
+    // #endregion
+
+    // #region avaliações
+    /**
+     * Metodo responsavel por retornar todas avaliações
+     * 
+     * @return
+     */
+    public String mostrarAvaliacoes() {
+        StringBuilder stringAvaliacoes = new StringBuilder();
+
+        this.avaliacoes.values().forEach(avaliacao -> stringAvaliacoes.append(avaliacao.toString()));
+
+        return stringAvaliacoes.toString();
+    }
+
+    /**
+     * Metodo responsavel por adicionar um comentario sem repetir
+     * 
+     * @param login
+     * @param nota
+     * @param comentario
+     */
+    public void adicionarAvaliacao(Double nota, String comentario, String login) {
+        this.avaliacoes.put(login, new Avaliacao(nota, comentario));
+    }
+
+    /**
+     * Método responsável por gerar a média das avaliações
+     * 
+     * @return double
+     */
+    public double gerarMediaAvaliacoes() {
+        return this.avaliacoes.values().stream().mapToDouble(num -> num.getNota()).average().getAsDouble();
     }
     // #endregion
 }
