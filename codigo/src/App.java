@@ -21,7 +21,7 @@ public class App {
         System.out.println("Escolha uma opção:");
         System.out.println("1 - Ver catálogo de filmes");
         System.out.println("2 - Ver catálogo de séries");
-        System.out.println("3 - Buscar Séries:");
+        System.out.println("3 - Buscar conteúdo:");
         System.out.println("4 - Ver perfil");
         System.out.println("5 - Adicionar Filme");
         System.out.println("6 - Adicionar Serie");
@@ -120,11 +120,16 @@ public class App {
                     break;
                 case 3:
                     limparTela();
-                    System.out.println("Buscar Séries:");
-                    System.out.println("Digite o nome do título:");
+                    System.out.println("Buscar conteúdo:");
+                    System.out.print("Digite o nome do título: ");
                     String audiovisual = scanner.next();
                     Audiovisual audiovisualEncontrado = ps.buscarAudiovisual(audiovisual);
-                    System.out.println(audiovisualEncontrado.toString());
+                    if (audiovisualEncontrado != null) {
+                        System.out.println(audiovisualEncontrado.toString());
+                    } else {
+                        System.out.println("Nenhum audiovisual encontrado com o nome fornecido.");
+                    }
+                    scanner.nextLine();
                     break;
                 case 4:
                     limparTela();
