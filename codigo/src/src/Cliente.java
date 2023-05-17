@@ -9,6 +9,7 @@ public class Cliente implements IDAO {
     private String login;
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
+    private boolean especialista = false;
 
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
@@ -41,6 +42,9 @@ public class Cliente implements IDAO {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         listaJaVistas.add(audiovisual);
+        if(verificarEspecialista()) {
+            especialista = true;
+        }
     }
 
     /**
@@ -112,9 +116,9 @@ public class Cliente implements IDAO {
     }
 
     /**
-     * Metodo responsavel por verificar se um cliente e especialista
+     * Método responsavel por verificar se um cliente e especialista
      * 
-     * @return
+     * @return true se a lista de assistidos tiver mais de 5
      */
     public boolean verificarEspecialista() {
         return this.listaJaVistas.size() > 5;
@@ -140,6 +144,10 @@ public class Cliente implements IDAO {
 
     public String getLogin() {
         return this.login;
+    }
+
+    public boolean getEspecialista() {
+        return especialista;
     }
     // #endregion
 

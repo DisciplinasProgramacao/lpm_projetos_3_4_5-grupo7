@@ -1,6 +1,5 @@
 package src;
 
-import java.util.Stack;
 
 public class Avaliacao {
     private static final Double avaliacaoMaxima = 5.0;

@@ -11,14 +11,12 @@ public class PlataformaStreaming {
     private HashSet<Filme> filmes;
     private HashSet<Cliente> clientes;
     private Cliente clienteAtual;
-    private Filtro filtrador;
 
     public PlataformaStreaming() {
         this.series = new HashSet<Serie>();
         this.filmes = new HashSet<Filme>();
         this.clientes = new HashSet<Cliente>();
         this.clienteAtual = null;
-        this.filtrador = new Filtro();
     }
 
     // #region Get Set
