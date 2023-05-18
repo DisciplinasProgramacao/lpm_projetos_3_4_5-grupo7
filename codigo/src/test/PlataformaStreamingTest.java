@@ -71,7 +71,6 @@ public class PlataformaStreamingTest {
 
     List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
 
-    palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
     Assertions.assertEquals(2, palavrasFiltradas.size());
   }
 

@@ -34,6 +34,7 @@ public class Avaliacao {
         this.nota = (nota >= 1 && nota <= avaliacaoMaxima) ? nota : 0;
     }
 
+    @Override
     public String toString() {
         return "Nota: " + this.nota + " - Comentário: " + this.comentario;
     }

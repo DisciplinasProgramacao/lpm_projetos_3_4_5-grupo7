@@ -1,9 +1,9 @@
 package src;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class DadosService {
   private final PlataformaStreaming plataformaStreaming;
@@ -142,7 +142,7 @@ public class DadosService {
    * @return List<String>
    */
   private List<String> carregarDados(String nomeArquivo) {
-    List<String> dados = new ArrayList<>();
+    List<String> dados = new Stack<String>();
 
     try {
 

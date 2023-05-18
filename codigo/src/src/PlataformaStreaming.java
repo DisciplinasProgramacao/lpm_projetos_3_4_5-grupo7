@@ -106,7 +106,7 @@ public class PlataformaStreaming {
 
     /**
      * 
-     * metodo responsavel por registrar audiencia de acordo com o
+     * Método responsavel por registrar audiencia de acordo com o
      * objeto Audiovisual passado
      * 
      * @param filme
@@ -152,7 +152,10 @@ public class PlataformaStreaming {
         return lista.stream().filter(x -> x.getId() == id).findFirst().get();
     }
 
-    // #region persistem
+    // #region persistem - salvamento em arquivo
+     /**
+     * Salva um filme no arquivo
+     */
     public void salvarFilme() {
         try {
             DAO<Filme> dao = new DAO<>("POO_Filmes.csv");
@@ -162,6 +165,9 @@ public class PlataformaStreaming {
         }
     }
 
+    /**
+     * Salva uma série no arquivo
+     */
     public void salvarSerie() {
         try {
             DAO<Serie> dao = new DAO<>("POO_Series.csv");
@@ -171,6 +177,9 @@ public class PlataformaStreaming {
         }
     }
 
+     /**
+     * Salva um cliente no arquivo
+     */
     public void salvarClientes() {
         try {
             DAO<Cliente> dao = new DAO<>("POO_Espectadores.csv");
