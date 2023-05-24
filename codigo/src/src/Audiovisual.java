@@ -1,5 +1,6 @@
 package src;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -8,15 +9,14 @@ public class Audiovisual {
     private String nome;
     private String genero;
     private String idioma;
+    private LocalDate dataAssistido;
     private int audiencia;
     private int id;
     private String dataLancamento;
     private HashMap<String, Avaliacao> avaliacoes;
 
-    Audiovisual() {
-
+    public Audiovisual() {
     }
-
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
      * 
@@ -59,6 +59,13 @@ public class Audiovisual {
     public String getNome() {
         return nome;
     }
+    public LocalDate getDataAssistido(){
+        return dataAssistido;
+    }
+
+    public void setDataAssistido(){
+        this.dataAssistido = LocalDate.now();
+    }
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -90,8 +97,8 @@ public class Audiovisual {
 
     @Override
     public String toString() {
-        return String.format("\nNome: %s\nData de Lançamento: %s\nAvaliação: %o\nGênero: %s",
-                this.nome, this.dataLancamento, gerarMediaAvaliacoes(), this.genero);
+        return String.format("\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
+                this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero());
     }
     // #endregion
 
