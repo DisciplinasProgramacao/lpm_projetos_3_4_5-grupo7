@@ -1,5 +1,6 @@
 package src;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,8 +92,9 @@ public class Cliente implements IDAO<Cliente> {
      * @param audiovisual
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
+        audiovisual.setDataAssistido();
         listaJaVistas.add(audiovisual);
-        if (tipo instanceof ClienteRegular && verificarEspecialista()) {
+        if (verificarEspecialista()) {
             tipo = new ClienteEspecialista();
         }
     }
@@ -186,7 +188,13 @@ public class Cliente implements IDAO<Cliente> {
      * @return true se a lista de assistidos tiver mais de 5
      */
     private boolean verificarEspecialista() {
-        return this.listaJaVistas.size() >= 5;
+        LocalDate dataAtual = LocalDate.now();
+        LocalDate dataLimite = dataAtual.minusMonths(1);
+        int contador = 0;
+        for (Audiovisual audiovisual : listaJaVistas) {
+            contador += (audiovisual.getDataAssistido().isAfter(dataLimite) || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
+        }
+        return contador >= 5;
     }
 
     /**
