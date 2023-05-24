@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.io.*;
 
-public class PlataformaStreaming {
+public class PlataformaStreaming extends Thread {
     private String nome;
     private HashSet<Serie> series;
     private HashSet<Filme> filmes;
@@ -52,9 +52,9 @@ public class PlataformaStreaming {
      * @param senha
      * @return Retorna um novo cliente
      */
-    public Cliente login(String nomeUsuario, String senha) {
+    public Cliente login(String login, String senha) {
         for (Cliente cliente : this.clientes)
-            if (cliente.getSenha() == senha && cliente.getNomeUsuario() == nomeUsuario) {
+            if (cliente.getSenha().equals(senha) && cliente.getLogin().equals(login)) {
                 this.clienteAtual = cliente;
                 return cliente;
             }
@@ -145,8 +145,11 @@ public class PlataformaStreaming {
         lista.addAll(this.series);
         lista.addAll(this.filmes);
 
-        return lista.stream().filter(x -> x.getNome().toLowerCase().equals(nomeAudiovisual.toLowerCase())).findFirst()
-                .get();
+        for (Audiovisual audio : lista) {
+            if (audio.getNome().toLowerCase().equals(nomeAudiovisual.toLowerCase()))
+                return audio;
+        }
+        return null;
     }
 
     /**
@@ -159,7 +162,11 @@ public class PlataformaStreaming {
         List<Audiovisual> lista = new ArrayList<Audiovisual>();
         lista.addAll(this.series);
         lista.addAll(this.filmes);
-        return lista.stream().filter(x -> x.getId() == id).findFirst().get();
+        for (Audiovisual audio : lista) {
+            if (audio.getId() == id)
+                return audio;
+        }
+        return null;
     }
 
     // #region persistem - salvamento em arquivo
@@ -208,6 +215,7 @@ public class PlataformaStreaming {
             this.series.addAll(daoSerie.load(new Serie()));
             this.clientes.addAll(daoCliente.load(new Cliente()));
             carregarAudiencia();
+            Cliente cliente = login("Wil207940", "WMiy22901");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -216,12 +224,30 @@ public class PlataformaStreaming {
     private void carregarAudiencia() {
         try {
             DAO<Filme> daoAudiencia = new DAO<>("codigo/src/files/POO_Audiencia.csv");
-            
-            daoAudiencia.load().forEach(x -> {
-
-            });
+            for (String linha : daoAudiencia.load()) {
+                processarLinhaAudiencia(linha);
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void processarLinhaAudiencia(String linha) {
+        Audiovisual audiovisual = null;
+        String[] dados = linha.split(";");
+        String login = dados[0];
+        String opc = dados[1];
+        int idAudio = Integer.parseInt(dados[2]);
+        for (Cliente clienteAux : clientes) {
+            if (clienteAux.getLogin().equals(login)) {
+                audiovisual = buscarAudiovisual(idAudio);
+                if (audiovisual != null) {
+                    if (opc.equals("F"))
+                        clienteAux.adicionarNaLista(audiovisual);
+                    else
+                        clienteAux.adicionarNaListaJaVistas(audiovisual);
+                }
+            }
         }
     }
     // #endregion

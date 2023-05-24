@@ -37,7 +37,7 @@ public class Cliente implements IDAO<Cliente> {
      */
     public Cliente(String nome, String usuario, String senha) {
         this.nomeDeUsuario = nome;
-        this.nomeDeUsuario = usuario;
+        this.login = usuario;
         this.senha = senha;
         this.listaParaVer = new ArrayList<>();
         this.listaJaVistas = new ArrayList<>();
