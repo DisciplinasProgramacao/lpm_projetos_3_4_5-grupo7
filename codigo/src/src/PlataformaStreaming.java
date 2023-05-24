@@ -34,6 +34,14 @@ public class PlataformaStreaming {
         audiovisuais.addAll(filmes);
         return audiovisuais;
     }
+
+    public HashSet<Filme> getFilmes() {
+        return this.filmes;
+    }
+
+    public HashSet<Serie> getSeries() {
+        return this.series;
+    }
     // #endregion
 
     /**
@@ -136,7 +144,9 @@ public class PlataformaStreaming {
         List<Audiovisual> lista = new ArrayList<Audiovisual>();
         lista.addAll(this.series);
         lista.addAll(this.filmes);
-        return lista.stream().filter(x -> x.getNome().equals(nomeAudiovisual)).findFirst().get();
+
+        return lista.stream().filter(x -> x.getNome().toLowerCase().equals(nomeAudiovisual.toLowerCase())).findFirst()
+                .get();
     }
 
     /**
@@ -153,12 +163,12 @@ public class PlataformaStreaming {
     }
 
     // #region persistem - salvamento em arquivo
-     /**
+    /**
      * Salva um filme no arquivo
      */
     public void salvarFilme() {
         try {
-            DAO<Filme> dao = new DAO<>("POO_Filmes.csv");
+            DAO<Filme> dao = new DAO<>("codigo/src/files/POO_Filmes.csv");
             dao.save(this.filmes);
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,14 +180,14 @@ public class PlataformaStreaming {
      */
     public void salvarSerie() {
         try {
-            DAO<Serie> dao = new DAO<>("POO_Series.csv");
+            DAO<Serie> dao = new DAO<>("codigo/src/files/POO_Series.csv");
             dao.save(this.series);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-     /**
+    /**
      * Salva um cliente no arquivo
      */
     public void salvarClientes() {
@@ -189,5 +199,30 @@ public class PlataformaStreaming {
         }
     }
 
+    public void carregarDados() {
+        try {
+            DAO<Filme> daoFilme = new DAO<>("codigo/src/files/POO_Filmes.csv");
+            DAO<Serie> daoSerie = new DAO<>("codigo/src/files/POO_Series.csv");
+            DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Espectadores.csv");
+            this.filmes.addAll(daoFilme.load(new Filme()));
+            this.series.addAll(daoSerie.load(new Serie()));
+            this.clientes.addAll(daoCliente.load(new Cliente()));
+            carregarAudiencia();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void carregarAudiencia() {
+        try {
+            DAO<Filme> daoAudiencia = new DAO<>("codigo/src/files/POO_Audiencia.csv");
+            
+            daoAudiencia.load().forEach(x -> {
+
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     // #endregion
 }

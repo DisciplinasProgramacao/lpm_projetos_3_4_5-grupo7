@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 public class App {
     static Scanner scanner = new Scanner(System.in);
     public static Cliente clientAutenticado;
+    public static PlataformaStreaming plataforma = new PlataformaStreaming();
 
     public static void limparTela() {
         System.out.print("\033[H\033[2J");
@@ -38,14 +39,14 @@ public class App {
         return opcao;
     }
 
-    public static void buscarSeries(PlataformaStreaming ps) {
+    public static void buscarSeries() {
         System.out.println("Buscar Séries:");
         System.out.println("Digite o nome do titulo:");
         String audiovisual = scanner.next();
-        System.out.println(ps.buscarAudiovisual(audiovisual));
+        System.out.println(plataforma.buscarAudiovisual(audiovisual));
     }
 
-    public static void adicionarFilme(PlataformaStreaming ps) {
+    public static void adicionarFilme() {
         System.out.println("Adicionar Filme...");
         System.out.println("Digite o ID do filme");
         int id = scanner.nextInt();
@@ -56,11 +57,11 @@ public class App {
         System.out.println("Digite a duração do filme:");
         int duracao = scanner.nextInt();
         Filme filme = new Filme(id, nome, anoLancamento, duracao);
-        ps.adicionarFilme(filme);
-        ps.salvarFilme();
+        plataforma.adicionarFilme(filme);
+        plataforma.salvarFilme();
     }
 
-    public static void adicionarSerie(PlataformaStreaming ps) {
+    public static void adicionarSerie() {
         System.out.println("Adicionar src.Serie...");
         System.out.println("Digite o ID da serie");
         int idSerie = scanner.nextInt();
@@ -69,27 +70,27 @@ public class App {
         System.out.println("Digite a data de lançamento:");
         String anoLancamentoSerie = scanner.next();
         Serie serie = new Serie(idSerie, nomeSerie, anoLancamentoSerie);
-        ps.adicionarSerie(serie);
-        ps.salvarSerie();
+        plataforma.adicionarSerie(serie);
+        plataforma.salvarSerie();
     }
 
-    public static void assistir(PlataformaStreaming ps, DadosService meusDados) {
+    public static void assistir() {
         System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
         int opcAssistir = scanner.nextInt();
         switch (opcAssistir) {
             case 1:
-                meusDados.carregarFilmes();
+                plataforma.getFilmes().forEach(x -> System.out.println(x.toString()));
                 break;
             case 2:
-                meusDados.carregarSeries();
+                plataforma.getSeries().forEach(x -> System.out.println(x.toString()));
                 break;
             default:
-                meusDados.carregarFilmes();
+                plataforma.getFilmes().forEach(x -> System.out.println(x.toString()));
                 break;
         }
 
         System.out.println("Digite o id que deseja assistir.");
-        Audiovisual ver = ps.buscarAudiovisual(scanner.nextInt());
+        Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
         System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
         int opc = scanner.nextInt();
         if (opc == 1) {
@@ -109,7 +110,7 @@ public class App {
         System.out.println("Obrigado.");
     }
 
-    public static void filtraMidiaPorGenero(PlataformaStreaming ps) {
+    public static void filtraMidiaPorGenero() {
         System.out.println("Digite o gênero:");
         String genero = scanner.nextLine();
         Filtro<Audiovisual> f = new Filtro<>();
@@ -117,12 +118,12 @@ public class App {
         Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero()
                 .equals(filtro.getBusca());
 
-        List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
+        List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, genero);
 
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
     }
 
-    public static void filtraMidiaPorIdioma(PlataformaStreaming ps) {
+    public static void filtraMidiaPorIdioma() {
         System.out.println("Digite o gênero:");
         String genero = scanner.nextLine();
         Filtro<Audiovisual> f = new Filtro<>();
@@ -130,20 +131,16 @@ public class App {
         Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma()
                 .equals(filtro.getBusca());
 
-        List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
+        List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, genero);
 
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
     }
 
     public static void main(String[] args) {
-        PlataformaStreaming ps = new PlataformaStreaming();
-        DadosService meusDados = new DadosService(ps);
         int opcao = -1;
-
+        plataforma.carregarDados();
         do {
-
             opcao = menu();
-
             switch (opcao) {
                 case 0:
                     System.out.println("Saindo...");
@@ -151,19 +148,19 @@ public class App {
                 case 1:
                     limparTela();
                     System.out.println("Catálogo de filmes:");
-                    meusDados.carregarFilmes();
+                    plataforma.getFilmes().forEach(x -> System.out.println(x.toString()));
                     break;
                 case 2:
                     limparTela();
                     System.out.println("Catálogo de séries:");
-                    meusDados.carregarSeries();
+                    plataforma.getSeries().forEach(x -> System.out.println(x.toString()));
                     break;
                 case 3:
                     limparTela();
                     System.out.println("Buscar conteúdo:");
                     System.out.print("Digite o nome do título: ");
-                    String audiovisual = scanner.next();
-                    Audiovisual audiovisualEncontrado = ps.buscarAudiovisual(audiovisual);
+                    String audiovisual = scanner.nextLine();
+                    Audiovisual audiovisualEncontrado = plataforma.buscarAudiovisual(audiovisual);
                     if (audiovisualEncontrado != null) {
                         System.out.println(audiovisualEncontrado.toString());
                     } else {
@@ -174,28 +171,27 @@ public class App {
                 case 4:
                     limparTela();
                     System.out.println("Perfil:");
-                    meusDados.carregarClientes();
                     break;
                 case 5:
                     limparTela();
-                    adicionarFilme(ps);
+                    adicionarFilme();
                     break;
 
                 case 6:
                     limparTela();
-                    adicionarSerie(ps);
+                    adicionarSerie();
                     break;
                 case 7:
                     limparTela();
-                    assistir(ps, meusDados);
+                    assistir();
                     break;
                 case 8:
                     limparTela();
-                    filtraMidiaPorGenero(ps);
+                    filtraMidiaPorGenero();
                     break;
                 case 9:
                     limparTela();
-                    filtraMidiaPorIdioma(ps);
+                    filtraMidiaPorIdioma();
                     break;
                 default:
                     System.out.println("Opção inválida!");

@@ -3,13 +3,16 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente implements IDAO {
+public class Cliente implements IDAO<Cliente> {
     private String nomeDeUsuario;
     private String senha;
     private String login;
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
     private ICliente tipo = new ClienteRegular();
+
+    Cliente() {
+    }
 
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
@@ -19,6 +22,21 @@ public class Cliente implements IDAO {
      * @param senha
      */
     public Cliente(String usuario, String senha) {
+        this.nomeDeUsuario = usuario;
+        this.senha = senha;
+        this.listaParaVer = new ArrayList<>();
+        this.listaJaVistas = new ArrayList<>();
+    }
+
+    /**
+     * Construtor do cliente, recebendo usuário e senha e inicializando as listas
+     * vazias
+     * 
+     * @param usuario
+     * @param senha
+     */
+    public Cliente(String nome, String usuario, String senha) {
+        this.nomeDeUsuario = nome;
         this.nomeDeUsuario = usuario;
         this.senha = senha;
         this.listaParaVer = new ArrayList<>();
@@ -74,7 +92,7 @@ public class Cliente implements IDAO {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         listaJaVistas.add(audiovisual);
-        if (verificarEspecialista()) {
+        if (tipo instanceof ClienteRegular && verificarEspecialista()) {
             tipo = new ClienteEspecialista();
         }
     }
@@ -145,6 +163,21 @@ public class Cliente implements IDAO {
     @Override
     public String stringSalvar() {
         return String.format("%s;%s;%s", this.login, this.nomeDeUsuario, this.senha);
+    }
+
+    /**
+     * Implementação do método da interface: carrega o obejto formatado com a
+     * linha dos dados do cliente
+     */
+    @Override
+    public Cliente loadObject(String linha) {
+        String[] dados = linha.split(";");
+
+        String nome = dados[0].trim();
+        String login = dados[1].trim();
+        String senha = dados[2].trim();
+
+        return new Cliente(nome, login, senha);
     }
 
     /**

@@ -13,6 +13,10 @@ public class Audiovisual {
     private String dataLancamento;
     private HashMap<String, Avaliacao> avaliacoes;
 
+    Audiovisual() {
+
+    }
+
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
      * 
@@ -86,8 +90,8 @@ public class Audiovisual {
 
     @Override
     public String toString() {
-        return String.format("\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
-                this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero());
+        return String.format("\nNome: %s\nData de Lançamento: %s\nAvaliação: %o\nGênero: %s",
+                this.nome, this.dataLancamento, gerarMediaAvaliacoes(), this.genero);
     }
     // #endregion
 
