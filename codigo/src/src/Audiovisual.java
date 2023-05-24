@@ -1,7 +1,5 @@
 package src;
 
-import src.Avaliacao;
-
 import java.util.HashMap;
 import java.util.Random;
 
@@ -114,11 +112,8 @@ public class Audiovisual {
      * @param nota
      * @param comentario
      */
-    public void adicionarAvaliacao(Cliente cliente, Double nota, String comentario) {
-        if (cliente.verificarEspecialista())
-            this.avaliacoes.put(cliente.getLogin(), new Avaliacao(nota, comentario));
-        else
-            this.avaliacoes.put(cliente.getLogin(), new Avaliacao(nota));
+    public void adicionarAvaliacao(Cliente cliente, Avaliacao avaliacao) {
+        this.avaliacoes.put(cliente.getLogin(), avaliacao);
     }
 
     /**

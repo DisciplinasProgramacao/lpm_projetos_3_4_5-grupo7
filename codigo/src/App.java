@@ -96,11 +96,14 @@ public class App {
             String comentario = "";
             System.out.println("Digite uma nota de 1 a 5.");
             Double nota = scanner.nextDouble();
-            if (clientAutenticado.verificarEspecialista()) {
+            if (clientAutenticado.getEspecialista()) {
                 System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
                 comentario = scanner.next();
+                clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
+            } else {
+                clientAutenticado.adicionarAvaliacao(ver, nota);
             }
-            ver.adicionarAvaliacao(clientAutenticado, nota, comentario); // adicionar login dinamico
+
             System.out.println("Avaliação cadastrada");
         }
         System.out.println("Obrigado.");

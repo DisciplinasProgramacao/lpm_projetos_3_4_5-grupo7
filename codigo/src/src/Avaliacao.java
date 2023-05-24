@@ -1,6 +1,5 @@
 package src;
 
-
 public class Avaliacao {
     private static final Double avaliacaoMaxima = 5.0;
 
@@ -31,7 +30,7 @@ public class Avaliacao {
      * @param nota
      */
     private void cadastrarAvaliacao(double nota) {
-        this.nota = (nota >= 1 && nota <= avaliacaoMaxima) ? nota : 0;
+        this.nota = (nota >= 0 && nota <= avaliacaoMaxima) ? nota : 0;
     }
 
     @Override

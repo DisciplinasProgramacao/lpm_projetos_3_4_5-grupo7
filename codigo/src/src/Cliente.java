@@ -9,7 +9,7 @@ public class Cliente implements IDAO {
     private String login;
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
-    private boolean especialista = false;
+    private ICliente tipo = new ClienteRegular();
 
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
@@ -23,6 +23,38 @@ public class Cliente implements IDAO {
         this.senha = senha;
         this.listaParaVer = new ArrayList<>();
         this.listaJaVistas = new ArrayList<>();
+    }
+
+    /**
+     * Adiciona uma avaliação com comentário, caso o cliente seja Especialista
+     * 
+     * @param audiovisual
+     * @param nota        (double)
+     * @param comentario
+     * @return boolean (se foi bem-sucedido ou não)
+     */
+    public boolean adicionarAvaliacao(Audiovisual aud, double nota, String comentario) {
+        if (getEspecialista()) {
+            Avaliacao avaliacao = new Avaliacao(nota, comentario);
+            tipo.avaliar(this, aud, avaliacao);
+            return true;
+        } else {
+            System.out.println("O Cliente não é especialista. Cadastre a avaliação novamente sem o comentário!");
+            return false;
+        }
+    }
+
+    /**
+     * Adiciona uma avaliação sem comentário, para todo tipo de cliente.
+     * 
+     * @param audiovisual
+     * @param nota        (double)
+     * @return boolean (se foi bem-sucedido ou não)
+     */
+    public boolean adicionarAvaliacao(Audiovisual aud, double nota) {
+        Avaliacao avaliacao = new Avaliacao(nota);
+        tipo.avaliar(this, aud, avaliacao);
+        return true;
     }
 
     /**
@@ -42,8 +74,8 @@ public class Cliente implements IDAO {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         listaJaVistas.add(audiovisual);
-        if(verificarEspecialista()) {
-            especialista = true;
+        if (verificarEspecialista()) {
+            tipo = new ClienteEspecialista();
         }
     }
 
@@ -120,8 +152,8 @@ public class Cliente implements IDAO {
      * 
      * @return true se a lista de assistidos tiver mais de 5
      */
-    public boolean verificarEspecialista() {
-        return this.listaJaVistas.size() > 5;
+    private boolean verificarEspecialista() {
+        return this.listaJaVistas.size() >= 5;
     }
 
     /**
@@ -147,7 +179,7 @@ public class Cliente implements IDAO {
     }
 
     public boolean getEspecialista() {
-        return especialista;
+        return (tipo instanceof ClienteEspecialista);
     }
     // #endregion
 
