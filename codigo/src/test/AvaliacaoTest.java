@@ -2,7 +2,10 @@ package test;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import src.Audiovisual;
 import src.Avaliacao;
+import src.Cliente;
+import src.Serie;
 
 public class AvaliacaoTest {
     private Avaliacao avaliacao;

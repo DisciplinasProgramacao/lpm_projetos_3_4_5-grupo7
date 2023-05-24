@@ -54,7 +54,7 @@ public class PlataformaStreaming extends Thread {
      */
     public Cliente login(String login, String senha) {
         for (Cliente cliente : this.clientes)
-            if (cliente.getSenha().equals(senha) && cliente.getLogin().equals(login)) {
+            if (cliente.getSenha().equals(senha) && cliente.getNomeUsuario().equals(login)) {
                 this.clienteAtual = cliente;
                 return cliente;
             }

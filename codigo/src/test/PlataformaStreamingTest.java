@@ -29,7 +29,7 @@ public class PlataformaStreamingTest {
     ps.adicionarCliente(new Cliente("user", "senha"));
     Cliente c = ps.login("user", "senha");
 
-    Assertions.assertTrue(c instanceof Cliente);
+    Assertions.assertNotNull(c);
   }
 
   @Test
