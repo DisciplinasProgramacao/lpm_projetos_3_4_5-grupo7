@@ -1,21 +1,23 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Stack;
 import java.io.*;
 
 public class PlataformaStreaming extends Thread {
     private String nome;
-    private HashSet<Serie> series;
-    private HashSet<Filme> filmes;
-    private HashSet<Cliente> clientes;
+    private HashMap<Integer, Serie> series;
+    private HashMap<Integer, Filme> filmes;
+    private HashMap<String, Cliente> clientes;
     private Cliente clienteAtual;
 
     public PlataformaStreaming() {
-        this.series = new HashSet<Serie>();
-        this.filmes = new HashSet<Filme>();
-        this.clientes = new HashSet<Cliente>();
+        this.series = new HashMap<Integer, Serie>();
+        this.filmes = new HashMap<Integer, Filme>();
+        this.clientes = new HashMap<String, Cliente>();
         this.clienteAtual = null;
     }
 
@@ -30,16 +32,25 @@ public class PlataformaStreaming extends Thread {
 
     public List<Audiovisual> getListaAudioVisual() {
         List<Audiovisual> audiovisuais = new ArrayList<>();
-        audiovisuais.addAll(series);
-        audiovisuais.addAll(filmes);
+
+        audiovisuais.addAll(series.values());
+        audiovisuais.addAll(filmes.values());
         return audiovisuais;
     }
 
-    public HashSet<Filme> getFilmes() {
+    public HashMap<Integer, Audiovisual> getHashMapAudioVisual() {
+        HashMap<Integer, Audiovisual> audiovisuais = new HashMap<>();
+
+        audiovisuais.putAll(series);
+        audiovisuais.putAll(filmes);
+        return audiovisuais;
+    }
+
+    public HashMap<Integer, Filme> getFilmes() {
         return this.filmes;
     }
 
-    public HashSet<Serie> getSeries() {
+    public HashMap<Integer, Serie> getSeries() {
         return this.series;
     }
     // #endregion
@@ -53,8 +64,8 @@ public class PlataformaStreaming extends Thread {
      * @return Retorna um novo cliente
      */
     public Cliente login(String login, String senha) {
-        for (Cliente cliente : this.clientes)
-            if (cliente.getSenha().equals(senha) && cliente.getNomeUsuario().equals(login)) {
+        for (Cliente cliente : this.clientes.values())
+            if (cliente.getSenha().equals(senha) && cliente.getLogin().equals(login)) {
                 this.clienteAtual = cliente;
                 return cliente;
             }
@@ -68,7 +79,7 @@ public class PlataformaStreaming extends Thread {
      * @param filme
      */
     public void adicionarFilme(Filme filme) {
-        this.filmes.add(filme);
+        this.filmes.put(filme.getId(), filme);
     }
 
     /**
@@ -77,7 +88,7 @@ public class PlataformaStreaming extends Thread {
      * @param serie
      */
     public void adicionarSerie(Serie serie) {
-        this.series.add(serie);
+        this.series.put(serie.getId(), serie);
     }
 
     /**
@@ -86,9 +97,8 @@ public class PlataformaStreaming extends Thread {
      * @param cliente
      */
     public void adicionarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+        this.clientes.put(cliente.getLogin(), cliente);
         DAO<Cliente> dao = new DAO<Cliente>("POO_Filmes.csv");
-
         try {
             dao.append(cliente);
         } catch (IOException e) {
@@ -105,7 +115,7 @@ public class PlataformaStreaming extends Thread {
     public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
         List<Serie> seriesFiltradas = new ArrayList<>();
 
-        for (Serie serie : this.series)
+        for (Serie serie : this.series.values())
             if (serie.getQuantidadeEpisodios() == quantEpisodios)
                 seriesFiltradas.add(serie);
 
@@ -120,11 +130,11 @@ public class PlataformaStreaming extends Thread {
      * @param filme
      */
     public void registrarAudienciaFilme(Filme filme) {
-        filmes.stream().filter(x -> x.getNome() == filme.getNome()).findFirst().get().registrarAudiencia();
+        filmes.values().stream().filter(x -> x.getNome() == filme.getNome()).findFirst().get().registrarAudiencia();
     }
 
     public void registrarAudienciaSerie(Serie serie) {
-        series.stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
+        series.values().stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
     }
 
     /**
@@ -141,11 +151,7 @@ public class PlataformaStreaming extends Thread {
      * @return Retorna uma série específica
      */
     public Audiovisual buscarAudiovisual(String nomeAudiovisual) {
-        List<Audiovisual> lista = new ArrayList<Audiovisual>();
-        lista.addAll(this.series);
-        lista.addAll(this.filmes);
-
-        for (Audiovisual audio : lista) {
+        for (Audiovisual audio : getListaAudioVisual()) {
             if (audio.getNome().toLowerCase().equals(nomeAudiovisual.toLowerCase()))
                 return audio;
         }
@@ -159,14 +165,7 @@ public class PlataformaStreaming extends Thread {
      * @return Retorna uma série específica
      */
     public Audiovisual buscarAudiovisual(int id) {
-        List<Audiovisual> lista = new ArrayList<Audiovisual>();
-        lista.addAll(this.series);
-        lista.addAll(this.filmes);
-        for (Audiovisual audio : lista) {
-            if (audio.getId() == id)
-                return audio;
-        }
-        return null;
+        return this.getHashMapAudioVisual().get(id);
     }
 
     // #region persistem - salvamento em arquivo
@@ -176,7 +175,7 @@ public class PlataformaStreaming extends Thread {
     public void salvarFilme() {
         try {
             DAO<Filme> dao = new DAO<>("codigo/src/files/POO_Filmes.csv");
-            dao.save(this.filmes);
+            dao.save(this.filmes.values());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,7 +187,7 @@ public class PlataformaStreaming extends Thread {
     public void salvarSerie() {
         try {
             DAO<Serie> dao = new DAO<>("codigo/src/files/POO_Series.csv");
-            dao.save(this.series);
+            dao.save(this.series.values());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,7 +199,7 @@ public class PlataformaStreaming extends Thread {
     public void salvarClientes() {
         try {
             DAO<Cliente> dao = new DAO<>("POO_Espectadores.csv");
-            dao.save(this.clientes);
+            dao.save(this.clientes.values());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,11 +210,10 @@ public class PlataformaStreaming extends Thread {
             DAO<Filme> daoFilme = new DAO<>("codigo/src/files/POO_Filmes.csv");
             DAO<Serie> daoSerie = new DAO<>("codigo/src/files/POO_Series.csv");
             DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Espectadores.csv");
-            this.filmes.addAll(daoFilme.load(new Filme()));
-            this.series.addAll(daoSerie.load(new Serie()));
-            this.clientes.addAll(daoCliente.load(new Cliente()));
+            daoFilme.load(new Filme()).forEach(x -> this.filmes.put(x.getId(), x));
+            daoSerie.load(new Serie()).forEach(x -> this.series.put(x.getId(), x));
+            daoCliente.load(new Cliente()).forEach(x -> this.clientes.put(x.getLogin(), x));
             carregarAudiencia();
-            Cliente cliente = login("Wil207940", "WMiy22901");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -224,31 +222,62 @@ public class PlataformaStreaming extends Thread {
     private void carregarAudiencia() {
         try {
             DAO<Filme> daoAudiencia = new DAO<>("codigo/src/files/POO_Audiencia.csv");
-            for (String linha : daoAudiencia.load()) {
-                processarLinhaAudiencia(linha);
+            List<String> lista = daoAudiencia.load();
+            int contador = 1;
+            int tamanhoLista = lista.size();
+            int restoDivisao = tamanhoLista % 4;
+            int quantidadeThreads = 4;
+            int tamanhoBlocos = tamanhoLista > 10000 ? ((tamanhoLista - restoDivisao) / quantidadeThreads)
+                    : tamanhoLista;
+            int auxBloco = 1;
+            int contadorLista = 1;
+            List<String> auxLista = new Stack<>();
+            for (String linha : lista) {
+
+                if (contador != tamanhoBlocos && contadorLista != tamanhoLista) {
+                    contador++;
+                    auxLista.add(linha);
+                } else {
+                    auxBloco++;
+                    contador = 0;
+                    // new Thread(()-> processaBlocoAudiencia(new
+                    // List<String>().addAll(auxLista))).start();
+                    processaBlocoAudiencia(auxLista);
+                    auxLista = new Stack<>();
+                }
+
+                if (auxBloco == quantidadeThreads) {
+                    tamanhoBlocos += restoDivisao;
+                }
+                contadorLista++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void processarLinhaAudiencia(String linha) {
-        Audiovisual audiovisual = null;
-        String[] dados = linha.split(";");
-        String login = dados[0];
-        String opc = dados[1];
-        int idAudio = Integer.parseInt(dados[2]);
-        for (Cliente clienteAux : clientes) {
-            if (clienteAux.getLogin().equals(login)) {
-                audiovisual = buscarAudiovisual(idAudio);
-                if (audiovisual != null) {
-                    if (opc.equals("F"))
-                        clienteAux.adicionarNaLista(audiovisual);
-                    else
-                        clienteAux.adicionarNaListaJaVistas(audiovisual);
-                }
+    private void processaBlocoAudiencia(List<String> bloco) {
+        for (String linha : bloco) {
+            String[] dados = linha.split(";");
+            String login = dados[0];
+            String opc = dados[1];
+            int idAudio = Integer.parseInt(dados[2]);
+
+            Audiovisual audiovisual = getHashMapAudioVisual().get(idAudio);
+            Cliente cliente = this.clientes.get(login);
+
+            if (cliente != null && audiovisual != null) {
+                if (opc.equals("F"))
+                    cliente.adicionarNaLista(audiovisual);
+                else
+                    cliente.adicionarNaListaJaVistas(audiovisual);
             }
+
         }
+    }
+
+    public void run() {
+
     }
     // #endregion
 }

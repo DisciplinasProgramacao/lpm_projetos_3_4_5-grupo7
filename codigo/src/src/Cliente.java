@@ -53,7 +53,7 @@ public class Cliente implements IDAO<Cliente> {
      * @return boolean (se foi bem-sucedido ou não)
      */
     public boolean adicionarAvaliacao(Audiovisual aud, double nota, String comentario) {
-        if (getEspecialista()) {
+       
             Avaliacao avaliacao = new Avaliacao(nota, comentario);
             tipo.avaliar(this, aud, avaliacao);
             return true;
@@ -196,6 +196,7 @@ public class Cliente implements IDAO<Cliente> {
         }
         return contador >= 5;
     }
+
 
     /**
      * Registra audiência a partir da classe Audiovisual

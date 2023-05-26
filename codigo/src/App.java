@@ -79,13 +79,13 @@ public class App {
         int opcAssistir = scanner.nextInt();
         switch (opcAssistir) {
             case 1:
-                plataforma.getFilmes().forEach(x -> System.out.println(x.toString()));
+                plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
                 break;
             case 2:
-                plataforma.getSeries().forEach(x -> System.out.println(x.toString()));
+                plataforma.getSeries().values().forEach(x -> System.out.println(x.toString()));
                 break;
             default:
-                plataforma.getFilmes().forEach(x -> System.out.println(x.toString()));
+                plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
                 break;
         }
 
@@ -97,7 +97,7 @@ public class App {
             String comentario = "";
             System.out.println("Digite uma nota de 1 a 5.");
             Double nota = scanner.nextDouble();
-            if (clientAutenticado.getEspecialista()) {
+            // if (clientAutenticado.getEspecialista()) {
                 System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
                 comentario = scanner.next();
                 clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
@@ -148,12 +148,12 @@ public class App {
                 case 1:
                     limparTela();
                     System.out.println("Catálogo de filmes:");
-                    plataforma.getFilmes().forEach(x -> System.out.println(x.toString()));
+                    plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
                     break;
                 case 2:
                     limparTela();
                     System.out.println("Catálogo de séries:");
-                    plataforma.getSeries().forEach(x -> System.out.println(x.toString()));
+                    plataforma.getSeries().values().forEach(x -> System.out.println(x.toString()));
                     break;
                 case 3:
                     limparTela();

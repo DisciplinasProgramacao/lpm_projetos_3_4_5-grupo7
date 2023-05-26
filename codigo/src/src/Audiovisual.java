@@ -17,6 +17,7 @@ public class Audiovisual {
 
     public Audiovisual() {
     }
+
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
      * 
@@ -59,11 +60,12 @@ public class Audiovisual {
     public String getNome() {
         return nome;
     }
-    public LocalDate getDataAssistido(){
+
+    public LocalDate getDataAssistido() {
         return dataAssistido;
     }
 
-    public void setDataAssistido(){
+    public void setDataAssistido() {
         this.dataAssistido = LocalDate.now();
     }
 
@@ -133,7 +135,9 @@ public class Audiovisual {
      * @return double
      */
     public double gerarMediaAvaliacoes() {
-        return this.avaliacoes.values().stream().mapToDouble(num -> num.getNota()).average().getAsDouble();
+        // return this.avaliacoes.values().stream().mapToDouble(num ->
+        // num.getNota()).average().getAsDouble();
+        return 0;
     }
     // #endregion
 }
