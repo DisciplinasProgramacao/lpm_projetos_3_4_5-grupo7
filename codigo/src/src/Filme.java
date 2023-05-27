@@ -37,7 +37,7 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
   public Filme loadObject(String linha) {
     String[] dados = linha.split(";");
 
-    int id = Integer.parseInt(dados[0].trim());
+    int id = Integer.parseInt(dados[0].trim().replaceAll("\\p{C}", ""));
     String nome = dados[1].trim();
     String dataLancamento = dados[2].trim();
     int duracao = Integer.parseInt(dados[3].trim());

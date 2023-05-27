@@ -34,7 +34,7 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
     public Serie loadObject(String linha) {
         String[] dados = linha.split(";");
 
-        int id = Integer.parseInt(dados[0].trim());
+        int id = Integer.parseInt(dados[0].trim().replaceAll("\\p{C}", ""));
         String nome = dados[1].trim();
         String dataLancamento = dados[2].trim();
 

@@ -99,8 +99,8 @@ public class Audiovisual {
 
     @Override
     public String toString() {
-        return String.format("\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
-                this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero());
+        return String.format("\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
+                this.getId(), this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero());
     }
     // #endregion
 

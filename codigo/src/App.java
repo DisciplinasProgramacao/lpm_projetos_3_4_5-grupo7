@@ -50,12 +50,14 @@ public class App {
         System.out.println("Adicionar Filme...");
         System.out.println("Digite o ID do filme");
         int id = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Digite o nome do filme:");
-        String nome = scanner.next();
+        String nome = scanner.nextLine();
         System.out.println("Digite a data de lançamento:");
-        String anoLancamento = scanner.next();
+        String anoLancamento = scanner.nextLine();
         System.out.println("Digite a duração do filme:");
         int duracao = scanner.nextInt();
+        scanner.nextLine();
         Filme filme = new Filme(id, nome, anoLancamento, duracao);
         plataforma.adicionarFilme(filme);
         plataforma.salvarFilme();
@@ -75,20 +77,20 @@ public class App {
     }
 
     public static void assistir() {
-        System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
-        int opcAssistir = scanner.nextInt();
-        switch (opcAssistir) {
-            case 1:
-                plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
-                break;
-            case 2:
-                plataforma.getSeries().values().forEach(x -> System.out.println(x.toString()));
-                break;
-            default:
-                plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
-                break;
-        }
-
+        // System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
+        // int opcAssistir = scanner.nextInt();
+        // switch (opcAssistir) {
+        //     case 1:
+        //         plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
+        //         break;
+        //     case 2:
+        //         plataforma.getSeries().values().forEach(x -> System.out.println(x.toString()));
+        //         break;
+        //     default:
+        //         plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
+        //         break;
+        // }
+        // plataforma.getHashMapAudioVisual().values().forEach(x -> System.out.println(x.toString())); C
         System.out.println("Digite o id que deseja assistir.");
         Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
         System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
@@ -97,7 +99,7 @@ public class App {
             String comentario = "";
             System.out.println("Digite uma nota de 1 a 5.");
             Double nota = scanner.nextDouble();
-            // if (clientAutenticado.getEspecialista()) {
+            if (clientAutenticado.getEspecialista()) {
                 System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
                 comentario = scanner.next();
                 clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
@@ -124,14 +126,14 @@ public class App {
     }
 
     public static void filtraMidiaPorIdioma() {
-        System.out.println("Digite o gênero:");
-        String genero = scanner.nextLine();
+        System.out.println("Digite o idioma:");
+        String idioma = scanner.nextLine();
         Filtro<Audiovisual> f = new Filtro<>();
 
         Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma()
                 .equals(filtro.getBusca());
 
-        List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, genero);
+        List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, idioma);
 
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
     }
