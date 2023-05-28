@@ -225,4 +225,8 @@ public class Cliente implements IDAO<Cliente> {
     }
     // #endregion
 
+    @Override
+    public String toString() {
+        return String.format("Nome: %s - Login: %s", this.nomeDeUsuario, this.login);
+    }
 }

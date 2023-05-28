@@ -1,5 +1,8 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -51,9 +54,9 @@ public class ClienteTest {
 
     @Test()
     public void avaliacaoClienteNaoEspecialista() {
-        Cliente c = new Cliente("joao caram", "123");
+        Cliente c = new Cliente("pedro bial", "123");
         Serie s = new Serie(6, "a", "b");
-
+        assertEquals(false, c.adicionarAvaliacao(s, 5, "bem divertido!"));
         Assertions.assertFalse(c.adicionarAvaliacao(s, 5, "nao sou especialista mas quero por comentario"));
     }
 

@@ -80,17 +80,21 @@ public class App {
         // System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
         // int opcAssistir = scanner.nextInt();
         // switch (opcAssistir) {
-        //     case 1:
-        //         plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
-        //         break;
-        //     case 2:
-        //         plataforma.getSeries().values().forEach(x -> System.out.println(x.toString()));
-        //         break;
-        //     default:
-        //         plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
-        //         break;
+        // case 1:
+        // plataforma.getFilmes().values().forEach(x ->
+        // System.out.println(x.toString()));
+        // break;
+        // case 2:
+        // plataforma.getSeries().values().forEach(x ->
+        // System.out.println(x.toString()));
+        // break;
+        // default:
+        // plataforma.getFilmes().values().forEach(x ->
+        // System.out.println(x.toString()));
+        // break;
         // }
-        // plataforma.getHashMapAudioVisual().values().forEach(x -> System.out.println(x.toString())); C
+        // plataforma.getHashMapAudioVisual().values().forEach(x ->
+        // System.out.println(x.toString())); C
         System.out.println("Digite o id que deseja assistir.");
         Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
         System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
@@ -173,6 +177,18 @@ public class App {
                 case 4:
                     limparTela();
                     System.out.println("Perfil:");
+                    System.out.println("Digite seu login:");
+                    String login = scanner.nextLine();
+                    System.out.println("Digite sua senha:");
+                    String senha = scanner.nextLine();
+                    clientAutenticado = plataforma.login(login, senha);
+                    if (clientAutenticado != null) {
+                        System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario());
+                        System.out.println("Você é um cliente "
+                                + (clientAutenticado.getEspecialista() ? "especialista" : "regular"));
+                    } else {
+                        System.out.println("Login ou senha incorretos.");
+                    }
                     break;
                 case 5:
                     limparTela();
