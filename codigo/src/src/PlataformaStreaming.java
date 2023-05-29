@@ -73,6 +73,18 @@ public class PlataformaStreaming extends Thread {
     }
 
     /**
+     * Cadastra um novo cliente na Plataforma de Streaming.
+     * 
+     * @param nomeUsuario
+     * @param login
+     * @param senha
+     */
+    public void cadastro(String nome, String login, String senha) {
+        Cliente cliente = new Cliente(nome, login, senha);
+        adicionarCliente(cliente);
+    }
+
+    /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
      *
      * @param filme
@@ -95,7 +107,7 @@ public class PlataformaStreaming extends Thread {
      * 
      * @param cliente
      */
-    public void adicionarCliente(Cliente cliente) {
+    private void adicionarCliente(Cliente cliente) {
         this.clientes.put(cliente.getLogin(), cliente);
         DAO<Cliente> dao = new DAO<Cliente>("POO_Filmes.csv");
         try {

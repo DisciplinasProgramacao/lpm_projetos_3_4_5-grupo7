@@ -32,6 +32,7 @@ public class App {
         System.out.println("7 - Assistir");
         System.out.println("8 - Filtrar midia por genero");
         System.out.println("9 - Filtrar midia por Idioma");
+        System.out.println("10 - Cadastrar um novo usuário");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -117,6 +118,7 @@ public class App {
 
         }
         System.out.println("Obrigado.");
+        pausa();
     }
 
     public static void filtraMidiaPorGenero() {
@@ -143,6 +145,54 @@ public class App {
         List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, idioma);
 
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
+    }
+
+    public static void verPerfil() {
+
+        if (clientAutenticado != null) {
+            System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
+                    + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
+        } else {
+            System.out.println("Você não está logado.");
+            System.out.println("Digite seu login:");
+            String login = scanner.nextLine();
+            System.out.println("Digite sua senha:");
+            String senha = scanner.nextLine();
+            clientAutenticado = plataforma.login(login, senha);
+
+            if (clientAutenticado != null) {
+                System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
+                        + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
+            } else {
+                System.out.println("Login ou senha incorretos. Tente novamente");
+            }
+        }
+    }
+
+    public static void cadastrarNovoUsuario() {
+        System.out.println("Digite seu nome de exibição:");
+        String nomeUsuarioCadastro = scanner.nextLine();
+        System.out.println("Digite seu login:");
+        String loginCadastro = scanner.nextLine();
+        System.out.println("Digite sua senha:");
+        String senhaCadastro = scanner.nextLine();
+
+        plataforma.cadastro(nomeUsuarioCadastro, loginCadastro, senhaCadastro);
+
+        System.out.println("você deseja logar como este cliente agora? 1 para Sim | 0 para Não");
+        int opc = scanner.nextInt();
+
+        if (opc == 1) {
+            clientAutenticado = plataforma.login(loginCadastro, senhaCadastro);
+            if (clientAutenticado != null)
+                System.out.println("Usuário " + nomeUsuarioCadastro
+                        + " cadastrado com sucesso! Você está logado como este usuário");
+        } else {
+            System.out.println("Usuário " + nomeUsuarioCadastro + " cadastrado com sucesso!");
+        }
+
+        pausa();
+
     }
 
     public static void main(String[] args) {
@@ -180,16 +230,7 @@ public class App {
                 case 4:
                     limparTela();
                     System.out.println("Perfil:");
-                    System.out.println("Digite seu login:");
-                    String login = scanner.nextLine();
-                    System.out.println("Digite sua senha:");
-                    String senha = scanner.nextLine();
-                    clientAutenticado = plataforma.login(login, senha);
-                    if (clientAutenticado != null) {
-                        System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario());
-                    } else {
-                        System.out.println("Login ou senha incorretos.");
-                    }
+                    verPerfil();
                     break;
                 case 5:
                     limparTela();
@@ -212,6 +253,12 @@ public class App {
                     limparTela();
                     filtraMidiaPorIdioma();
                     break;
+                case 10:
+                    limparTela();
+                    System.out.println("Criando um novo usuário:");
+                    cadastrarNovoUsuario();
+                    break;
+
                 default:
                     System.out.println("Opção inválida!");
                     break;

@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import src.Audiovisual;
 import src.Cliente;
 import src.Filtro;
@@ -17,16 +16,19 @@ import src.Serie;
 public class PlataformaStreamingTest {
   PlataformaStreaming ps;
 
-  @BeforeEach
-  public void adicionaCliente() {
+  @Test
+  public void testaCadastro() {
     ps = new PlataformaStreaming();
-    ps.adicionarCliente(new Cliente("user", "senha"));
+    ps.cadastro("joão kleber", "jk123", "12345");
+    Cliente c = ps.login("jk123", "12345");
+
+    Assertions.assertNotNull(c);
   }
 
   @Test
   public void testaLogin() {
     ps = new PlataformaStreaming();
-    ps.adicionarCliente(new Cliente("user", "senha"));
+    ps.cadastro("joaozinho", "user", "senha");
     Cliente c = ps.login("user", "senha");
 
     Assertions.assertNotNull(c);
@@ -41,7 +43,7 @@ public class PlataformaStreamingTest {
   @Test
   public void testaAdicionarCliente() {
     ps = new PlataformaStreaming();
-    Assertions.assertDoesNotThrow(() -> ps.adicionarCliente(new Cliente("usuario", "senha")));
+    Assertions.assertDoesNotThrow(() -> ps.cadastro("joaozinho", "user", "senha"));
   }
 
   @Test
@@ -65,7 +67,7 @@ public class PlataformaStreamingTest {
     Filtro<Audiovisual> f = new Filtro<>();
 
     Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero()
-            .equals(filtro.getBusca());
+        .equals(filtro.getBusca());
 
     String genero = "Comédia";
 
@@ -80,7 +82,7 @@ public class PlataformaStreamingTest {
     Serie serie = new Serie(1, "serie", "01/01/2021");
     Serie serie2 = new Serie(2, "shrek 3", "01/01/2021");
     Serie serie3 = new Serie(3, "shrek 2", "01/01/2021");
-    
+
     serie.setIdioma("Português");
     serie2.setIdioma("Inglês");
     serie3.setIdioma("Espanhol");
@@ -92,14 +94,13 @@ public class PlataformaStreamingTest {
     Filtro<Audiovisual> f = new Filtro<>();
 
     Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma()
-            .equals(filtro.getBusca());
+        .equals(filtro.getBusca());
 
     String idioma = "Português";
 
     List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, idioma);
 
     palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
-
 
     Assertions.assertEquals(1, palavrasFiltradas.size());
   }

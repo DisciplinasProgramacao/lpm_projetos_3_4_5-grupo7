@@ -1,4 +1,5 @@
 package src;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -11,7 +12,6 @@ public class DadosService {
   public DadosService(PlataformaStreaming ps) {
     plataformaStreaming = ps;
   }
-
 
   /**
    * Método para carregar clientes a partir do arquivo de clientes
@@ -26,7 +26,7 @@ public class DadosService {
       Cliente cliente = new Cliente(login, senha);
 
       buscarAudiencia(cliente);
-      plataformaStreaming.adicionarCliente(cliente);
+      plataformaStreaming.cadastro(login, login, senha);
     });
   }
 
@@ -66,8 +66,9 @@ public class DadosService {
 
   }
 
-  
-  /** Método que coloca audiência na lista de Para Ver ou de Assistidos do cliente
+  /**
+   * Método que coloca audiência na lista de Para Ver ou de Assistidos do cliente
+   * 
    * @param cliente
    */
   private void buscarAudiencia(Cliente cliente) {
@@ -100,8 +101,10 @@ public class DadosService {
     });
   }
 
-  
-  /** Método que lê o arquivo de Clientes e retorna uma Lista a partir do método de carregarDados
+  /**
+   * Método que lê o arquivo de Clientes e retorna uma Lista a partir do método de
+   * carregarDados
+   * 
    * @return List<String>
    */
   private List<String> criarArrayDeClientes() {
@@ -109,8 +112,10 @@ public class DadosService {
     return carregarDados(arquivoCliente);
   }
 
-  
-  /** Método que lê o arquivo de Séries e retorna uma Lista a partir do método de carregarDados
+  /**
+   * Método que lê o arquivo de Séries e retorna uma Lista a partir do método de
+   * carregarDados
+   * 
    * @return List<String>
    */
   private List<String> criarArrayDeSeries() {
@@ -118,8 +123,10 @@ public class DadosService {
     return carregarDados(nomeArquivo);
   }
 
-  
-  /** Método que lê o arquivo de Filmes e retorna uma Lista a partir do método de carregarDados
+  /**
+   * Método que lê o arquivo de Filmes e retorna uma Lista a partir do método de
+   * carregarDados
+   * 
    * @return List<String>
    */
   private List<String> criarArrayDeFilmes() {
@@ -127,8 +134,10 @@ public class DadosService {
     return carregarDados(nomeArquivo);
   }
 
-  
-  /** Método que lê o arquivo de Audiências e retorna uma Lista a partir do método de carregarDados
+  /**
+   * Método que lê o arquivo de Audiências e retorna uma Lista a partir do método
+   * de carregarDados
+   * 
    * @return List<String>
    */
   private List<String> criarArrayDeAudiencias() {
@@ -136,8 +145,10 @@ public class DadosService {
     return carregarDados(nomeArquivo);
   }
 
-  
-  /** Método que carrega dados a partir de um arquivo e retorna uma lista de Strings
+  /**
+   * Método que carrega dados a partir de um arquivo e retorna uma lista de
+   * Strings
+   * 
    * @param nomeArquivo
    * @return List<String>
    */
