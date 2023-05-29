@@ -14,10 +14,10 @@ public class ClienteTest {
         Serie s = new Serie(1, "a", "b");
 
         try {
-            c.adicionarAvaliacao(s, 5.0, null);
+            c.adicionarAvaliacao(s, 5.0, "");
         } catch (Exception e) {
         }
-        Assertions.assertEquals("Nota: 5.0 - Comentário: null", s.mostrarAvaliacoes());
+        Assertions.assertEquals("Nota: 5.0 - Comentário: ", s.mostrarAvaliacoes());
     }
 
     @Test()
