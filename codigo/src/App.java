@@ -39,6 +39,16 @@ public class App {
         return opcao;
     }
 
+    private static int menuInicialLogin() {
+        System.out.println("Bem-vindo ao StreamingApp!");
+        System.out.println("Escolha uma opção:");
+        System.out.println("1 - Criar um novo perfil");
+        System.out.println("2 - Fazer login");
+        int opcao = Integer.parseInt(scanner.nextLine());
+        limparTela();
+        return opcao;
+    }
+
     public static void buscarSeries() {
         System.out.println("Buscar Séries:");
         System.out.println("Digite o nome do titulo:");
@@ -124,6 +134,7 @@ public class App {
             }
             System.out.println("Obrigado.");
         }
+        scanner.nextLine();
 
     }
 
@@ -202,14 +213,30 @@ public class App {
             System.out.println("Usuário " + nomeUsuarioCadastro + " cadastrado com sucesso!");
         }
 
+        scanner.nextLine();
         pausa();
 
     }
 
     public static void main(String[] args) {
         int opcao = -1;
+        int opcaoInicial = -1;
         plataforma.carregarDados();
+
         do {
+            opcaoInicial = menuInicialLogin();
+            switch (opcaoInicial) {
+                case 1:
+                    cadastrarNovoUsuario();
+                    break;
+                case 2:
+                    verPerfil();
+                    break;
+            }
+        } while (clientAutenticado == null);
+
+        do {
+            limparTela();
             opcao = menu();
 
             switch (opcao) {
