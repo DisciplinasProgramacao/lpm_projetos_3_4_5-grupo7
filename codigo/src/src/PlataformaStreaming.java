@@ -116,7 +116,7 @@ public class PlataformaStreaming extends Thread {
      */
     private void adicionarCliente(Cliente cliente) {
         this.clientes.put(cliente.getLogin(), cliente);
-        DAO<Cliente> dao = new DAO<Cliente>("POO_Filmes.csv");
+        DAO<Cliente> dao = new DAO<Cliente>("codigo/src/files/POO_Espectadores.csv");
         try {
             dao.append(cliente);
         } catch (IOException e) {
@@ -231,6 +231,7 @@ public class PlataformaStreaming extends Thread {
             daoFilme.load(new Filme()).forEach(x -> this.filmes.put(x.getId(), x));
             daoSerie.load(new Serie()).forEach(x -> this.series.put(x.getId(), x));
             daoCliente.load(new Cliente()).forEach(x -> this.clientes.put(x.getLogin(), x));
+
             carregarAudiencia();
         } catch (IOException e) {
             e.printStackTrace();
@@ -258,8 +259,7 @@ public class PlataformaStreaming extends Thread {
                 } else {
                     auxBloco++;
                     contador = 0;
-                    // new Thread(()-> processaBlocoAudiencia(new
-                    // List<String>().addAll(auxLista))).start();
+                    // new Thread(()-> ).start();
                     processaBlocoAudiencia(auxLista);
                     auxLista = new Stack<>();
                 }
@@ -294,8 +294,5 @@ public class PlataformaStreaming extends Thread {
         }
     }
 
-    public void run() {
-
-    }
     // #endregion
 }

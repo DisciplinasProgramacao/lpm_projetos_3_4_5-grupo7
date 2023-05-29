@@ -155,7 +155,7 @@ public class Cliente implements IDAO<Cliente> {
      */
     @Override
     public String stringSalvar() {
-        return String.format("%s;%s;%s", this.login, this.nomeDeUsuario, this.senha);
+        return String.format("%s;%s;%s", this.nomeDeUsuario, this.login, this.senha);
     }
 
     /**

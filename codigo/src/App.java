@@ -170,12 +170,11 @@ public class App {
         String qtdEpisodios = scanner.nextLine();
         Filtro<Serie> f = new Filtro<>();
 
-        Predicate<FiltroPersonalizado<Serie>> filtrador = filtro -> Integer.toString(filtro.getElemento().getQuantidadeEpisodios())
+        Predicate<FiltroPersonalizado<Serie>> filtrador = filtro -> Integer
+                .toString(filtro.getElemento().getQuantidadeEpisodios())
                 .equals(filtro.getBusca());
 
         List<Serie> palavrasFiltradas = f.filtrar(plataforma.getListaSerie(), filtrador, qtdEpisodios);
-
-        
 
         palavrasFiltradas.forEach(serie -> System.out.println(serie.getNome()));
     }
@@ -237,9 +236,11 @@ public class App {
     public static void main(String[] args) {
         int opcao = -1;
         int opcaoInicial = -1;
-        plataforma.carregarDados();
-
+        new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
+        
+        // plataforma.carregarDados();
         do {
+
             opcaoInicial = menuInicialLogin();
             switch (opcaoInicial) {
                 case 1:
