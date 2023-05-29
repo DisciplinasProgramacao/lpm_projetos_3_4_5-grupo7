@@ -20,7 +20,6 @@ public class App {
     }
 
     public static int menu() {
-        limparTela();
         System.out.println("Bem-vindo ao StreamingApp!");
         System.out.println("Escolha uma opção:");
         System.out.println("1 - Ver catálogo de filmes");
@@ -36,7 +35,7 @@ public class App {
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
-
+        limparTela();
         return opcao;
     }
 
@@ -200,7 +199,7 @@ public class App {
         plataforma.carregarDados();
         do {
             opcao = menu();
-            limparTela();
+
             switch (opcao) {
                 case 0:
                     System.out.println("Saindo...");
