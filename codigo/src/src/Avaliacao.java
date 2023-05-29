@@ -30,7 +30,11 @@ public class Avaliacao {
      * @param nota
      */
     private void cadastrarAvaliacao(double nota) {
-        this.nota = (nota >= 0 && nota <= avaliacaoMaxima) ? nota : 0;
+        if(nota >= 0.0 && nota <= avaliacaoMaxima) {
+            this.nota = nota;
+        } else {
+            this.nota = 0.0;
+        }
     }
 
     @Override

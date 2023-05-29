@@ -58,12 +58,9 @@ public class Cliente implements IDAO<Cliente> {
         if (comentario.equals("") && tipo == null) {
             aud.adicionarAvaliacao(this, avaliacao);
         } else if (!comentario.equals("") && tipo == null) {
-            try {
-                avaliacao = new Avaliacao(nota);
-                aud.adicionarAvaliacao(this, avaliacao);
-            } catch(Exception e) {
-                throw new Exception("Cliente não é especialista! Apenas a nota foi salva.");
-            }
+            avaliacao = new Avaliacao(nota);
+            aud.adicionarAvaliacao(this, avaliacao);
+            throw new Exception("Cliente não é especialista! Apenas a nota foi salva.");
         } else {
             tipo.avaliar(this, aud, avaliacao);
         }
