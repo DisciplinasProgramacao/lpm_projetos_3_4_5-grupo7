@@ -166,7 +166,6 @@ public class App {
     }
 
     public static void filtraSeriePorQuantidadeEpisodios() {
-        plataforma.getListaSerie().forEach(serie -> System.out.println(serie.getQuantidadeEpisodios()));
         System.out.println("Digite a quantidade de episódios:");
         String qtdEpisodios = scanner.nextLine();
         Filtro<Serie> f = new Filtro<>();
