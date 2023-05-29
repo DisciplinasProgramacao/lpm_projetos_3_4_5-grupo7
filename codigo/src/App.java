@@ -97,28 +97,34 @@ public class App {
         // System.out.println(x.toString())); C
         System.out.println("Digite o id que deseja assistir.");
         Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
-        System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
-        int opc = scanner.nextInt();
-        if (opc == 1) {
 
-            String comentario = "";
-            System.out.println("Digite uma nota de 1 a 5.");
-            Double nota = scanner.nextDouble();
-            scanner.nextLine();
-            System.out.println(
-                    "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
-            comentario = scanner.nextLine();
+        if (ver == null) {
+            System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
+        } else {
+            clientAutenticado.adicionarNaListaJaVistas(ver);
+            System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
+            int opc = scanner.nextInt();
+            if (opc == 1) {
 
-            try {
-                clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
-                System.out.println("Avaliação cadastrada");
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+                String comentario = "";
+                System.out.println("Digite uma nota de 1 a 5.");
+                Double nota = scanner.nextDouble();
+                scanner.nextLine();
+                System.out.println(
+                        "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
+                comentario = scanner.nextLine();
+
+                try {
+                    clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
+                    System.out.println("Avaliação cadastrada");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
-
+            System.out.println("Obrigado.");
         }
-        System.out.println("Obrigado.");
-        pausa();
+
     }
 
     public static void filtraMidiaPorGenero() {
@@ -147,11 +153,17 @@ public class App {
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
     }
 
+    private static void identificaCliente() {
+        System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
+                + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
+        System.out.println(
+                "Você é um cliente " + (clientAutenticado.getTipo() == null ? "Regular. " : "Especialista."));
+    }
+
     public static void verPerfil() {
 
         if (clientAutenticado != null) {
-            System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
-                    + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
+            identificaCliente();
         } else {
             System.out.println("Você não está logado.");
             System.out.println("Digite seu login:");
@@ -161,8 +173,7 @@ public class App {
             clientAutenticado = plataforma.login(login, senha);
 
             if (clientAutenticado != null) {
-                System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
-                        + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
+                identificaCliente();
             } else {
                 System.out.println("Login ou senha incorretos. Tente novamente");
             }

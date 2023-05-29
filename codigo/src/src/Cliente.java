@@ -210,6 +210,10 @@ public class Cliente implements IDAO<Cliente> {
     public String getLogin() {
         return this.login;
     }
+
+    public ICliente getTipo() {
+        return this.tipo;
+    }
     // #endregion
 
     @Override
