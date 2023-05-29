@@ -200,22 +200,21 @@ public class App {
         plataforma.carregarDados();
         do {
             opcao = menu();
+            limparTela();
             switch (opcao) {
                 case 0:
                     System.out.println("Saindo...");
                     break;
                 case 1:
-                    limparTela();
+
                     System.out.println("Catálogo de filmes:");
                     plataforma.getFilmes().values().forEach(x -> System.out.println(x.toString()));
                     break;
                 case 2:
-                    limparTela();
                     System.out.println("Catálogo de séries:");
                     plataforma.getSeries().values().forEach(x -> System.out.println(x.toString()));
                     break;
                 case 3:
-                    limparTela();
                     System.out.println("Buscar conteúdo:");
                     System.out.print("Digite o nome do título: ");
                     String audiovisual = scanner.nextLine();
@@ -228,33 +227,26 @@ public class App {
                     scanner.nextLine();
                     break;
                 case 4:
-                    limparTela();
                     System.out.println("Perfil:");
                     verPerfil();
                     break;
                 case 5:
-                    limparTela();
                     adicionarFilme();
                     break;
 
                 case 6:
-                    limparTela();
                     adicionarSerie();
                     break;
                 case 7:
-                    limparTela();
                     assistir();
                     break;
                 case 8:
-                    limparTela();
                     filtraMidiaPorGenero();
                     break;
                 case 9:
-                    limparTela();
                     filtraMidiaPorIdioma();
                     break;
                 case 10:
-                    limparTela();
                     System.out.println("Criando um novo usuário:");
                     cadastrarNovoUsuario();
                     break;
