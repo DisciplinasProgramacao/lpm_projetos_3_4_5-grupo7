@@ -106,7 +106,7 @@ public class App {
             Double nota = scanner.nextDouble();
             System.out.println(
                     "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
-            comentario = scanner.next();
+            comentario = scanner.nextLine();
 
             try {
                 clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
