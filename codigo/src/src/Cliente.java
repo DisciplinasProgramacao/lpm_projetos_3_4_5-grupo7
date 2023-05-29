@@ -109,54 +109,6 @@ public class Cliente implements IDAO<Cliente> {
     }
 
     /**
-     * Junta duas listas retornando somente uma lista
-     * 
-     * @return Lista de séries
-     */
-    private List<Audiovisual> combinarListas() {
-        List<Audiovisual> combinacaoListas = new ArrayList<Audiovisual>();
-        combinacaoListas.addAll(this.listaParaVer);
-        combinacaoListas.addAll(this.listaJaVistas);
-        return combinacaoListas;
-    }
-
-    /**
-     * Retorna uma lista de séries filtradas por gênero
-     *
-     * @param genero
-     * @return Lista de séries filtradas por gênero
-     */
-    public List<Audiovisual> filtrarPorGenero(String genero) {
-        List<Audiovisual> lista = new ArrayList<Audiovisual>();
-        List<Audiovisual> combinacaoListas = combinarListas();
-
-        for (Audiovisual audiovisual : combinacaoListas) {
-            if (audiovisual.getGenero().equals(genero)) {
-                lista.add(audiovisual);
-            }
-        }
-
-        return lista;
-    }
-
-    /**
-     * Retorna uma lista de séries filtradas por idioma
-     * 
-     * @param idioma
-     * @return Lista de séries filtradas por idioma
-     */
-    public List<Audiovisual> filtrarPorIdioma(String idioma) {
-        List<Audiovisual> lista = new ArrayList<Audiovisual>();
-        List<Audiovisual> combinacaoListas = combinarListas();
-
-        for (Audiovisual audiovisual : combinacaoListas) {
-            if (audiovisual.getIdioma() == idioma)
-                lista.add(audiovisual);
-        }
-        return lista;
-    }
-
-    /**
      * Implementação do método da interface: salva no arquivo de maneira formatada a
      * linha dos dados do cliente
      * 
