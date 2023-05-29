@@ -70,13 +70,8 @@ public class PlataformaStreaming extends Thread {
      * @return Retorna um novo cliente
      */
     public Cliente login(String login, String senha) {
-        for (Cliente cliente : this.clientes.values())
-            if (cliente.getSenha().equals(senha) && cliente.getLogin().equals(login)) {
-                this.clienteAtual = cliente;
-                return cliente;
-            }
-
-        return null;
+        Cliente cliente = this.clientes.get(login);
+        return (cliente != null && cliente.getSenha().equals(senha)) ? cliente : null;
     }
 
     /**

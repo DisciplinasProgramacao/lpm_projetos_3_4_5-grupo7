@@ -141,7 +141,7 @@ public class App {
 
     public static void filtraMidiaPorGenero() {
         System.out.println("Digite o gênero:");
-        String genero = scanner.nextLine();
+        String genero = menuGenero();
         Filtro<Audiovisual> f = new Filtro<>();
 
         Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero()
@@ -149,12 +149,12 @@ public class App {
 
         List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, genero);
 
-        palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
+        palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.toString()));
     }
 
     public static void filtraMidiaPorIdioma() {
-        System.out.println("Digite o idioma:");
-        String idioma = scanner.nextLine();
+
+        String idioma = menuLinguagem();
         Filtro<Audiovisual> f = new Filtro<>();
 
         Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma()
@@ -162,7 +162,7 @@ public class App {
 
         List<Audiovisual> palavrasFiltradas = f.filtrar(plataforma.getListaAudioVisual(), filtrador, idioma);
 
-        palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
+        palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.toString()));
     }
 
     public static void filtraSeriePorQuantidadeEpisodios() {
@@ -175,8 +175,11 @@ public class App {
                 .equals(filtro.getBusca());
 
         List<Serie> palavrasFiltradas = f.filtrar(plataforma.getListaSerie(), filtrador, qtdEpisodios);
+        if (palavrasFiltradas.size() > 0)
+            palavrasFiltradas.forEach(serie -> System.out.println(serie.toString()));
+        else
+            System.out.println("Não foi encontrado nenhuma serie com esse numero de episodios.");
 
-        palavrasFiltradas.forEach(serie -> System.out.println(serie.getNome()));
     }
 
     private static void identificaCliente() {
@@ -233,11 +236,85 @@ public class App {
 
     }
 
+    public static String menuLinguagem() {
+        String resultado = "";
+        System.out.println("Linguagens disponiveis");
+        System.out.println("1 - Português");
+        System.out.println("2 - Italiano");
+        System.out.println("3 - Francês");
+        System.out.println("4 - Inglês");
+        System.out.println("5 - Espanhol");
+
+        switch (Integer.parseInt(scanner.nextLine())) {
+            case 1:
+                resultado = "Português";
+                break;
+            case 2:
+                resultado = "Italiano";
+                break;
+            case 3:
+                resultado = "Francês";
+                break;
+            case 4:
+                resultado = "Inglês";
+                break;
+            case 5:
+                resultado = "Espanhol";
+                break;
+            default:
+                resultado = "Português";
+                break;
+
+        }
+        return resultado;
+    }
+
+    public static String menuGenero() {
+        String resultado = "";
+        System.out.println("Generos disponiveis");
+        System.out.println("1 - Terror");
+        System.out.println("2 - Comédia");
+        System.out.println("3 - Romance");
+        System.out.println("4 - Suspense");
+        System.out.println("5 - Ação");
+        System.out.println("6 - Ficção Científica");
+        System.out.println("7 - Drama");
+
+        switch (Integer.parseInt(scanner.nextLine())) {
+            case 1:
+                resultado = "Terror";
+                break;
+            case 2:
+                resultado = "Comédia";
+                break;
+            case 3:
+                resultado = "Romance";
+                break;
+            case 4:
+                resultado = "Suspense";
+                break;
+            case 5:
+                resultado = "Ação";
+                break;
+            case 6:
+                resultado = "Ficção Científica";
+                break;
+            case 7:
+                resultado = "Drama";
+                break;
+            default:
+                resultado = "Terror";
+                break;
+
+        }
+        return resultado;
+    }
+
     public static void main(String[] args) {
         int opcao = -1;
         int opcaoInicial = -1;
         new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
-        
+
         // plataforma.carregarDados();
         do {
 
