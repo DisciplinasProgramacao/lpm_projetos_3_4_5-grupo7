@@ -104,6 +104,7 @@ public class App {
             String comentario = "";
             System.out.println("Digite uma nota de 1 a 5.");
             Double nota = scanner.nextDouble();
+            scanner.nextLine();
             System.out.println(
                     "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
             comentario = scanner.nextLine();
