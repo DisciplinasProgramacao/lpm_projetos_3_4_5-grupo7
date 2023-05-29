@@ -37,6 +37,13 @@ public class PlataformaStreaming extends Thread {
         return audiovisuais;
     }
 
+    public List<Serie> getListaSerie() {
+        List<Serie> seriesLista = new ArrayList<>();
+
+        seriesLista.addAll(series.values());
+        return seriesLista;
+    }
+
     public HashMap<Integer, Audiovisual> getHashMapAudioVisual() {
         HashMap<Integer, Audiovisual> audiovisuais = new HashMap<>();
 

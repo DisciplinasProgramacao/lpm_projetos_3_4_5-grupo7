@@ -31,7 +31,8 @@ public class App {
         System.out.println("7 - Assistir");
         System.out.println("8 - Filtrar midia por genero");
         System.out.println("9 - Filtrar midia por Idioma");
-        System.out.println("10 - Cadastrar um novo usuário");
+        System.out.println("10 - Filtrar série por episodio");
+        System.out.println("11 - Cadastrar um novo usuário");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -164,6 +165,22 @@ public class App {
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
     }
 
+    public static void filtraSeriePorQuantidadeEpisodios() {
+        plataforma.getListaSerie().forEach(serie -> System.out.println(serie.getQuantidadeEpisodios()));
+        System.out.println("Digite a quantidade de episódios:");
+        String qtdEpisodios = scanner.nextLine();
+        Filtro<Serie> f = new Filtro<>();
+
+        Predicate<FiltroPersonalizado<Serie>> filtrador = filtro -> Integer.toString(filtro.getElemento().getQuantidadeEpisodios())
+                .equals(filtro.getBusca());
+
+        List<Serie> palavrasFiltradas = f.filtrar(plataforma.getListaSerie(), filtrador, qtdEpisodios);
+
+        
+
+        palavrasFiltradas.forEach(serie -> System.out.println(serie.getNome()));
+    }
+
     private static void identificaCliente() {
         System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
                 + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
@@ -285,6 +302,9 @@ public class App {
                     filtraMidiaPorIdioma();
                     break;
                 case 10:
+                    filtraSeriePorQuantidadeEpisodios();
+                    break;
+                case 11:
                     System.out.println("Criando um novo usuário:");
                     cadastrarNovoUsuario();
                     break;

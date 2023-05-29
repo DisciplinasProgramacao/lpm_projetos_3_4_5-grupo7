@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Audiovisual {
     private static String[] GENEROS;
+    private static String[] IDIOMAS;
     private String nome;
     private String genero;
     private String idioma;
@@ -29,7 +30,10 @@ public class Audiovisual {
         GENEROS = new String[] { "Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama" };
         Random random = new Random();
 
+        IDIOMAS = new String[] { "Inglês", "Português", "Italiano", "Francês", "Alemão", "Espanhol" };
+
         setGenero(GENEROS[(random.nextInt(7))]);
+        setIdioma(IDIOMAS[(random.nextInt(6))]);
         setNome(nome);
         setDataLancamento(dataLancamento);
         setId(id);

@@ -1,10 +1,16 @@
 package src;
 
+import java.util.Random;
+
 public class Serie extends Audiovisual implements IDAO<Serie> {
+    private static int[] QUANTIDADEEPISODIOS;
     private int quantidadeEpisodios;
 
     public Serie() {
         super();
+        Random randomSerie = new Random();
+        QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12};
+        setQuantidadeEpisodios(QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
     }
     /**
      * Construtor da src.Serie - recebe as informações báiscas da série presentes no
