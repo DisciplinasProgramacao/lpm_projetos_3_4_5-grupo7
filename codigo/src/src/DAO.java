@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Stack;
-import java.util.regex.Pattern;
 
 public class DAO<T extends IDAO<T>> {
     private final String urlArquivo;

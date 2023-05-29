@@ -100,18 +100,21 @@ public class App {
         System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
         int opc = scanner.nextInt();
         if (opc == 1) {
+
             String comentario = "";
             System.out.println("Digite uma nota de 1 a 5.");
             Double nota = scanner.nextDouble();
-            if (clientAutenticado.getEspecialista()) {
-                System.out.println("Digite um comentario, caso não queira apenas aperte enter.");
-                comentario = scanner.next();
+            System.out.println(
+                    "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
+            comentario = scanner.next();
+
+            try {
                 clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
-            } else {
-                clientAutenticado.adicionarAvaliacao(ver, nota);
+                System.out.println("Avaliação cadastrada");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
-            System.out.println("Avaliação cadastrada");
         }
         System.out.println("Obrigado.");
     }
@@ -184,8 +187,6 @@ public class App {
                     clientAutenticado = plataforma.login(login, senha);
                     if (clientAutenticado != null) {
                         System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario());
-                        System.out.println("Você é um cliente "
-                                + (clientAutenticado.getEspecialista() ? "especialista" : "regular"));
                     } else {
                         System.out.println("Login ou senha incorretos.");
                     }

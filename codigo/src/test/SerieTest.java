@@ -2,12 +2,9 @@ package test;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
-import src.Audiovisual;
 import src.Serie;
 
 import java.time.LocalDate;
-
-import static org.junit.Assert.assertEquals;
 
 public class SerieTest {
   @Test
@@ -22,7 +19,7 @@ public class SerieTest {
   }
 
   @Test
-  public void registraDataAssistido(){
+  public void registraDataAssistido() {
     Serie serie = new Serie(123, "serie", "01/02/2003");
 
     serie.setDataAssistido();

@@ -10,7 +10,7 @@ public class Cliente implements IDAO<Cliente> {
     private String login;
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
-    private ICliente tipo = new ClienteRegular();
+    private ICliente tipo;
 
     Cliente() {
     }
@@ -49,31 +49,21 @@ public class Cliente implements IDAO<Cliente> {
      * 
      * @param audiovisual
      * @param nota        (double)
-     * @param comentario
-     * @return boolean (se foi bem-sucedido ou não)
+     * @param comentario  (String)
      */
-    public boolean adicionarAvaliacao(Audiovisual aud, double nota, String comentario) {
-       if(true) { // MUDAR AQUI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            Avaliacao avaliacao = new Avaliacao(nota, comentario);
-            tipo.avaliar(this, aud, avaliacao);
-            return true;
-        } else {
-            System.out.println("O Cliente não é especialista. Cadastre a avaliação novamente sem o comentário!");
-            return false;
-        }
-    }
+    public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
+        Avaliacao avaliacao = new Avaliacao(nota, comentario);
 
-    /**
-     * Adiciona uma avaliação sem comentário, para todo tipo de cliente.
-     * 
-     * @param audiovisual
-     * @param nota        (double)
-     * @return boolean (se foi bem-sucedido ou não)
-     */
-    public boolean adicionarAvaliacao(Audiovisual aud, double nota) {
-        Avaliacao avaliacao = new Avaliacao(nota);
-        tipo.avaliar(this, aud, avaliacao);
-        return true;
+        if (comentario.equals("") && tipo == null) {
+            aud.adicionarAvaliacao(this, avaliacao);
+        } else if (comentario != "" && tipo == null) {
+            avaliacao = new Avaliacao(nota);
+            aud.adicionarAvaliacao(this, avaliacao);
+            throw new Exception("Cliente não é especialista! Apenas a nota foi salva.");
+        } else {
+            tipo.avaliar(this, aud, avaliacao);
+        }
+
     }
 
     /**
@@ -94,7 +84,7 @@ public class Cliente implements IDAO<Cliente> {
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         audiovisual.setDataAssistido();
         listaJaVistas.add(audiovisual);
-        if (verificarEspecialista()) {
+        if (tipo == null && verificarEspecialista()) {
             tipo = new ClienteEspecialista();
         }
     }
@@ -192,11 +182,11 @@ public class Cliente implements IDAO<Cliente> {
         LocalDate dataLimite = dataAtual.minusMonths(1);
         int contador = 0;
         for (Audiovisual audiovisual : listaJaVistas) {
-            contador += (audiovisual.getDataAssistido().isAfter(dataLimite) || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
+            contador += (audiovisual.getDataAssistido().isAfter(dataLimite)
+                    || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
         }
         return contador >= 5;
     }
-
 
     /**
      * Registra audiência a partir da classe Audiovisual
@@ -218,10 +208,6 @@ public class Cliente implements IDAO<Cliente> {
 
     public String getLogin() {
         return this.login;
-    }
-
-    public boolean getEspecialista() {
-        return (tipo instanceof ClienteEspecialista);
     }
     // #endregion
 
