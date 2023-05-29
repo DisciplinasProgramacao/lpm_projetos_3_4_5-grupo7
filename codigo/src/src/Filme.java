@@ -1,7 +1,7 @@
 package src;
 
 public class Filme extends Audiovisual implements IDAO<Filme> {
-  int duracao;
+  private int duracao;
 
   /**
    * Construtor do filme - recebe suas informações básicas presentes no arquivo

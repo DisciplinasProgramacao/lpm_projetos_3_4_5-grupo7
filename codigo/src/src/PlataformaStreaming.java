@@ -120,22 +120,6 @@ public class PlataformaStreaming extends Thread {
     }
 
     /**
-     * Retorna uma lista de séries de acordo com a quantidade de episódeos informada
-     * 
-     * @param quantEpisodios
-     * @return Lista de séries de uma determinada quantidade de episódeos
-     */
-    public List<Serie> filtrarPorQtdEpisodios(int quantEpisodios) {
-        List<Serie> seriesFiltradas = new ArrayList<>();
-
-        for (Serie serie : this.series.values())
-            if (serie.getQuantidadeEpisodios() == quantEpisodios)
-                seriesFiltradas.add(serie);
-
-        return seriesFiltradas;
-    }
-
-    /**
      * 
      * Método responsavel por registrar audiencia de acordo com o
      * objeto Audiovisual passado

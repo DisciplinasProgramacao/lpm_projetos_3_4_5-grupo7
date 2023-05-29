@@ -108,21 +108,31 @@ public class PlataformaStreamingTest {
   @Test
   public void testaFiltrarPorQtdEpisodios() {
     ps = new PlataformaStreaming();
-    Serie serie = new Serie(1, "shrek serie", "01/01/2021");
+    Serie serie1 = new Serie(1, "shrek serie", "01/01/2021");
     Serie serie2 = new Serie(2, "shrek serie 2", "01/01/2021");
     Serie serie3 = new Serie(3, "shrek serie 3", "01/01/2021");
-    List<Serie> filtradas = new ArrayList<>();
 
-    serie.setQuantidadeEpisodios(5);
+    serie1.setQuantidadeEpisodios(5);
     serie2.setQuantidadeEpisodios(10);
     serie3.setQuantidadeEpisodios(5);
 
-    ps.adicionarSerie(serie);
+    ps.adicionarSerie(serie1);
     ps.adicionarSerie(serie2);
     ps.adicionarSerie(serie3);
 
-    filtradas = ps.filtrarPorQtdEpisodios(5);
-    Assertions.assertEquals(2, filtradas.size());
+    Filtro<Serie> f = new Filtro<>();
+
+    Predicate<FiltroPersonalizado<Serie>> filtrador = filtro -> Integer
+                .toString(filtro.getElemento().getQuantidadeEpisodios())
+                .equals(filtro.getBusca());
+
+    String qtdEpisodios = "5";
+
+    List<Serie> palavrasFiltradas = f.filtrar(ps.getListaSerie(), filtrador, qtdEpisodios);
+
+    if (palavrasFiltradas.size() > 0)
+              palavrasFiltradas.forEach(serie -> System.out.println(serie.toString()));
+    Assertions.assertEquals(2, palavrasFiltradas.size());
   }
 
   @Test
