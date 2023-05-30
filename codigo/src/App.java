@@ -83,24 +83,6 @@ public class App {
     }
 
     private static void assistir() {
-        // System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
-        // int opcAssistir = scanner.nextInt();
-        // switch (opcAssistir) {
-        // case 1:
-        // plataforma.getFilmes().values().forEach(x ->
-        // System.out.println(x.toString()));
-        // break;
-        // case 2:
-        // plataforma.getSeries().values().forEach(x ->
-        // System.out.println(x.toString()));
-        // break;
-        // default:
-        // plataforma.getFilmes().values().forEach(x ->
-        // System.out.println(x.toString()));
-        // break;
-        // }
-        // plataforma.getHashMapAudioVisual().values().forEach(x ->
-        // System.out.println(x.toString())); C
         System.out.println("Digite o id que deseja assistir.");
         Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
 
