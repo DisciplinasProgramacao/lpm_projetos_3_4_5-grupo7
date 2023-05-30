@@ -47,4 +47,11 @@ public class SerieTest {
 
     assertEquals(3.0, serie.gerarMediaAvaliacoes(), 0.1);
   }
+
+  @Test
+  public void testeMediaAvaliacoesVazia() {
+    Serie serie = new Serie(123, "serie", "01/02/2003");
+
+    assertEquals(0.0, serie.gerarMediaAvaliacoes(), 0.1);
+  }
 }
