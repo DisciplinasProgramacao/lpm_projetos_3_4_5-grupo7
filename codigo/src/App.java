@@ -22,18 +22,18 @@ public class App {
     public static int menu() {
         System.out.println("Bem-vindo ao StreamingApp!");
         System.out.println("Escolha uma opção:");
-        System.out.println("1 - Ver catálogo de filmes");
-        System.out.println("2 - Ver catálogo de séries");
-        System.out.println("3 - Buscar conteúdo:");
-        System.out.println("4 - Ver perfil");
-        System.out.println("5 - Adicionar Filme");
-        System.out.println("6 - Adicionar Serie");
-        System.out.println("7 - Assistir");
-        System.out.println("8 - Filtrar midia por genero");
-        System.out.println("9 - Filtrar midia por Idioma");
+        System.out.println("1  - Ver catálogo de filmes");
+        System.out.println("2  - Ver catálogo de séries");
+        System.out.println("3  - Buscar conteúdo:");
+        System.out.println("4  - Ver perfil");
+        System.out.println("5  - Adicionar Filme");
+        System.out.println("6  - Adicionar Serie");
+        System.out.println("7  - Assistir");
+        System.out.println("8  - Filtrar midia por genero");
+        System.out.println("9  - Filtrar midia por Idioma");
         System.out.println("10 - Filtrar série por episodio");
         System.out.println("11 - Cadastrar um novo usuário");
-        System.out.println("0 - Sair");
+        System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
         limparTela();
@@ -230,10 +230,7 @@ public class App {
         } else {
             System.out.println("Usuário " + nomeUsuarioCadastro + " cadastrado com sucesso!");
         }
-
-        scanner.nextLine();
         pausa();
-
     }
 
     public static String menuLinguagem() {
