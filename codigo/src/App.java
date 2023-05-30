@@ -164,7 +164,7 @@ public class App {
                 + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
         System.out.println(
                 "Você é um cliente " + (clientAutenticado.getTipo() == null ? "Regular. " : "Especialista."));
-        plataforma.salvarListasCliente();
+        // plataforma.salvarListasCliente();
     }
 
     private static void verPerfil() {
