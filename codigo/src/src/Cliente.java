@@ -100,6 +100,15 @@ public class Cliente implements IDAO<Cliente> {
     }
 
     /**
+     * Remove uma série em uma lista de séries para serem assistidas
+     * 
+     * @param id
+     */
+    public void retirarDaLista(int id) {
+        listaParaVer.removeIf(x -> x.getId() == id);
+    }
+
+    /**
      * Junta duas listas retornando somente uma lista
      * 
      * @return Lista de séries
@@ -213,6 +222,10 @@ public class Cliente implements IDAO<Cliente> {
 
     public ICliente getTipo() {
         return this.tipo;
+    }
+
+    public List<Audiovisual> getParaVer() {
+        return this.listaParaVer;
     }
     // #endregion
 

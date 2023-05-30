@@ -9,17 +9,17 @@ public class App {
     public static Cliente clientAutenticado;
     public static PlataformaStreaming plataforma = new PlataformaStreaming();
 
-    public static void limparTela() {
+    private static void limparTela() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-    static void pausa() {
+    private static void pausa() {
         System.out.println("Enter para continuar.");
         scanner.nextLine();
     }
 
-    public static int menu() {
+    private static int menu() {
         System.out.println("Bem-vindo ao StreamingApp!");
         System.out.println("Escolha uma opção:");
         System.out.println("1  - Ver catálogo de filmes");
@@ -33,6 +33,8 @@ public class App {
         System.out.println("9  - Filtrar midia por Idioma");
         System.out.println("10 - Filtrar série por episodio");
         System.out.println("11 - Cadastrar um novo usuário");
+        System.out.println("12 - Adicionar para ver mais tarde");
+        System.out.println("13 - Mostrar para ver mais tarde");
         System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -50,14 +52,7 @@ public class App {
         return opcao;
     }
 
-    public static void buscarSeries() {
-        System.out.println("Buscar Séries:");
-        System.out.println("Digite o nome do titulo:");
-        String audiovisual = scanner.next();
-        System.out.println(plataforma.buscarAudiovisual(audiovisual));
-    }
-
-    public static void adicionarFilme() {
+    private static void adicionarFilme() {
         System.out.println("Adicionar Filme...");
         System.out.println("Digite o ID do filme");
         int id = scanner.nextInt();
@@ -74,7 +69,7 @@ public class App {
         plataforma.salvarFilme();
     }
 
-    public static void adicionarSerie() {
+    private static void adicionarSerie() {
         System.out.println("Adicionar src.Serie...");
         System.out.println("Digite o ID da serie");
         int idSerie = scanner.nextInt();
@@ -87,7 +82,7 @@ public class App {
         plataforma.salvarSerie();
     }
 
-    public static void assistir() {
+    private static void assistir() {
         // System.out.println("Oque deseja ver ? 1 -> Filme 2 -> serie");
         // int opcAssistir = scanner.nextInt();
         // switch (opcAssistir) {
@@ -139,7 +134,7 @@ public class App {
 
     }
 
-    public static void filtraMidiaPorGenero() {
+    private static void filtraMidiaPorGenero() {
         System.out.println("Digite o gênero:");
         String genero = menuGenero();
         Filtro<Audiovisual> f = new Filtro<>();
@@ -152,7 +147,7 @@ public class App {
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.toString()));
     }
 
-    public static void filtraMidiaPorIdioma() {
+    private static void filtraMidiaPorIdioma() {
 
         String idioma = menuLinguagem();
         Filtro<Audiovisual> f = new Filtro<>();
@@ -165,7 +160,7 @@ public class App {
         palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.toString()));
     }
 
-    public static void filtraSeriePorQuantidadeEpisodios() {
+    private static void filtraSeriePorQuantidadeEpisodios() {
         System.out.println("Digite a quantidade de episódios:");
         String qtdEpisodios = scanner.nextLine();
         Filtro<Serie> f = new Filtro<>();
@@ -189,7 +184,7 @@ public class App {
                 "Você é um cliente " + (clientAutenticado.getTipo() == null ? "Regular. " : "Especialista."));
     }
 
-    public static void verPerfil() {
+    private static void verPerfil() {
 
         if (clientAutenticado != null) {
             identificaCliente();
@@ -209,7 +204,7 @@ public class App {
         }
     }
 
-    public static void cadastrarNovoUsuario() {
+    private static void cadastrarNovoUsuario() {
         System.out.println("Digite seu nome de exibição:");
         String nomeUsuarioCadastro = scanner.nextLine();
         System.out.println("Digite seu login:");
@@ -233,7 +228,7 @@ public class App {
         pausa();
     }
 
-    public static String menuLinguagem() {
+    private static String menuLinguagem() {
         String resultado = "";
         System.out.println("Linguagens disponiveis");
         System.out.println("1 - Português");
@@ -266,7 +261,7 @@ public class App {
         return resultado;
     }
 
-    public static String menuGenero() {
+    private static String menuGenero() {
         String resultado = "";
         System.out.println("Generos disponiveis");
         System.out.println("1 - Terror");
@@ -305,6 +300,31 @@ public class App {
 
         }
         return resultado;
+    }
+
+    private static void assistirMaisTarde() {
+        System.out.println("Digite o id que deseja adicionar na lista para assistir.");
+        Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
+
+        if (ver == null) {
+            System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
+        } else {
+            clientAutenticado.adicionarNaLista(ver);
+            System.out.println("Obrigado, foi adicionado na sua lista para assistir mais tarde.");
+        }
+        scanner.nextLine();
+    }
+
+    private static void verListaAssistirMaisTarde() {
+        if (clientAutenticado.getParaVer().size() > 0) {
+            clientAutenticado.getParaVer().forEach(x -> System.out.println(x.toString()));
+            System.out.println("Deseja remover algum item dessa lista? Id - Sim ou 0 - Não");
+            int opc = scanner.nextInt();
+            if (opc != 0)
+                clientAutenticado.retirarDaLista(opc);
+        } else {
+            System.out.println("Nenhum item encontrado");
+        }
     }
 
     public static void main(String[] args) {
@@ -382,7 +402,14 @@ public class App {
                     System.out.println("Criando um novo usuário:");
                     cadastrarNovoUsuario();
                     break;
-
+                case 12:
+                    System.out.println("Lista de assistir mais tarde:");
+                    assistirMaisTarde();
+                    break;
+                case 13:
+                    System.out.println("Lista de assistir mais tarde:");
+                    verListaAssistirMaisTarde();
+                    break;
                 default:
                     System.out.println("Opção inválida!");
                     break;
