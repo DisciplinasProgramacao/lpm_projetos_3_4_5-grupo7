@@ -194,7 +194,7 @@ public class PlataformaStreaming extends Thread {
      */
     public void salvarClientes() {
         try {
-            DAO<Cliente> dao = new DAO<>("POO_Espectadores.csv");
+            DAO<Cliente> dao = new DAO<>("codigo/src/files/POO_Espectadores.csv");
             dao.save(this.clientes.values());
         } catch (IOException e) {
             e.printStackTrace();
@@ -208,25 +208,25 @@ public class PlataformaStreaming extends Thread {
      */
     public void salvarListasCliente(Cliente cliente) {
         try {
-            DAO<Cliente> daoCliente = new DAO<>("POO_Audiencia.csv");
+            DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Audiencia.csv");
 
-            //for (Cliente cliente : this.clientes.values()) {
-                List<String> listaParaAssistir = new ArrayList<>();
-                List<String> listaJaVistas = new ArrayList<>();
+            // for (Cliente cliente : this.clientes.values()) {
+            List<String> listaParaAssistir = new ArrayList<>();
+            List<String> listaJaVistas = new ArrayList<>();
 
-                for (Audiovisual audiovisual : cliente.getParaVer()) {
-                    String item = "" + audiovisual.getId();
-                    listaParaAssistir.add(item);
-                }
+            for (Audiovisual audiovisual : cliente.getParaVer()) {
+                String item = "" + audiovisual.getId();
+                listaParaAssistir.add(item);
+            }
 
-                for (Audiovisual audiovisual : cliente.getAssistidas()) {
-                    String item = "" + audiovisual.getId();
-                    listaJaVistas.add(item);
-                }
+            for (Audiovisual audiovisual : cliente.getAssistidas()) {
+                String item = "" + audiovisual.getId();
+                listaJaVistas.add(item);
+            }
 
-                daoCliente.appendData(cliente.getLogin(), "F", listaParaAssistir);
-                daoCliente.appendData(cliente.getLogin(), "A", listaJaVistas);
-            //}
+            daoCliente.appendData(cliente.getLogin(), "F", listaParaAssistir);
+            daoCliente.appendData(cliente.getLogin(), "A", listaJaVistas);
+            // }
         } catch (IOException e) {
             e.printStackTrace();
         }
