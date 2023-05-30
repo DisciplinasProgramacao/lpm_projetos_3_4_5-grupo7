@@ -90,6 +90,7 @@ public class App {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
         } else {
             clientAutenticado.adicionarNaListaJaVistas(ver);
+            plataforma.salvarListasCliente(clientAutenticado);
             System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
             int opc = scanner.nextInt();
             if (opc == 1) {
@@ -293,6 +294,7 @@ public class App {
         } else {
             clientAutenticado.adicionarNaLista(ver);
             System.out.println("Obrigado, foi adicionado na sua lista para assistir mais tarde.");
+            plataforma.salvarListasCliente(clientAutenticado);
         }
         scanner.nextLine();
     }

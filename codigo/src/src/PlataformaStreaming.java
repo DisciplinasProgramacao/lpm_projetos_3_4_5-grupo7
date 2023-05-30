@@ -206,11 +206,11 @@ public class PlataformaStreaming extends Thread {
      * 
      * @param cliente
      */
-    public void salvarListasCliente() {
+    public void salvarListasCliente(Cliente cliente) {
         try {
             DAO<Cliente> daoCliente = new DAO<>("POO_Audiencia.csv");
 
-            for (Cliente cliente : this.clientes.values()) {
+            //for (Cliente cliente : this.clientes.values()) {
                 List<String> listaParaAssistir = new ArrayList<>();
                 List<String> listaJaVistas = new ArrayList<>();
 
@@ -226,7 +226,7 @@ public class PlataformaStreaming extends Thread {
 
                 daoCliente.appendData(cliente.getLogin(), "F", listaParaAssistir);
                 daoCliente.appendData(cliente.getLogin(), "A", listaJaVistas);
-            }
+            //}
         } catch (IOException e) {
             e.printStackTrace();
         }
