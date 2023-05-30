@@ -216,12 +216,12 @@ public class PlataformaStreaming extends Thread {
                 List<String> listaJaVistas = new ArrayList<>();
 
                 for (Audiovisual audiovisual : cliente.getParaVer()) {
-                    String item = cliente.getLogin() + "F" + audiovisual.getId();
+                    String item =  "" + audiovisual.getId();
                     listaParaAssistir.add(item);
                 }
 
                 for (Audiovisual audiovisual : cliente.getAssistidas()) {
-                    String item = cliente.getLogin() + "A" + audiovisual.getId();
+                    String item =  "" + audiovisual.getId();
                     listaJaVistas.add(item);
                 }
 
