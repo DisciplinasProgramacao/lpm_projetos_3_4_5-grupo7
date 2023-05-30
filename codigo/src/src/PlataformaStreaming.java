@@ -3,7 +3,6 @@ package src;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 import java.io.*;
 
 public class PlataformaStreaming extends Thread {
@@ -216,12 +215,12 @@ public class PlataformaStreaming extends Thread {
                 List<String> listaJaVistas = new ArrayList<>();
 
                 for (Audiovisual audiovisual : cliente.getParaVer()) {
-                    String item =  "" + audiovisual.getId();
+                    String item = "" + audiovisual.getId();
                     listaParaAssistir.add(item);
                 }
 
                 for (Audiovisual audiovisual : cliente.getAssistidas()) {
-                    String item =  "" + audiovisual.getId();
+                    String item = "" + audiovisual.getId();
                     listaJaVistas.add(item);
                 }
 

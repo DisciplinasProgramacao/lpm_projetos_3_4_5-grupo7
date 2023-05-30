@@ -3,6 +3,7 @@ package src;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Audiovisual {
     private static String[] GENEROS;
@@ -139,9 +140,7 @@ public class Audiovisual {
      * @return double
      */
     public double gerarMediaAvaliacoes() {
-        // return this.avaliacoes.values().stream().mapToDouble(num ->
-        // num.getNota()).average().getAsDouble();
-        return 0;
+        return this.avaliacoes.values().stream().collect(Collectors.averagingDouble(Avaliacao::getNota));
     }
     // #endregion
 }

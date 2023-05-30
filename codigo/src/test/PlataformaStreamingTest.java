@@ -1,6 +1,5 @@
 package test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -123,15 +122,15 @@ public class PlataformaStreamingTest {
     Filtro<Serie> f = new Filtro<>();
 
     Predicate<FiltroPersonalizado<Serie>> filtrador = filtro -> Integer
-                .toString(filtro.getElemento().getQuantidadeEpisodios())
-                .equals(filtro.getBusca());
+        .toString(filtro.getElemento().getQuantidadeEpisodios())
+        .equals(filtro.getBusca());
 
     String qtdEpisodios = "5";
 
     List<Serie> palavrasFiltradas = f.filtrar(ps.getListaSerie(), filtrador, qtdEpisodios);
 
     if (palavrasFiltradas.size() > 0)
-              palavrasFiltradas.forEach(serie -> System.out.println(serie.toString()));
+      palavrasFiltradas.forEach(serie -> System.out.println(serie.toString()));
     Assertions.assertEquals(2, palavrasFiltradas.size());
   }
 
