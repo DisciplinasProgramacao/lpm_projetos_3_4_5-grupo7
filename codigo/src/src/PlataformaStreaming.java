@@ -202,6 +202,37 @@ public class PlataformaStreaming extends Thread {
         }
     }
 
+    /**
+     * Salva as listas de Assistidas e ParaAssistir de cada cliente em um arquivo
+     * 
+     * @param cliente
+     */
+    public void salvarListasCliente() {
+        try {
+            DAO<Cliente> daoCliente = new DAO<>("POO_Audiencia.csv");
+
+            for (Cliente cliente : this.clientes.values()) {
+                List<String> listaParaAssistir = new ArrayList<>();
+                List<String> listaJaVistas = new ArrayList<>();
+
+                for (Audiovisual audiovisual : cliente.getParaVer()) {
+                    String item = cliente.getLogin() + "F" + audiovisual.getId();
+                    listaParaAssistir.add(item);
+                }
+
+                for (Audiovisual audiovisual : cliente.getAssistidas()) {
+                    String item = cliente.getLogin() + "A" + audiovisual.getId();
+                    listaJaVistas.add(item);
+                }
+
+                daoCliente.appendData(cliente.getLogin(), "F", listaParaAssistir);
+                daoCliente.appendData(cliente.getLogin(), "A", listaJaVistas);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void carregarDados() {
         try {
             DAO<Filme> daoFilme = new DAO<>("codigo/src/files/POO_Filmes.csv");
@@ -221,32 +252,6 @@ public class PlataformaStreaming extends Thread {
         try {
             DAO<Filme> daoAudiencia = new DAO<>("codigo/src/files/POO_Audiencia.csv");
             List<String> lista = daoAudiencia.load();
-            // int contador = 1;
-            // int tamanhoLista = lista.size();
-            // int restoDivisao = tamanhoLista % 4;
-            // int quantidadeThreads = 4;
-            // int tamanhoBlocos = tamanhoLista > 10000 ? ((tamanhoLista - restoDivisao) / quantidadeThreads)
-            //         : tamanhoLista;
-            // int auxBloco = 1;
-            // int contadorLista = 1;
-            // List<String> auxLista = new Stack<>();
-            // for (String linha : lista) {
-
-            // if (contador != tamanhoBlocos && contadorLista != tamanhoLista) {
-            // contador++;
-            // auxLista.add(linha);
-            // } else {
-            // auxBloco++;
-            // contador = 0;
-            // // new Thread(()-> ).start();
-            // processaBlocoAudiencia(auxLista);
-            // auxLista = new Stack<>();
-            // }
-            // if (auxBloco == quantidadeThreads) {
-            // tamanhoBlocos += restoDivisao;
-            // }
-            // contadorLista++;
-            // }
             processaBlocoAudiencia(lista);
         } catch (IOException e) {
             e.printStackTrace();

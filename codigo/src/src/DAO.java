@@ -1,6 +1,7 @@
 package src;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,6 +49,36 @@ public class DAO<T extends IDAO<T>> {
         } catch (IOException e) {
             throw e;
         }
+    }
+
+    /**
+     * método appendData que recebe um identificador (key), um campo (column)
+     * e uma lista de dados (data) a serem adicionados ao arquivo CSV.
+     * 
+     * @apiNote Se o arquivo ainda não existir, ele cria um novo arquivo e escreve a
+     *          linha contendo o identificador, campo e dados.
+     * @apiNote Se o arquivo já existir, ele lê todas as linhas do arquivo e verifica
+     *            se já há uma linha com o mesmo identificador e campo fornecidos.
+     *            Se sim, atualiza os dados dessa linha com a nova lista de dados.
+     *            Caso contrário, adiciona uma nova linha contendo o identificador,
+     *            campo e dados.
+     * @param key
+     * @param column
+     * @param data
+     * @throws IOException
+     * 
+     * 
+     */
+    public void appendData(String key, String column, List<String> data) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(urlArquivo, true));
+
+        // Escreve cada item da lista no arquivo CSV
+        for (String item : data) {
+            writer.write(key + ";" + column + ";" + item);
+            writer.newLine();
+        }
+
+        writer.close();
     }
 
     /**

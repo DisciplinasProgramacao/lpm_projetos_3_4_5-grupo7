@@ -179,6 +179,10 @@ public class Cliente implements IDAO<Cliente> {
     public List<Audiovisual> getParaVer() {
         return this.listaParaVer;
     }
+
+    public List<Audiovisual> getAssistidas(){
+        return this.listaJaVistas;
+    }
     // #endregion
 
     @Override
