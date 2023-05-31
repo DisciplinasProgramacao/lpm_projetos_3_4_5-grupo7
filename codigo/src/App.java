@@ -165,7 +165,7 @@ public class App {
                 + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
         System.out.println(
                 "Você é um cliente " + (clientAutenticado.getTipo() == null ? "Regular. " : "Especialista."));
-        // plataforma.salvarListasCliente();
+        
     }
 
     private static void verPerfil() {
@@ -316,7 +316,7 @@ public class App {
         int opcaoInicial = -1;
         new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
 
-        // plataforma.carregarDados();
+        
         do {
 
             opcaoInicial = menuInicialLogin();
