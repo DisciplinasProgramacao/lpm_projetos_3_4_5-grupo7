@@ -12,7 +12,7 @@ public class Cliente implements IDAO<Cliente> {
     private List<Audiovisual> listaJaVistas;
     private ICliente tipo;
 
-    Cliente() {
+    public Cliente() {
     }
 
     /**
@@ -180,7 +180,7 @@ public class Cliente implements IDAO<Cliente> {
         return this.listaParaVer;
     }
 
-    public List<Audiovisual> getAssistidas(){
+    public List<Audiovisual> getAssistidas() {
         return this.listaJaVistas;
     }
     // #endregion
