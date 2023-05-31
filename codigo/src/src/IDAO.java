@@ -11,6 +11,7 @@ public interface IDAO<T> {
     /**
      * Reponsavel por carregar todos os dados do objeto
      * 
+     * @param String
      * @return Retornar o objeto carregado
      */
     public T loadObject(String linha);
