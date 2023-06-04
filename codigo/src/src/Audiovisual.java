@@ -6,8 +6,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Audiovisual {
-    private static String[] GENEROS;
-    private static String[] IDIOMAS;
     private String nome;
     private String genero;
     private String idioma;
@@ -20,6 +18,14 @@ public class Audiovisual {
     public Audiovisual() {
     }
 
+    public enum Generos {
+        TERROR, COMEDIA, ROMANCE, SUSPENSE, ACAO, FICCAO_CIENTIFICA, DRAMA
+    }
+
+    public enum Idiomas {
+        PORTUGUES, ITALIANO, FRANCES, INGLES, ESPANHOL
+    }
+
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
      * 
@@ -28,13 +34,11 @@ public class Audiovisual {
      * @param dataLancamento
      */
     Audiovisual(int id, String nome, String dataLancamento) {
-        GENEROS = new String[] { "Terror", "Comédia", "Romance", "Suspense", "Ação", "Ficção Científica", "Drama" };
+
         Random random = new Random();
 
-        IDIOMAS = new String[] { "Inglês", "Português", "Italiano", "Francês", "Alemão", "Espanhol" };
-
-        setGenero(GENEROS[(random.nextInt(7))]);
-        setIdioma(IDIOMAS[(random.nextInt(6))]);
+        this.genero = (Generos.values()[random.nextInt(Generos.values().length)].toString());
+        this.idioma = (Idiomas.values()[random.nextInt(Idiomas.values().length)].toString());
         setNome(nome);
         setDataLancamento(dataLancamento);
         setId(id);
@@ -78,14 +82,6 @@ public class Audiovisual {
         this.nome = nome;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
-
     public String getDataLancamento() {
         return dataLancamento;
     }
@@ -104,8 +100,9 @@ public class Audiovisual {
 
     @Override
     public String toString() {
-        return String.format("\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s",
-                this.getId(), this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero());
+        return String.format("\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdiomar: %s",
+                this.getId(), this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero(),
+                this.getIdioma());
     }
     // #endregion
 

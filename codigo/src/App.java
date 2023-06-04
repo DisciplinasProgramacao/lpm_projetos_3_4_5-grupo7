@@ -164,7 +164,7 @@ public class App {
                 + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
         System.out.println(
                 "Você é um cliente " + (clientAutenticado.getTipo() == null ? "Regular. " : "Especialista."));
-        
+
     }
 
     private static void verPerfil() {
@@ -219,27 +219,8 @@ public class App {
         System.out.println("4 - Inglês");
         System.out.println("5 - Espanhol");
 
-        switch (Integer.parseInt(scanner.nextLine())) {
-            case 1:
-                resultado = "Português";
-                break;
-            case 2:
-                resultado = "Italiano";
-                break;
-            case 3:
-                resultado = "Francês";
-                break;
-            case 4:
-                resultado = "Inglês";
-                break;
-            case 5:
-                resultado = "Espanhol";
-                break;
-            default:
-                resultado = "Português";
-                break;
+        resultado = Audiovisual.Idiomas.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
 
-        }
         return resultado;
     }
 
@@ -254,33 +235,8 @@ public class App {
         System.out.println("6 - Ficção Científica");
         System.out.println("7 - Drama");
 
-        switch (Integer.parseInt(scanner.nextLine())) {
-            case 1:
-                resultado = "Terror";
-                break;
-            case 2:
-                resultado = "Comédia";
-                break;
-            case 3:
-                resultado = "Romance";
-                break;
-            case 4:
-                resultado = "Suspense";
-                break;
-            case 5:
-                resultado = "Ação";
-                break;
-            case 6:
-                resultado = "Ficção Científica";
-                break;
-            case 7:
-                resultado = "Drama";
-                break;
-            default:
-                resultado = "Terror";
-                break;
+        resultado = Audiovisual.Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
 
-        }
         return resultado;
     }
 
@@ -315,7 +271,6 @@ public class App {
         int opcaoInicial = -1;
         new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
 
-        
         do {
 
             opcaoInicial = menuInicialLogin();

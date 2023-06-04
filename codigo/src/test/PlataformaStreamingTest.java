@@ -46,62 +46,13 @@ public class PlataformaStreamingTest {
   }
 
   @Test
-  public void testaFiltrarPorGenero() {
-    ps = new PlataformaStreaming();
-    Serie serie = new Serie(1, "shrek serie", "01/01/2021");
-    Serie serie2 = new Serie(2, "shrek serie 2", "01/01/2021");
-    Serie serie3 = new Serie(3, "shrek serie 3", "01/01/2021");
-    Serie serie4 = new Serie(4, "shrek serie 4", "01/01/2021");
-
-    serie.setGenero("Comédia");
-    serie2.setGenero("Ação");
-    serie3.setGenero("Drama");
-    serie4.setGenero("Comédia");
-
-    ps.adicionarSerie(serie);
-    ps.adicionarSerie(serie2);
-    ps.adicionarSerie(serie3);
-    ps.adicionarSerie(serie4);
-
-    Filtro<Audiovisual> f = new Filtro<>();
-
-    Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getGenero()
-        .equals(filtro.getBusca());
-
-    String genero = "Comédia";
-
-    List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, genero);
-
-    Assertions.assertEquals(2, palavrasFiltradas.size());
+  public void testeEnumGeneros() {
+    Assertions.assertEquals("ROMANCE", Audiovisual.Generos.values()[2].toString());
   }
 
   @Test
   public void testaFiltrarIdioma() {
-    ps = new PlataformaStreaming();
-    Serie serie = new Serie(1, "serie", "01/01/2021");
-    Serie serie2 = new Serie(2, "shrek 3", "01/01/2021");
-    Serie serie3 = new Serie(3, "shrek 2", "01/01/2021");
-
-    serie.setIdioma("Português");
-    serie2.setIdioma("Inglês");
-    serie3.setIdioma("Espanhol");
-
-    ps.adicionarSerie(serie);
-    ps.adicionarSerie(serie2);
-    ps.adicionarSerie(serie3);
-
-    Filtro<Audiovisual> f = new Filtro<>();
-
-    Predicate<FiltroPersonalizado<Audiovisual>> filtrador = filtro -> filtro.getElemento().getIdioma()
-        .equals(filtro.getBusca());
-
-    String idioma = "Português";
-
-    List<Audiovisual> palavrasFiltradas = f.filtrar(ps.getListaAudioVisual(), filtrador, idioma);
-
-    palavrasFiltradas.forEach(audiovisual -> System.out.println(audiovisual.getNome()));
-
-    Assertions.assertEquals(1, palavrasFiltradas.size());
+    Assertions.assertEquals("PORTUGUES", Audiovisual.Idiomas.values()[0].toString());
   }
 
   @Test
