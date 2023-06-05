@@ -98,6 +98,10 @@ public class Audiovisual {
         return id;
     }
 
+    public HashMap<String, Avaliacao> getAvaliacoes() {
+        return this.avaliacoes;
+    }
+
     @Override
     public String toString() {
         return String.format("\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdiomar: %s",

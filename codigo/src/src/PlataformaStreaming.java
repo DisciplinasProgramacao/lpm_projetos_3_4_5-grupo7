@@ -51,6 +51,10 @@ public class PlataformaStreaming extends Thread {
         return audiovisuais;
     }
 
+    public HashMap<String, Cliente> getClientes() {
+        return this.clientes;
+    }
+
     public HashMap<Integer, Filme> getFilmes() {
         return this.filmes;
     }

@@ -2,6 +2,7 @@ package src;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Cliente implements IDAO<Cliente> {
@@ -10,6 +11,7 @@ public class Cliente implements IDAO<Cliente> {
     private String login;
     private List<Audiovisual> listaParaVer;
     private List<Audiovisual> listaJaVistas;
+    private HashSet<Avaliacao> avaliacoes;
     private ICliente tipo;
 
     public Cliente() {
