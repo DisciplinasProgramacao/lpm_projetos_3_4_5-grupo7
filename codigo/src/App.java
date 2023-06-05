@@ -34,6 +34,7 @@ public class App {
         System.out.println("11 - Cadastrar um novo usuário");
         System.out.println("12 - Adicionar para ver mais tarde");
         System.out.println("13 - Mostrar para ver mais tarde");
+        System.out.println("14 - Avaliação avulsa");
         System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -266,6 +267,46 @@ public class App {
         }
     }
 
+    private static void avaliacaoAvulsa() {
+        Audiovisual midia = null;
+
+        if(clientAutenticado.getAssistidas().size() == 0) {
+            System.out.println("Não há mídias assistidas!");
+            return;
+        }
+
+        System.out.println("======= MÍDIAS ASSISTIDAS =======");
+        for(Audiovisual a : clientAutenticado.getAssistidas()) {
+            System.out.println(a.toString());
+        }
+        System.out.println("=================================");
+
+        System.out.println("Digite o Id da mídia:");
+        int idMidia = scanner.nextInt();
+
+        for(Audiovisual m : clientAutenticado.getAssistidas()) {
+            if(m.getId() == idMidia) {
+                midia = m;
+                break;
+            }
+        }
+
+        if(midia == null) {
+            System.out.println("A midia referente ao Id informado não existe");
+            return;
+        }
+        System.out.println("Digite sua nota:");
+        double nota = scanner.nextDouble();
+        System.out.println("Digite seu comentário:");
+        String comentario = scanner.nextLine();
+
+        try {
+            clientAutenticado.adicionarAvaliacao(midia, nota, comentario);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         int opcao = -1;
         int opcaoInicial = -1;
@@ -347,6 +388,10 @@ public class App {
                 case 13:
                     System.out.println("Lista de assistir mais tarde:");
                     verListaAssistirMaisTarde();
+                    break;
+                case 14:
+                    System.out.println("AVALIAÇÃO AVULSA:");
+                    avaliacaoAvulsa();
                     break;
                 default:
                     System.out.println("Opção inválida!");
