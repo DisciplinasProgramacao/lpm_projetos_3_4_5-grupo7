@@ -27,4 +27,24 @@ public class Relatorio {
     public void gerarRelatorioAvaliacao() {
 
     }
+    
+    public void gerarRelatorioMediaAvaliacao() {
+
+    }
+
+    public void gerarRelatorioDezMelhores(){
+
+    }
+
+    public void gerarRelatorioMaisVistas(){
+
+    }
+
+    public void gerarRelatorioDezMelhoresGenero(){
+
+    }
+    
+    public void gerarRelatorioMaisVistasGenero(){
+
+    }
 }
