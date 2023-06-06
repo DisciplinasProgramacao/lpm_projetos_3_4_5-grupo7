@@ -15,10 +15,10 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
     /**
      * Construtor da src.Serie - recebe as informações báiscas da série presentes no
      * arquivo;
-     * 
-     * @param id
-     * @param nome
-     * @param dataLancamento
+     *
+     * @param id int
+     * @param nome String
+     * @param dataLancamento String
      */
     public Serie(int id, String nome, String dataLancamento) {
         super(id, nome, dataLancamento);

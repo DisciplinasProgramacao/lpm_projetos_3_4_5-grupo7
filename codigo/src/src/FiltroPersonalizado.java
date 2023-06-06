@@ -1,14 +1,14 @@
 package src;
 
 public class FiltroPersonalizado<T> {
-  private T elemento;
-  private String busca;
+  private final T elemento;
+  private final String busca;
 
   /**
    * Construtor de um filtro personalizado, recebe um elemento de qualquer tipo 
    * e uma string que servirá posteriormente como parâmetro do filtro.
-   * @param elemento
-   * @param busca
+   * @param elemento T
+   * @param busca String
    */
   public FiltroPersonalizado(T elemento, String busca) {
       this.elemento = elemento;

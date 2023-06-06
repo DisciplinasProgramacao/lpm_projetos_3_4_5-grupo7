@@ -27,7 +27,7 @@ public class Avaliacao {
     /**
      * Método responsável por cadastrar uma nova avaliação
      * 
-     * @param nota
+     * @param nota double
      */
     private void cadastrarAvaliacao(double nota) {
         if(nota >= 0.0 && nota <= avaliacaoMaxima) {

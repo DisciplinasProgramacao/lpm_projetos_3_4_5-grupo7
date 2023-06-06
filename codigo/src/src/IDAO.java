@@ -6,13 +6,13 @@ public interface IDAO<T> {
      * 
      * @return Retornar a linha que deseja salvar
      */
-    public String stringSalvar();
+    String stringSalvar();
 
     /**
      * Reponsavel por carregar todos os dados do objeto
      * 
-     * @param String
+     * @param linha String
      * @return Retornar o objeto carregado
      */
-    public T loadObject(String linha);
+    T loadObject(String linha);
 }

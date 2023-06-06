@@ -19,33 +19,27 @@ public class DAO<T extends IDAO<T>> {
     /**
      * Método que salva um conjunto de dados em um arquivo
      * 
-     * @param objeto
-     * @throws IOException
+     * @param objeto Collection<T>
+     * @throws IOException Caso haja algum problema durante a execução do método
      */
     public void save(Collection<T> objeto) throws IOException {
-        try {
-            FileWriter arquivo = new FileWriter(this.urlArquivo);
-            arquivo.append("#Cadastro");
-            for (T obj : objeto)
-                arquivo.append("\n" + obj.stringSalvar());
+        FileWriter arquivo = new FileWriter(this.urlArquivo);
+        arquivo.append("#Cadastro");
+        for (T obj : objeto)
+            arquivo.append("\n").append(obj.stringSalvar());
 
-            arquivo.close();
-        } catch (IOException e) {
-            throw e;
-        }
+        arquivo.close();
     }
 
     /**
      * Método que adiciona uma linha no final do arquivo
      * 
-     * @param objeto
-     * @throws IOException
+     * @param objeto T
+     * @throws IOException - Caso haja algum problema durante a inserção da linha ao final do arquivo
      */
     public void append(T objeto) throws IOException {
-        try {
-            FileWriter arquivo = new FileWriter(urlArquivo, true);
-            arquivo.append("\n" + objeto.stringSalvar());
-            arquivo.close();
+        try (FileWriter arquivo = new FileWriter(urlArquivo, true)) {
+            arquivo.append("\n").append(objeto.stringSalvar());
         } catch (IOException e) {
             throw e;
         }
@@ -63,10 +57,10 @@ public class DAO<T extends IDAO<T>> {
      *          Se sim, atualiza os dados dessa linha com a nova lista de dados.
      *          Caso contrário, adiciona uma nova linha contendo o identificador,
      *          campo e dados.
-     * @param key
-     * @param column
-     * @param data
-     * @throws IOException
+     * @param key String
+     * @param column String
+     * @param data List<String>
+     * @throws IOException Caso haja algum problema durante a execução do método
      * 
      * 
      */
@@ -87,14 +81,14 @@ public class DAO<T extends IDAO<T>> {
      * Método responsavel por criar uma lista do tipo passado, carregando os dados
      * de um arquivo
      * 
-     * @param objeto
-     * @throws IOException
+     * @param objeto T
+     * @throws IOException Caso haja algum problema durante a execução do método
      */
     public List<T> load(T objeto) throws IOException {
-        List<T> lista = new Stack<T>();
+        List<T> lista = new Stack<>();
 
         try (BufferedReader leitura = new BufferedReader(new FileReader(this.urlArquivo))) {
-            String linha = "";
+            String linha;
             while ((linha = leitura.readLine()) != null) {
                 linha = linha.replace("ï»¿", "");
 
@@ -102,8 +96,8 @@ public class DAO<T extends IDAO<T>> {
                     lista.add(objeto.loadObject(linha));
                 }
             }
-            leitura.close();
         } catch (IOException e) {
+
             e.printStackTrace();
         }
         return lista;
@@ -112,21 +106,19 @@ public class DAO<T extends IDAO<T>> {
     /**
      * Método responsavel por criar uma lista do tipo passado, carregando os dados
      * de um arquivo
-     * 
-     * @param objeto
-     * @throws IOException
+     *
+     * @throws IOException Caso haja algum problema durante a execução do método
      */
     public List<String> load() throws IOException {
-        List<String> lista = new Stack<String>();
+        List<String> lista = new Stack<>();
         try (BufferedReader leitura = new BufferedReader(new FileReader(this.urlArquivo))) {
-            String linha = "";
+            String linha;
             while ((linha = leitura.readLine()) != null) {
                 linha = linha.replace("ï»¿", "");
                 if (!linha.contains("#")) {
                     lista.add(linha);
                 }
             }
-            leitura.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

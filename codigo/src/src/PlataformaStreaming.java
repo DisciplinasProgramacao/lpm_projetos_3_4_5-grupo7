@@ -4,23 +4,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.io.*;
+import java.util.Objects;
 
 public class PlataformaStreaming extends Thread {
     private String nome;
-    private HashMap<Integer, Serie> series;
-    private HashMap<Integer, Filme> filmes;
-    private HashMap<String, Cliente> clientes;
+    private final HashMap<Integer, Serie> series;
+    private final HashMap<Integer, Filme> filmes;
+    private final HashMap<String, Cliente> clientes;
     private Cliente clienteAtual;
 
     public PlataformaStreaming() {
-        this.series = new HashMap<Integer, Serie>();
-        this.filmes = new HashMap<Integer, Filme>();
-        this.clientes = new HashMap<String, Cliente>();
+        this.series = new HashMap<>();
+        this.filmes = new HashMap<>();
+        this.clientes = new HashMap<>();
         this.clienteAtual = null;
     }
 
     // #region Get Set
-    public Cliente getcClienteAtual() {
+    public Cliente getClienteAtual() {
         return this.clienteAtual;
     }
 
@@ -37,10 +38,7 @@ public class PlataformaStreaming extends Thread {
     }
 
     public List<Serie> getListaSerie() {
-        List<Serie> seriesLista = new ArrayList<>();
-
-        seriesLista.addAll(series.values());
-        return seriesLista;
+        return new ArrayList<>(series.values());
     }
 
     public HashMap<Integer, Audiovisual> getHashMapAudioVisual() {
@@ -68,8 +66,8 @@ public class PlataformaStreaming extends Thread {
      * Valida as informações do usuário, efetuando assim seu login e retornando um
      * novo cliente
      * 
-     * @param nomeUsuario
-     * @param senha
+     * @param login String
+     * @param senha String
      * @return Retorna um novo cliente
      */
     public Cliente login(String login, String senha) {
@@ -79,10 +77,10 @@ public class PlataformaStreaming extends Thread {
 
     /**
      * Cadastra um novo cliente na Plataforma de Streaming.
-     * 
-     * @param nomeUsuario
-     * @param login
-     * @param senha
+     *
+     * @param nome String
+     * @param login String
+     * @param senha String
      */
     public void cadastro(String nome, String login, String senha) {
         Cliente cliente = new Cliente(nome, login, senha);
@@ -92,7 +90,7 @@ public class PlataformaStreaming extends Thread {
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
      *
-     * @param filme
+     * @param filme Filme
      */
     public void adicionarFilme(Filme filme) {
         this.filmes.put(filme.getId(), filme);
@@ -101,7 +99,7 @@ public class PlataformaStreaming extends Thread {
     /**
      * Adiciona uma série em uma lista de séries dentro da plataforma
      *
-     * @param serie
+     * @param serie Serie
      */
     public void adicionarSerie(Serie serie) {
         this.series.put(serie.getId(), serie);
@@ -110,11 +108,11 @@ public class PlataformaStreaming extends Thread {
     /**
      * Adiciona um cliente em uma lista de clientes dentro da plataforma
      * 
-     * @param cliente
+     * @param cliente Cliente
      */
     private void adicionarCliente(Cliente cliente) {
         this.clientes.put(cliente.getLogin(), cliente);
-        DAO<Cliente> dao = new DAO<Cliente>("codigo/src/files/POO_Espectadores.csv");
+        DAO<Cliente> dao = new DAO<>("codigo/src/files/POO_Espectadores.csv");
         try {
             dao.append(cliente);
         } catch (IOException e) {
@@ -123,18 +121,25 @@ public class PlataformaStreaming extends Thread {
     }
 
     /**
-     * 
+     *
      * Método responsavel por registrar audiencia de acordo com o
      * objeto Audiovisual passado
-     * 
-     * @param filme
+     *
+     * @param filme Filme
      */
     public void registrarAudienciaFilme(Filme filme) {
-        filmes.values().stream().filter(x -> x.getNome() == filme.getNome()).findFirst().get().registrarAudiencia();
+        filmes.values().stream().filter(x -> Objects.equals(x.getNome(), filme.getNome())).findFirst().get().registrarAudiencia();
     }
 
+    /**
+     *
+     * Método responsavel por registrar audiencia de acordo com o
+     * objeto Audiovisual passado
+     *
+     * @param serie Serie
+     */
     public void registrarAudienciaSerie(Serie serie) {
-        series.values().stream().filter(x -> x.getNome() == serie.getNome()).findFirst().get().registrarAudiencia();
+        series.values().stream().filter(x -> Objects.equals(x.getNome(), serie.getNome())).findFirst().get().registrarAudiencia();
     }
 
     /**
@@ -147,12 +152,12 @@ public class PlataformaStreaming extends Thread {
     /**
      * O método acima retorna uma série de acordo com o nome informado
      * 
-     * @param nomeAudiovisual
-     * @return Retorna uma série específica
+     * @param nomeAudiovisual String
+     * @return Audiovisual
      */
     public Audiovisual buscarAudiovisual(String nomeAudiovisual) {
         for (Audiovisual audio : getListaAudioVisual()) {
-            if (audio.getNome().toLowerCase().equals(nomeAudiovisual.toLowerCase()))
+            if (audio.getNome().equalsIgnoreCase(nomeAudiovisual))
                 return audio;
         }
         return null;
@@ -161,8 +166,8 @@ public class PlataformaStreaming extends Thread {
     /**
      * O método acima retorna uma série de acordo com o id informado
      * 
-     * @param id
-     * @return Retorna uma série específica
+     * @param id int
+     * @return Audiovisual
      */
     public Audiovisual buscarAudiovisual(int id) {
         return this.getHashMapAudioVisual().get(id);
@@ -208,7 +213,7 @@ public class PlataformaStreaming extends Thread {
     /**
      * Salva as listas de Assistidas e ParaAssistir de cada cliente em um arquivo
      * 
-     * @param cliente
+     * @param cliente Cliente
      */
     public void salvarListasCliente(Cliente cliente) {
         try {
@@ -219,12 +224,12 @@ public class PlataformaStreaming extends Thread {
             List<String> listaJaVistas = new ArrayList<>();
 
             for (Audiovisual audiovisual : cliente.getParaVer()) {
-                String item = "" + audiovisual.getId();
+                String item = String.valueOf(audiovisual.getId());
                 listaParaAssistir.add(item);
             }
 
             for (Audiovisual audiovisual : cliente.getAssistidas()) {
-                String item = "" + audiovisual.getId();
+                String item = String.valueOf(audiovisual.getId());
                 listaJaVistas.add(item);
             }
 

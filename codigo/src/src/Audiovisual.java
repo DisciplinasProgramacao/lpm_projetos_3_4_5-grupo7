@@ -15,8 +15,7 @@ public class Audiovisual {
     private String dataLancamento;
     private HashMap<String, Avaliacao> avaliacoes;
 
-    public Audiovisual() {
-    }
+    public Audiovisual() {}
 
     public enum Generos {
         TERROR, COMEDIA, ROMANCE, SUSPENSE, ACAO, FICCAO_CIENTIFICA, DRAMA
@@ -29,9 +28,9 @@ public class Audiovisual {
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
      * 
-     * @param id
-     * @param nome
-     * @param dataLancamento
+     * @param id int
+     * @param nome String
+     * @param dataLancamento String
      */
     Audiovisual(int id, String nome, String dataLancamento) {
 
@@ -42,7 +41,7 @@ public class Audiovisual {
         setNome(nome);
         setDataLancamento(dataLancamento);
         setId(id);
-        this.avaliacoes = new HashMap<String, Avaliacao>();
+        this.avaliacoes = new HashMap<>();
         this.audiencia = 0;
     }
 
@@ -114,7 +113,7 @@ public class Audiovisual {
     /**
      * Metodo responsavel por retornar todas avaliações
      * 
-     * @return
+     * @return String
      */
     public String mostrarAvaliacoes() {
         StringBuilder stringAvaliacoes = new StringBuilder();
@@ -127,9 +126,8 @@ public class Audiovisual {
     /**
      * Metodo responsavel por adicionar um comentario sem repetir
      * 
-     * @param login
-     * @param nota
-     * @param comentario
+     * @param cliente Cliente
+     * @param avaliacao Avaliacao
      */
     public void adicionarAvaliacao(Cliente cliente, Avaliacao avaliacao) {
         this.avaliacoes.put(cliente.getLogin(), avaliacao);

@@ -5,11 +5,11 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
 
   /**
    * Construtor do filme - recebe suas informações básicas presentes no arquivo
-   * 
-   * @param id
-   * @param nome
-   * @param dataLancamento
-   * @param duracao
+   *
+   * @param id int
+   * @param nome String
+   * @param dataLancamento String
+   * @param duracao int
    */
   public Filme(int id, String nome, String dataLancamento, int duracao) {
     super(id, nome, dataLancamento);
@@ -32,6 +32,8 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
   /**
    * Implementação do método da interface: carrega o obejto formatado com a
    * linha dos dados do filme
+   *
+   * @param linha String
    */
   @Override
   public Filme loadObject(String linha) {

@@ -21,8 +21,8 @@ public class Cliente implements IDAO<Cliente> {
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
      * vazias
      * 
-     * @param usuario
-     * @param senha
+     * @param usuario String
+     * @param senha String
      */
     public Cliente(String usuario, String senha) {
         this.nomeDeUsuario = usuario;
@@ -35,9 +35,10 @@ public class Cliente implements IDAO<Cliente> {
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
      * vazias
-     * 
-     * @param usuario
-     * @param senha
+     *
+     * @param nome String
+     * @param usuario String
+     * @param senha String
      */
     public Cliente(String nome, String usuario, String senha) {
         this.nomeDeUsuario = nome;
@@ -49,10 +50,9 @@ public class Cliente implements IDAO<Cliente> {
 
     /**
      * Adiciona uma avaliação com comentário, caso o cliente seja Especialista
-     * 
-     * @param audiovisual
-     * @param nota        (double)
-     * @param comentario  (String)
+     * @param aud Audiovisual
+     * @param nota double
+     * @param comentario String
      */
     public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
         Avaliacao avaliacao = new Avaliacao(nota, comentario);
@@ -72,7 +72,7 @@ public class Cliente implements IDAO<Cliente> {
     /**
      * Adiciona uma série em uma lista de séries para serem assistidas
      * 
-     * @param audiovisual
+     * @param audiovisual Audiovisual
      */
     public void adicionarNaLista(Audiovisual audiovisual) {
         listaParaVer.add(audiovisual);
@@ -82,7 +82,7 @@ public class Cliente implements IDAO<Cliente> {
      * Adiciona uma série em uma lista de séries que já foram assistidas pelo
      * cliente
      *
-     * @param audiovisual
+     * @param audiovisual Audiovisual
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         audiovisual.setDataAssistido();
@@ -95,7 +95,7 @@ public class Cliente implements IDAO<Cliente> {
     /**
      * Remove uma série em uma lista de séries para serem assistidas
      * 
-     * @param nomeAudiovisual
+     * @param nomeAudiovisual String
      */
     public void retirarDaLista(String nomeAudiovisual) {
         listaParaVer.removeIf(x -> x.getNome().equals(nomeAudiovisual));
@@ -104,7 +104,7 @@ public class Cliente implements IDAO<Cliente> {
     /**
      * Remove uma série em uma lista de séries para serem assistidas
      * 
-     * @param id
+     * @param id int
      */
     public void retirarDaLista(int id) {
         listaParaVer.removeIf(x -> x.getId() == id);
@@ -124,6 +124,9 @@ public class Cliente implements IDAO<Cliente> {
     /**
      * Implementação do método da interface: carrega o obejto formatado com a
      * linha dos dados do cliente
+     *
+     * @param linha String
+     * @return Cliente
      */
     @Override
     public Cliente loadObject(String linha) {
@@ -155,7 +158,7 @@ public class Cliente implements IDAO<Cliente> {
     /**
      * Registra audiência a partir da classe Audiovisual
      * 
-     * @param audiovisual
+     * @param audiovisual Audiovisual
      */
     public void registrarAudiencia(Audiovisual audiovisual) {
         audiovisual.registrarAudiencia();
@@ -185,6 +188,7 @@ public class Cliente implements IDAO<Cliente> {
     public List<Audiovisual> getAssistidas() {
         return this.listaJaVistas;
     }
+    public HashSet<Avaliacao> getAvaliacoes() { return this.avaliacoes; }
     // #endregion
 
     @Override
