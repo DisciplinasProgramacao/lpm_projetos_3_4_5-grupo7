@@ -95,9 +95,9 @@ public class App {
             int opc = scanner.nextInt();
             if (opc == 1) {
 
-                String comentario = "";
+                String comentario;
                 System.out.println("Digite uma nota de 1 a 5.");
-                Double nota = scanner.nextDouble();
+                double nota = scanner.nextDouble();
                 scanner.nextLine();
                 System.out.println(
                         "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
@@ -212,7 +212,7 @@ public class App {
     }
 
     private static String menuLinguagem() {
-        String resultado = "";
+        String resultado;
         System.out.println("Linguagens disponiveis");
         System.out.println("1 - Português");
         System.out.println("2 - Italiano");
@@ -226,7 +226,7 @@ public class App {
     }
 
     private static String menuGenero() {
-        String resultado = "";
+        String resultado;
         System.out.println("Generos disponiveis");
         System.out.println("1 - Terror");
         System.out.println("2 - Comédia");
@@ -308,20 +308,16 @@ public class App {
     }
 
     public static void main(String[] args) {
-        int opcao = -1;
-        int opcaoInicial = -1;
+        int opcao;
+        int opcaoInicial;
         new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
 
         do {
 
             opcaoInicial = menuInicialLogin();
             switch (opcaoInicial) {
-                case 1:
-                    cadastrarNovoUsuario();
-                    break;
-                case 2:
-                    verPerfil();
-                    break;
+                case 1 -> cadastrarNovoUsuario();
+                case 2 -> verPerfil();
             }
         } while (clientAutenticado == null);
 
@@ -390,9 +386,12 @@ public class App {
                     verListaAssistirMaisTarde();
                     break;
                 case 14:
-                    System.out.println("AVALIAÇÃO AVULSA:");
+                    System.out.println("Avaliação Avulsa:");
                     avaliacaoAvulsa();
                     break;
+                case 15:
+                    System.out.println("Relatório");
+                    relatorio(plataforma);
                 default:
                     System.out.println("Opção inválida!");
                     break;
@@ -403,6 +402,47 @@ public class App {
         } while (opcao != 0);
 
         scanner.close();
+    }
+
+    private static void relatorio(PlataformaStreaming plataforma) {
+        String[] tiposRelatorio = new String[] {
+          "Mídia", "Avaliação", "Média Avaliação", "Dez melhores", "Mais vistas", "Dez melhores gêneros", "Mais vistas gênero"
+        };
+
+        for(int i = 0; i < tiposRelatorio.length; i++) {
+            System.out.println((i+1) + " " + tiposRelatorio[i]);
+        }
+
+        System.out.println("Você deseja ver qual tipo de relatório? ");
+        int tipoRelatorio = scanner.nextInt();
+
+        Relatorio relatorio = new Relatorio(plataforma);
+
+        switch(tipoRelatorio) {
+            case 1:
+                System.out.println(relatorio.gerarRelatorioDeMidia());
+                break;
+            case 2:
+                System.out.println(relatorio.gerarRelatorioAvaliacao());
+                break;
+            case 3:
+                System.out.println(relatorio.gerarRelatorioMediaAvaliacao());
+                break;
+            case 4:
+                System.out.println(relatorio.gerarRelatorioDezMelhores());
+            case 5:
+                System.out.println(relatorio.gerarRelatorioMaisVistas());
+                break;
+            case 6:
+                System.out.println(relatorio.gerarRelatorioDezMelhoresGenero());
+                break;
+            case 7:
+                System.out.println(relatorio.gerarRelatorioMaisVistasGenero());
+                break;
+            default:
+                System.out.println("A opção digitada não existe");
+                break;
+        }
     }
 
 }

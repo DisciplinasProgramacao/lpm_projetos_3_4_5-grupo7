@@ -1,6 +1,5 @@
 package src;
 
-import java.util.List;
 import java.util.Map;
 
 public class Relatorio {
@@ -32,23 +31,23 @@ public class Relatorio {
         return "O cliente que avaliou mais mídias foi o " + clienteTop.getLogin() + ", com " + clienteTop.getAvaliacoes().size() + " avalidadas";
     }
     
-    public void gerarRelatorioMediaAvaliacao() {
-
+    public String gerarRelatorioMediaAvaliacao() {
+        return null;
     }
 
-    public void gerarRelatorioDezMelhores(){
-
+    public String gerarRelatorioDezMelhores(){
+        return null;
     }
 
-    public void gerarRelatorioMaisVistas(){
-
+    public String gerarRelatorioMaisVistas(){
+        return null;
     }
 
-    public void gerarRelatorioDezMelhoresGenero(){
-
+    public String gerarRelatorioDezMelhoresGenero(){
+        return null;
     }
     
-    public void gerarRelatorioMaisVistasGenero(){
-
+    public String gerarRelatorioMaisVistasGenero(){
+        return null;
     }
 }
