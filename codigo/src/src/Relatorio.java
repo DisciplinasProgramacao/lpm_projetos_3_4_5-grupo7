@@ -31,4 +31,24 @@ public class Relatorio {
 
         return "O cliente que avaliou mais mídias foi o " + clienteTop.getLogin() + ", com " + clienteTop.getAvaliacoes().size() + " avalidadas";
     }
+    
+    public void gerarRelatorioMediaAvaliacao() {
+
+    }
+
+    public void gerarRelatorioDezMelhores(){
+
+    }
+
+    public void gerarRelatorioMaisVistas(){
+
+    }
+
+    public void gerarRelatorioDezMelhoresGenero(){
+
+    }
+    
+    public void gerarRelatorioMaisVistasGenero(){
+
+    }
 }
