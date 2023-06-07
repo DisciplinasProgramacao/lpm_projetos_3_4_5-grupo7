@@ -28,15 +28,25 @@ public class App {
         System.out.println("5  - Adicionar Filme");
         System.out.println("6  - Adicionar Serie");
         System.out.println("7  - Assistir");
-        System.out.println("8  - Filtrar midia por genero");
-        System.out.println("9  - Filtrar midia por Idioma");
-        System.out.println("10 - Filtrar série por episodio");
-        System.out.println("11 - Cadastrar um novo usuário");
-        System.out.println("12 - Adicionar para ver mais tarde");
-        System.out.println("13 - Mostrar para ver mais tarde");
-        System.out.println("14 - Avaliação avulsa");
+        System.out.println("8  - Filtrar");
+        System.out.println("9 - Cadastrar um novo usuário");
+        System.out.println("10 - Adicionar para ver mais tarde");
+        System.out.println("11 - Mostrar para ver mais tarde");
+        System.out.println("12 - Avaliação avulsa");
+        System.out.println("13 - Relatórios");
         System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
+        int opcao = Integer.parseInt(scanner.nextLine());
+        limparTela();
+        return opcao;
+    }
+
+    private static int menuFiltros() {
+        System.out.println("Escolha o que quer filtrar!");
+        System.out.println("1 - Filtrar mídia por Gênero");
+        System.out.println("2 - Filtrar mídia por Idioma");
+        System.out.println("3 - Filtrar série por episódio");
+
         int opcao = Integer.parseInt(scanner.nextLine());
         limparTela();
         return opcao;
@@ -82,40 +92,48 @@ public class App {
         plataforma.salvarSerie();
     }
 
+    private static void avaliar(Audiovisual ver) {
+
+        String comentario;
+        System.out.println("Digite uma nota de 0 a 5.");
+        double nota = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println(
+                "Digite um comentario (apenas para clientes autorizados), caso não queira apenas aperte enter.");
+        comentario = scanner.nextLine();
+
+        try {
+            clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
+            System.out.println("Avaliação cadastrada");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Obrigado.");
+
+    }
+
     private static void assistir() {
         System.out.println("Digite o id que deseja assistir.");
-        Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
+        Audiovisual aud = plataforma.buscarAudiovisual(scanner.nextInt());
 
-        if (ver == null) {
+        if (aud == null) {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
         } else {
-            clientAutenticado.adicionarNaListaJaVistas(ver);
+            clientAutenticado.adicionarNaListaJaVistas(aud);
             plataforma.salvarListasCliente(clientAutenticado);
-            if (ver.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
-                System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
-                int opc = scanner.nextInt();
-                if (opc == 1) {
-                    String comentario;
-                    System.out.println("Digite uma nota de 0 a 5.");
-                    double nota = scanner.nextDouble();
-                    scanner.nextLine();
-                    System.out.println(
-                            "Digite um comentario (apenas para clientes autorizados), caso não queira apenas aperte enter.");
-                    comentario = scanner.nextLine();
+            aud.registrarAudiencia();
 
-                    try {
-                        clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
-                        System.out.println("Avaliação cadastrada");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-                System.out.println("Obrigado.");
+            if (aud.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
 
+                System.out.println("Deseja avaliar o audiovisual? 0 -> Não   1 -> Sim");
+                int opcao = scanner.nextInt();
+                if (opcao == 1)
+                    avaliar(aud);
+                else
+                    System.out.println("Obrigado!");
             } else
-                System.out.println("Obrigado. avaliação ja cadastrada.");
+                System.out.println("Avaliação já cadastrada anteriormente.");
 
-            ver.registrarAudiencia();
         }
         scanner.nextLine();
 
@@ -293,19 +311,14 @@ public class App {
             System.out.println("A midia referente ao Id informado não existe");
             return;
         }
-        System.out.println("Digite sua nota:");
-        double nota = scanner.nextDouble();
-        System.out.println("Digite seu comentário:");
-        String comentario = scanner.nextLine();
 
-        try {
-            clientAutenticado.adicionarAvaliacao(midia, nota, comentario);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        avaliar(midia);
+
+        scanner.nextLine();
     }
 
     public static void main(String[] args) {
+        int opcfiltro;
         int opcao;
         int opcaoInicial;
         new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
@@ -367,31 +380,37 @@ public class App {
                     assistir();
                     break;
                 case 8:
-                    filtraMidiaPorGenero();
+                    opcfiltro = menuFiltros();
+                    switch (opcfiltro) {
+                        case 1:
+                            filtraMidiaPorGenero();
+                            break;
+                        case 2:
+                            filtraMidiaPorIdioma();
+                            ;
+                            break;
+                        case 3:
+                            filtraSeriePorQuantidadeEpisodios();
+                            break;
+                    }
                     break;
                 case 9:
-                    filtraMidiaPorIdioma();
-                    break;
-                case 10:
-                    filtraSeriePorQuantidadeEpisodios();
-                    break;
-                case 11:
                     System.out.println("Criando um novo usuário:");
                     cadastrarNovoUsuario();
                     break;
-                case 12:
+                case 10:
                     System.out.println("Lista de assistir mais tarde:");
                     assistirMaisTarde();
                     break;
-                case 13:
+                case 11:
                     System.out.println("Lista de assistir mais tarde:");
                     verListaAssistirMaisTarde();
                     break;
-                case 14:
+                case 12:
                     System.out.println("Avaliação Avulsa:");
                     avaliacaoAvulsa();
                     break;
-                case 15:
+                case 13:
                     System.out.println("Relatório");
                     relatorio(plataforma);
                 default:
@@ -413,7 +432,7 @@ public class App {
         };
 
         for (int i = 0; i < tiposRelatorio.length; i++) {
-            System.out.println((i + 1) + " " + tiposRelatorio[i]);
+            System.out.println((i + 1) + " - " + tiposRelatorio[i]);
         }
 
         System.out.println("Você deseja ver qual tipo de relatório? ");
@@ -447,6 +466,9 @@ public class App {
                 System.out.println("A opção digitada não existe");
                 break;
         }
+
+        scanner.nextLine();
+        scanner.nextLine();
     }
 
 }

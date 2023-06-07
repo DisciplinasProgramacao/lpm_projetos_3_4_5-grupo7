@@ -178,7 +178,7 @@ public class Cliente implements IDAO<Cliente> {
     }
 
     public String getTipo() {
-        return this.tipo.getDescricao();
+        return this.tipo == null ? null : this.tipo.getDescricao();
     }
 
     public HashMap<Integer, Audiovisual> getParaVer() {
