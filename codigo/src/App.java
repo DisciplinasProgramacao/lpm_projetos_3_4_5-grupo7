@@ -93,22 +93,24 @@ public class App {
     }
 
     private static void avaliar(Audiovisual ver) {
+        if (ver.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
+            String comentario;
+            System.out.println("Digite uma nota de 0 a 5.");
+            double nota = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println(
+                    "Digite um comentario (apenas para clientes autorizados), caso não queira apenas aperte enter.");
+            comentario = scanner.nextLine();
 
-        String comentario;
-        System.out.println("Digite uma nota de 0 a 5.");
-        double nota = scanner.nextDouble();
-        scanner.nextLine();
-        System.out.println(
-                "Digite um comentario (apenas para clientes autorizados), caso não queira apenas aperte enter.");
-        comentario = scanner.nextLine();
-
-        try {
-            clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
-            System.out.println("Avaliação cadastrada");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("Obrigado.");
+            try {
+                clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
+                System.out.println("Avaliação cadastrada");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            System.out.println("Obrigado.");
+        } else
+            System.out.println("Avaliação já cadastrada anteriormente.");
 
     }
 
