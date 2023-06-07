@@ -91,27 +91,31 @@ public class App {
         } else {
             clientAutenticado.adicionarNaListaJaVistas(ver);
             plataforma.salvarListasCliente(clientAutenticado);
-            System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
-            int opc = scanner.nextInt();
-            if (opc == 1) {
+            if (ver.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
+                System.out.println("Deseja avaliar? 0 -> Não | 1 -> Sim.");
+                int opc = scanner.nextInt();
+                if (opc == 1) {
+                    String comentario;
+                    System.out.println("Digite uma nota de 0 a 5.");
+                    double nota = scanner.nextDouble();
+                    scanner.nextLine();
+                    System.out.println(
+                            "Digite um comentario (apenas para clientes autorizados), caso não queira apenas aperte enter.");
+                    comentario = scanner.nextLine();
 
-                String comentario;
-                System.out.println("Digite uma nota de 1 a 5.");
-                double nota = scanner.nextDouble();
-                scanner.nextLine();
-                System.out.println(
-                        "Digite um comentario (apenas para clientes especialistas), caso não queira apenas aperte enter.");
-                comentario = scanner.nextLine();
-
-                try {
-                    clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
-                    System.out.println("Avaliação cadastrada");
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    try {
+                        clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
+                        System.out.println("Avaliação cadastrada");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
+                System.out.println("Obrigado.");
 
-            }
-            System.out.println("Obrigado.");
+            } else
+                System.out.println("Obrigado. avaliação ja cadastrada.");
+
+            ver.registrarAudiencia();
         }
         scanner.nextLine();
 
@@ -164,7 +168,8 @@ public class App {
         System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
                 + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
         System.out.println(
-                "Você é um cliente " + (clientAutenticado.getTipo() == null ? "Regular. " : "Especialista."));
+                "Você é um cliente "
+                        + (clientAutenticado.getTipo() == null ? "Regular. " : clientAutenticado.getTipo() + "."));
 
     }
 
@@ -257,7 +262,7 @@ public class App {
 
     private static void verListaAssistirMaisTarde() {
         if (clientAutenticado.getParaVer().size() > 0) {
-            clientAutenticado.getParaVer().forEach(x -> System.out.println(x.toString()));
+            clientAutenticado.getParaVer().values().forEach(x -> System.out.println(x.toString()));
             System.out.println("Deseja remover algum item dessa lista? Id - Sim ou 0 - Não");
             int opc = scanner.nextInt();
             if (opc != 0)
@@ -270,28 +275,21 @@ public class App {
     private static void avaliacaoAvulsa() {
         Audiovisual midia = null;
 
-        if(clientAutenticado.getAssistidas().size() == 0) {
+        if (clientAutenticado.getAssistidas().size() == 0) {
             System.out.println("Não há mídias assistidas!");
             return;
         }
 
         System.out.println("======= MÍDIAS ASSISTIDAS =======");
-        for(Audiovisual a : clientAutenticado.getAssistidas()) {
-            System.out.println(a.toString());
-        }
+        clientAutenticado.getAssistidas().values().forEach(x -> System.out.println(x.toString()));
         System.out.println("=================================");
 
         System.out.println("Digite o Id da mídia:");
         int idMidia = scanner.nextInt();
 
-        for(Audiovisual m : clientAutenticado.getAssistidas()) {
-            if(m.getId() == idMidia) {
-                midia = m;
-                break;
-            }
-        }
+        midia = clientAutenticado.getAssistidas().get(idMidia);
 
-        if(midia == null) {
+        if (midia == null) {
             System.out.println("A midia referente ao Id informado não existe");
             return;
         }
@@ -302,7 +300,7 @@ public class App {
 
         try {
             clientAutenticado.adicionarAvaliacao(midia, nota, comentario);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -316,8 +314,12 @@ public class App {
 
             opcaoInicial = menuInicialLogin();
             switch (opcaoInicial) {
-                case 1 -> cadastrarNovoUsuario();
-                case 2 -> verPerfil();
+                case 1:
+                    cadastrarNovoUsuario();
+                    break;
+                case 2:
+                    verPerfil();
+                    break;
             }
         } while (clientAutenticado == null);
 
@@ -406,11 +408,12 @@ public class App {
 
     private static void relatorio(PlataformaStreaming plataforma) {
         String[] tiposRelatorio = new String[] {
-          "Mídia", "Avaliação", "Média Avaliação", "Dez melhores", "Mais vistas", "Dez melhores gêneros", "Mais vistas gênero"
+                "Mídia", "Avaliação", "Média Avaliação", "Dez melhores", "Mais vistas", "Dez melhores gêneros",
+                "Mais vistas gênero"
         };
 
-        for(int i = 0; i < tiposRelatorio.length; i++) {
-            System.out.println((i+1) + " " + tiposRelatorio[i]);
+        for (int i = 0; i < tiposRelatorio.length; i++) {
+            System.out.println((i + 1) + " " + tiposRelatorio[i]);
         }
 
         System.out.println("Você deseja ver qual tipo de relatório? ");
@@ -418,7 +421,7 @@ public class App {
 
         Relatorio relatorio = new Relatorio(plataforma);
 
-        switch(tipoRelatorio) {
+        switch (tipoRelatorio) {
             case 1:
                 System.out.println(relatorio.gerarRelatorioDeMidia());
                 break;
@@ -430,6 +433,7 @@ public class App {
                 break;
             case 4:
                 System.out.println(relatorio.gerarRelatorioDezMelhores());
+                break;
             case 5:
                 System.out.println(relatorio.gerarRelatorioMaisVistas());
                 break;

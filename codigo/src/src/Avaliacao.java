@@ -13,7 +13,6 @@ public class Avaliacao {
     public Avaliacao(Double nota, String comentario) {
         cadastrarAvaliacao(nota);
         this.comentario = comentario;
-
     }
 
     public Double getNota() {
@@ -30,7 +29,7 @@ public class Avaliacao {
      * @param nota double
      */
     private void cadastrarAvaliacao(double nota) {
-        if(nota >= 0.0 && nota <= avaliacaoMaxima) {
+        if (nota >= 0.0 && nota <= avaliacaoMaxima) {
             this.nota = nota;
         } else {
             this.nota = 0.0;

@@ -1,16 +1,15 @@
 package src;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 public class Cliente implements IDAO<Cliente> {
     private String nomeDeUsuario;
     private String senha;
     private String login;
-    private List<Audiovisual> listaParaVer;
-    private List<Audiovisual> listaJaVistas;
+    private HashMap<Integer, Audiovisual> listaParaVer;
+    private HashMap<Integer, Audiovisual> listaJaVistas;
     private HashSet<Avaliacao> avaliacoes;
     private ICliente tipo;
 
@@ -22,36 +21,37 @@ public class Cliente implements IDAO<Cliente> {
      * vazias
      * 
      * @param usuario String
-     * @param senha String
+     * @param senha   String
      */
     public Cliente(String usuario, String senha) {
         this.nomeDeUsuario = usuario;
         this.login = usuario;
         this.senha = senha;
-        this.listaParaVer = new ArrayList<>();
-        this.listaJaVistas = new ArrayList<>();
+        this.listaParaVer = new HashMap<>();
+        this.listaJaVistas = new HashMap<>();
     }
 
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
      * vazias
      *
-     * @param nome String
+     * @param nome    String
      * @param usuario String
-     * @param senha String
+     * @param senha   String
      */
     public Cliente(String nome, String usuario, String senha) {
         this.nomeDeUsuario = nome;
         this.login = usuario;
         this.senha = senha;
-        this.listaParaVer = new ArrayList<>();
-        this.listaJaVistas = new ArrayList<>();
+        this.listaParaVer = new HashMap<>();
+        this.listaJaVistas = new HashMap<>();
     }
 
     /**
      * Adiciona uma avaliação com comentário, caso o cliente seja Especialista
-     * @param aud Audiovisual
-     * @param nota double
+     * 
+     * @param aud        Audiovisual
+     * @param nota       double
      * @param comentario String
      */
     public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
@@ -75,7 +75,7 @@ public class Cliente implements IDAO<Cliente> {
      * @param audiovisual Audiovisual
      */
     public void adicionarNaLista(Audiovisual audiovisual) {
-        listaParaVer.add(audiovisual);
+        listaParaVer.put(audiovisual.getId(), audiovisual);
     }
 
     /**
@@ -86,7 +86,7 @@ public class Cliente implements IDAO<Cliente> {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         audiovisual.setDataAssistido();
-        listaJaVistas.add(audiovisual);
+        listaJaVistas.put(audiovisual.getId(), audiovisual);
         if (tipo == null && verificarEspecialista()) {
             tipo = new ClienteEspecialista();
         }
@@ -98,7 +98,7 @@ public class Cliente implements IDAO<Cliente> {
      * @param nomeAudiovisual String
      */
     public void retirarDaLista(String nomeAudiovisual) {
-        listaParaVer.removeIf(x -> x.getNome().equals(nomeAudiovisual));
+        listaParaVer.values().removeIf(x -> x.getNome().equals(nomeAudiovisual));
     }
 
     /**
@@ -107,7 +107,7 @@ public class Cliente implements IDAO<Cliente> {
      * @param id int
      */
     public void retirarDaLista(int id) {
-        listaParaVer.removeIf(x -> x.getId() == id);
+        listaParaVer.values().removeIf(x -> x.getId() == id);
     }
 
     /**
@@ -148,7 +148,7 @@ public class Cliente implements IDAO<Cliente> {
         LocalDate dataAtual = LocalDate.now();
         LocalDate dataLimite = dataAtual.minusMonths(1);
         int contador = 0;
-        for (Audiovisual audiovisual : listaJaVistas) {
+        for (Audiovisual audiovisual : listaJaVistas.values()) {
             contador += (audiovisual.getDataAssistido().isAfter(dataLimite)
                     || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
         }
@@ -177,18 +177,21 @@ public class Cliente implements IDAO<Cliente> {
         return this.login;
     }
 
-    public ICliente getTipo() {
-        return this.tipo;
+    public String getTipo() {
+        return this.tipo.getDescricao();
     }
 
-    public List<Audiovisual> getParaVer() {
+    public HashMap<Integer, Audiovisual> getParaVer() {
         return this.listaParaVer;
     }
 
-    public List<Audiovisual> getAssistidas() {
+    public HashMap<Integer, Audiovisual> getAssistidas() {
         return this.listaJaVistas;
     }
-    public HashSet<Avaliacao> getAvaliacoes() { return this.avaliacoes; }
+
+    public HashSet<Avaliacao> getAvaliacoes() {
+        return this.avaliacoes;
+    }
     // #endregion
 
     @Override

@@ -78,7 +78,7 @@ public class PlataformaStreaming extends Thread {
     /**
      * Cadastra um novo cliente na Plataforma de Streaming.
      *
-     * @param nome String
+     * @param nome  String
      * @param login String
      * @param senha String
      */
@@ -128,7 +128,8 @@ public class PlataformaStreaming extends Thread {
      * @param filme Filme
      */
     public void registrarAudienciaFilme(Filme filme) {
-        filmes.values().stream().filter(x -> Objects.equals(x.getNome(), filme.getNome())).findFirst().get().registrarAudiencia();
+        filmes.values().stream().filter(x -> Objects.equals(x.getNome(), filme.getNome())).findFirst().get()
+                .registrarAudiencia();
     }
 
     /**
@@ -139,7 +140,8 @@ public class PlataformaStreaming extends Thread {
      * @param serie Serie
      */
     public void registrarAudienciaSerie(Serie serie) {
-        series.values().stream().filter(x -> Objects.equals(x.getNome(), serie.getNome())).findFirst().get().registrarAudiencia();
+        series.values().stream().filter(x -> Objects.equals(x.getNome(), serie.getNome())).findFirst().get()
+                .registrarAudiencia();
     }
 
     /**
@@ -223,12 +225,12 @@ public class PlataformaStreaming extends Thread {
             List<String> listaParaAssistir = new ArrayList<>();
             List<String> listaJaVistas = new ArrayList<>();
 
-            for (Audiovisual audiovisual : cliente.getParaVer()) {
+            for (Audiovisual audiovisual : cliente.getParaVer().values()) {
                 String item = String.valueOf(audiovisual.getId());
                 listaParaAssistir.add(item);
             }
 
-            for (Audiovisual audiovisual : cliente.getAssistidas()) {
+            for (Audiovisual audiovisual : cliente.getAssistidas().values()) {
                 String item = String.valueOf(audiovisual.getId());
                 listaJaVistas.add(item);
             }

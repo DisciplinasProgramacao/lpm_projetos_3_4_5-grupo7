@@ -130,6 +130,7 @@ public class Audiovisual {
      * @param avaliacao Avaliacao
      */
     public void adicionarAvaliacao(Cliente cliente, Avaliacao avaliacao) {
+        
         this.avaliacoes.put(cliente.getLogin(), avaliacao);
     }
 
