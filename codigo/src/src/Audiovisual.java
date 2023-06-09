@@ -105,7 +105,7 @@ public class Audiovisual {
     @Override
     public String toString() {
         return String.format(
-                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\n Streams: %i\n",
+                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\n",
                 this.getId(), this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero(),
                 this.getIdioma(), this.getAudiencia());
     }
