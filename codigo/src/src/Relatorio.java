@@ -1,6 +1,9 @@
 package src;
 
-import java.util.Map;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import static java.util.stream.Collectors.joining;
 
 public class Relatorio {
     private final PlataformaStreaming plataforma;
@@ -10,44 +13,57 @@ public class Relatorio {
     }
 
     public String gerarRelatorioDeMidia() {
-        Cliente clienteTop = plataforma.getClientes().values().stream().findFirst().get();
 
-        for(Map.Entry<String, Cliente> clientes : plataforma.getClientes().entrySet()) {
-            if(clientes.getValue().getAssistidas().size() > clienteTop.getAssistidas().size())
-                clienteTop = clientes.getValue();
-        }
+        Cliente clienteTopMidia = plataforma.getClientes().values().stream()
+                .max(Comparator.comparingInt(cliente -> cliente.getAssistidas().size())).get();
 
-        return "O cliente que assistiu mais mídias foi o " + clienteTop.getLogin() + ", com " + clienteTop.getAssistidas().size() + " assistidos";
+        return "O cliente que assistiu mais mídias foi o " + clienteTopMidia.getLogin() + ", com "
+                + clienteTopMidia.getAssistidas().size() + " assistidos";
     }
 
+    // TODO - corrigir: gerando null pointer exception
     public String gerarRelatorioAvaliacao() {
-        Cliente clienteTop = plataforma.getClientes().values().stream().findFirst().get();
+        // giving null pointer exception
 
-        for(Map.Entry<String, Cliente> clientes : plataforma.getClientes().entrySet()) {
-            if(clientes.getValue().getAvaliacoes().size() > clienteTop.getAvaliacoes().size())
-                clienteTop = clientes.getValue();
-        }
+        Cliente clienteTopAvaliacao = plataforma.getClientes().values().stream()
+                .filter(cliente -> cliente.getAvaliacoes() != null)
+                .max(Comparator.comparingInt(cliente -> cliente.getAvaliacoes().size())).get();
 
-        return "O cliente que avaliou mais mídias foi o " + clienteTop.getLogin() + ", com " + clienteTop.getAvaliacoes().size() + " avalidadas";
+        return "O cliente que avaliou mais mídias foi o " + clienteTopAvaliacao.getLogin() + ", com "
+                + clienteTopAvaliacao.getAvaliacoes().size() + " avalidadas";
     }
-    
-    public String gerarRelatorioMediaAvaliacao() {
+
+    // TODO - corrigir: gerando null pointer exception
+    public String gerarRelatorioClientes15Avaliacoes() {
+        List<Cliente> clientes15Avaliacoes = plataforma.getClientes().values().stream()
+                .filter(cliente -> cliente.getAvaliacoes().size() >= 15).collect(Collectors.toList());
+
+        double porcentagem = (double) clientes15Avaliacoes.size() / plataforma.getClientes().size() * 100;
+        return "A porcentagem de clientes que avaliaram mais de 15 mídias é de " + porcentagem + "%";
+    }
+
+    // TODO - corrigir: não está imprimindo os audiovisuais
+    public String gerarRelatorioDezMelhores() {
+        // Quais são as 10 mídias de melhor avaliação, com pelo menos 100 avaliações, em
+        // ordem decrescente;
+
+        String lista10Audiovisuais = plataforma.getListaAudioVisual().stream()
+                .filter(audiovisual -> audiovisual.getAvaliacoes().size() >= 100)
+                .sorted(Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed()).limit(10)
+                .map(audiovisual -> audiovisual.toString()).collect(joining(", "));
+
+        return "As 10 midias de melhor avaliacao são: " + lista10Audiovisuais;
+    }
+
+    public String gerarRelatorioMaisVistas() {
         return null;
     }
 
-    public String gerarRelatorioDezMelhores(){
+    public String gerarRelatorioDezMelhoresGenero() {
         return null;
     }
 
-    public String gerarRelatorioMaisVistas(){
-        return null;
-    }
-
-    public String gerarRelatorioDezMelhoresGenero(){
-        return null;
-    }
-    
-    public String gerarRelatorioMaisVistasGenero(){
+    public String gerarRelatorioMaisVistasGenero() {
         return null;
     }
 }

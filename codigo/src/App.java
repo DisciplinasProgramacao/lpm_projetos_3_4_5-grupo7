@@ -429,8 +429,13 @@ public class App {
 
     private static void relatorio(PlataformaStreaming plataforma) {
         String[] tiposRelatorio = new String[] {
-                "Mídia", "Avaliação", "Média Avaliação", "Dez melhores", "Mais vistas", "Dez melhores gêneros",
-                "Mais vistas gênero"
+                "Qual cliente assistiu mais mídias, e quantas mídias",
+                "Qual cliente tem mais avaliações, e quantas avaliações",
+                "Qual a porcentagem dos clientes com pelo menos 15 avaliações",
+                "10 mídias de melhor avaliação, com pelo menos 100 avaliações, em ordem decrescente",
+                "Quais são as 10 mídias com mais visualizações, em ordem decrescente;",
+                "10 mídias de melhor avaliação, com pelo menos 100 avaliações, em ordem decrescente - SEPARADO POR GENERO",
+                "Quais são as 10 mídias com mais visualizações, em ordem decrescente - SEPARADO POR GENERO"
         };
 
         for (int i = 0; i < tiposRelatorio.length; i++) {
@@ -450,7 +455,7 @@ public class App {
                 System.out.println(relatorio.gerarRelatorioAvaliacao());
                 break;
             case 3:
-                System.out.println(relatorio.gerarRelatorioMediaAvaliacao());
+                System.out.println(relatorio.gerarRelatorioClientes15Avaliacoes());
                 break;
             case 4:
                 System.out.println(relatorio.gerarRelatorioDezMelhores());
