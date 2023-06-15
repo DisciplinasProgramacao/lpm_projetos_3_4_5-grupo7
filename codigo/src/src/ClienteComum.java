@@ -1,7 +1,7 @@
 package src;
 
-public class ClienteEspecialista implements ITipoCliente {
-  private String nome = "Especialista";
+public class ClienteComum implements ITipoCliente{
+  private String nome = "Comum";
 
   /**
    * Adiciona a avaliação no hash de avaliações do cliente
@@ -11,13 +11,13 @@ public class ClienteEspecialista implements ITipoCliente {
    * @param avaliacao   Avaliacao
    */
   public Avaliacao avaliar(double nota, String comentario) {
-        Avaliacao avaliacao = new Avaliacao(nota, comentario);
-        System.out.println("Avaliação registrada com Sucesso");
+        Avaliacao avaliacao = new Avaliacao(nota);
+        System.out.println("Avaliação registrada sem comentário, cliente não pode comentar");
 
         return avaliacao;
     }
 
-  public String nomeTipo(){
+    public String nomeTipo(){
       return this.nome;
     }
 }

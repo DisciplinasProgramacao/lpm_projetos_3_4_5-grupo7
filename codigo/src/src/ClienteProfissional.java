@@ -1,20 +1,23 @@
 package src;
 
-public class ClienteProfissional implements ICliente {
-    public String descricao = "Profissional";
+public class ClienteProfissional implements ITipoCliente {
+    public String nome = "Profissional";
 
     /**
      * Adiciona a avaliação no hash de avaliações do cliente
      *
-     * @param cliente     Cliente
-     * @param audiovisual Audiovisual
-     * @param avaliacao   Avaliacao
+     * @param nota    Cliente
+     * @param comentario
+     * @return avaliacao
      */
-    public void avaliar(Cliente cliente, Audiovisual audiovisual, Avaliacao avaliacao) {
-        audiovisual.adicionarAvaliacao(cliente, avaliacao);
+    public Avaliacao avaliar(double nota, String comentario) {
+        Avaliacao avaliacao = new Avaliacao(nota, comentario);
+        System.out.println("Avaliação registrada com Sucesso");
+
+        return avaliacao;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String nomeTipo(){
+      return this.nome;
     }
 }
