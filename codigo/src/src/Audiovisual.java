@@ -14,8 +14,13 @@ public class Audiovisual {
     private int id;
     private String dataLancamento;
     private HashMap<String, Avaliacao> avaliacoes;
+    private Tipo tipo;
 
     public Audiovisual() {
+    }
+
+    public enum Tipo {
+        REGULAR, LANCAMENTO
     }
 
     public enum Generos {
@@ -44,6 +49,7 @@ public class Audiovisual {
         setId(id);
         this.avaliacoes = new HashMap<>();
         this.audiencia = 0;
+        setTipo(Tipo.values()[0]);
     }
 
     /**
@@ -80,6 +86,14 @@ public class Audiovisual {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public String getDataLancamento() {
