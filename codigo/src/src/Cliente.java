@@ -12,9 +12,9 @@ public class Cliente implements IDAO<Cliente> {
     private HashMap<Integer, Audiovisual> listaJaVistas;
     private HashSet<Avaliacao> avaliacoes;
     private ITipoCliente tipo;
-
     
     public Cliente() {
+        this.tipo = new ClienteComum();
     }
 
     /**
@@ -30,6 +30,7 @@ public class Cliente implements IDAO<Cliente> {
         this.senha = senha;
         this.listaParaVer = new HashMap<>();
         this.listaJaVistas = new HashMap<>();
+        this.tipo = new ClienteComum();
     }
 
     /**

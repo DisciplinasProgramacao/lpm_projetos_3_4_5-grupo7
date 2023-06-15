@@ -14,10 +14,10 @@ public class ClienteTest {
         Serie s = new Serie(1, "a", "b");
 
         try {
-            c.adicionarAvaliacao(s, 5.0, "");
+            c.avaliar(s, 5.0, "");
         } catch (Exception e) {
         }
-        Assertions.assertEquals("Nota: 5.0 - Comentário: ", s.mostrarAvaliacoes());
+        Assertions.assertEquals("Nota: 5.0 - Comentário: null", s.mostrarAvaliacoes());
     }
 
     @Test()
@@ -32,7 +32,7 @@ public class ClienteTest {
         Serie s = new Serie(6, "a", "b");
 
         try {
-            c.adicionarAvaliacao(s, 5, "bem divertido!");
+            c.avaliar(s, 5, "bem divertido!");
         } catch (Exception e) {
         }
 
@@ -45,7 +45,7 @@ public class ClienteTest {
         Serie s = new Serie(6, "a", "b");
 
         try {
-            c.adicionarAvaliacao(s, 5, "bem divertido!");
+            c.avaliar(s, 5, "bem divertido!");
         } catch (Exception e) {
             assertEquals("Cliente não é especialista! Apenas a nota foi salva.", e.getMessage());
         }
@@ -57,7 +57,7 @@ public class ClienteTest {
         Serie s = new Serie(6, "a", "b");
 
         try {
-            c.adicionarAvaliacao(s, 5, "bem divertido!");
+            c.avaliar(s, 5, "bem divertido!");
         } catch (Exception e) {
         }
 
