@@ -11,10 +11,9 @@ public class Cliente implements IDAO<Cliente> {
     private HashMap<Integer, Audiovisual> listaParaVer;
     private HashMap<Integer, Audiovisual> listaJaVistas;
     private HashSet<Avaliacao> avaliacoes;
-    private ITipoCliente tipo;
-    
+    private ICliente tipo;
+
     public Cliente() {
-        this.tipo = new ClienteComum();
     }
 
     /**
@@ -30,7 +29,6 @@ public class Cliente implements IDAO<Cliente> {
         this.senha = senha;
         this.listaParaVer = new HashMap<>();
         this.listaJaVistas = new HashMap<>();
-        this.tipo = new ClienteComum();
     }
 
     /**
@@ -49,11 +47,28 @@ public class Cliente implements IDAO<Cliente> {
         this.listaJaVistas = new HashMap<>();
     }
 
+    /**
+     * Adiciona uma avaliação com comentário, caso o cliente seja Especialista
+     * 
+     * @param aud        Audiovisual
+     * @param nota       double
+     * @param comentario String
+     */
+    public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
+        Avaliacao avaliacao = new Avaliacao(nota, comentario);
 
-    public void avaliar(Audiovisual midia, double nota, String comentario){
-        Avaliacao avaliacao = tipo.avaliar(nota, comentario);
-        midia.adicionarAvaliacao(this, avaliacao);
+        if (comentario.equals("") && tipo == null) {
+            aud.adicionarAvaliacao(this, avaliacao);
+        } else if (!comentario.equals("") && tipo == null) {
+            avaliacao = new Avaliacao(nota);
+            aud.adicionarAvaliacao(this, avaliacao);
+            throw new Exception("Cliente não é especialista! Apenas a nota foi salva.");
+        } else {
+            tipo.avaliar(this, aud, avaliacao);
+        }
+
     }
+    
 
     /**
      * Adiciona uma série em uma lista de séries para serem assistidas
@@ -73,7 +88,7 @@ public class Cliente implements IDAO<Cliente> {
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
         audiovisual.setDataAssistido();
         listaJaVistas.put(audiovisual.getId(), audiovisual);
-        if (tipo.nomeTipo() == "Comum" && verificarEspecialista()) {
+        if (tipo == null && verificarEspecialista()) {
             tipo = new ClienteEspecialista();
         }
     }
@@ -164,7 +179,7 @@ public class Cliente implements IDAO<Cliente> {
     }
 
     public String getTipo() {
-        return this.tipo.nomeTipo();
+        return this.tipo == null ? null : this.tipo.getDescricao();
     }
 
     public HashMap<Integer, Audiovisual> getParaVer() {
