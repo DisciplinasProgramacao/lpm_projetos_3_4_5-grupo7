@@ -88,8 +88,8 @@ public class Audiovisual {
         this.nome = nome;
     }
 
-    public Tipo getTipo() {
-        return tipo;
+    public String getTipo() {
+        return tipo.toString();
     }
 
     public void setTipo(Tipo tipo) {
@@ -119,9 +119,9 @@ public class Audiovisual {
     @Override
     public String toString() {
         return String.format(
-                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\n",
+                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\nTipo: %s\n",
                 this.getId(), this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero(),
-                this.getIdioma(), this.getAudiencia());
+                this.getIdioma(), this.getAudiencia(), this.getTipo());
     }
     // #endregion
 
