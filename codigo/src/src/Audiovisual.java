@@ -14,8 +14,13 @@ public class Audiovisual {
     private int id;
     private String dataLancamento;
     private HashMap<String, Avaliacao> avaliacoes;
+    private Tipo tipo;
 
     public Audiovisual() {
+    }
+
+    public enum Tipo {
+        REGULAR, LANCAMENTO
     }
 
     public enum Generos {
@@ -44,6 +49,7 @@ public class Audiovisual {
         setId(id);
         this.avaliacoes = new HashMap<>();
         this.audiencia = 0;
+        setTipo(Tipo.values()[0]);
     }
 
     /**
@@ -82,6 +88,14 @@ public class Audiovisual {
         this.nome = nome;
     }
 
+    public String getTipo() {
+        return tipo.toString();
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
     public String getDataLancamento() {
         return dataLancamento;
     }
@@ -105,9 +119,9 @@ public class Audiovisual {
     @Override
     public String toString() {
         return String.format(
-                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\n",
+                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\nTipo: %s\n",
                 this.getId(), this.getNome(), getDataLancamento(), gerarMediaAvaliacoes(), this.getGenero(),
-                this.getIdioma(), this.getAudiencia());
+                this.getIdioma(), this.getAudiencia(), this.getTipo());
     }
     // #endregion
 
