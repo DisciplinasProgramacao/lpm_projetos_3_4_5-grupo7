@@ -1,19 +1,12 @@
 package src;
 
-public class ClienteEspecialista implements ICliente {
+public class ClienteEspecialista implements IComentarista {
   private String descricao = "Especialista";
 
-  /**
-   * Adiciona a avaliação no hash de avaliações do cliente
-   *
-   * @param cliente     Cliente
-   * @param audiovisual Audiovisual
-   * @param avaliacao   Avaliacao
-   */
-  public void avaliar(Cliente cliente, Audiovisual audiovisual, Avaliacao avaliacao) {
-    audiovisual.adicionarAvaliacao(cliente, avaliacao);
-  }
-  
+  public void comentar(Avaliacao avaliacao,String comentario) {
+        avaliacao.comentar(comentario);
+    }
+      
   public String getDescricao() {
     return descricao;
   }

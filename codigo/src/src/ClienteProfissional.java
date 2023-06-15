@@ -1,6 +1,6 @@
 package src;
 
-public class ClienteProfissional implements ICliente {
+public class ClienteProfissional implements IComentarista {
     public String descricao = "Profissional";
 
     /**
@@ -10,8 +10,8 @@ public class ClienteProfissional implements ICliente {
      * @param audiovisual Audiovisual
      * @param avaliacao   Avaliacao
      */
-    public void avaliar(Cliente cliente, Audiovisual audiovisual, Avaliacao avaliacao) {
-        audiovisual.adicionarAvaliacao(cliente, avaliacao);
+    public void comentar(Avaliacao avaliacao,String comentario) {
+        avaliacao.comentar(comentario);
     }
 
     public String getDescricao() {
