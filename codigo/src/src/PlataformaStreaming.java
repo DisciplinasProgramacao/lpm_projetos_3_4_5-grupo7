@@ -245,6 +245,7 @@ public class PlataformaStreaming extends Thread {
 
     public void carregarDados() {
         try {
+            
             DAO<Filme> daoFilme = new DAO<>("codigo/src/files/POO_Filmes.csv");
             DAO<Serie> daoSerie = new DAO<>("codigo/src/files/POO_Series.csv");
             DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Espectadores.csv");
