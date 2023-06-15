@@ -23,10 +23,6 @@ public class Avaliacao {
         return this.comentario;
     }
 
-    public void adicionarComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
     /**
      * Método responsável por cadastrar uma nova avaliação
      * 
