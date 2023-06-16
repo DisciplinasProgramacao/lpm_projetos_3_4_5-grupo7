@@ -63,6 +63,15 @@ public class App {
         return opcao;
     }
 
+    private static int menuTipoCadastro() {
+        System.out.println("Escolha o tipo de cliente:");
+        System.out.println("1 - Cliente");
+        System.out.println("2 - Cliente Profissional");
+        int opcao = Integer.parseInt(scanner.nextLine());
+        limparTela();
+        return opcao;
+    }
+
     private static void adicionarFilme() {
         System.out.println("Adicionar Filme...");
         System.out.println("Digite o ID do filme");
@@ -213,14 +222,29 @@ public class App {
     }
 
     private static void cadastrarNovoUsuario() {
+        int opcaoInicial;
+        
         System.out.println("Digite seu nome de exibição:");
         String nomeUsuarioCadastro = scanner.nextLine();
         System.out.println("Digite seu login:");
         String loginCadastro = scanner.nextLine();
         System.out.println("Digite sua senha:");
         String senhaCadastro = scanner.nextLine();
+        System.out.println("S:");
 
-        plataforma.cadastro(nomeUsuarioCadastro, loginCadastro, senhaCadastro);
+        opcaoInicial = menuTipoCadastro();
+        
+        switch (opcaoInicial) {
+            case 1:
+                plataforma.cadastro(nomeUsuarioCadastro, loginCadastro, senhaCadastro, "Comum");
+                break;
+            case 2:
+                plataforma.cadastro(nomeUsuarioCadastro, loginCadastro, senhaCadastro, "Profissional");
+                break;
+            default:
+                plataforma.cadastro(nomeUsuarioCadastro, loginCadastro, senhaCadastro, "Comum");
+                break;
+        }
 
         System.out.println("você deseja logar como este cliente agora? 1 para Sim | 0 para Não");
         int opc = scanner.nextInt();

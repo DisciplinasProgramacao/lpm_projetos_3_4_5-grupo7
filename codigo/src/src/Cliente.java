@@ -92,8 +92,7 @@ public class Cliente implements IDAO<Cliente> {
         audiovisual.setDataAssistido();
         listaJaVistas.put(audiovisual.getId(), audiovisual);
 
-        if (tipo == null && verificarEspecialista()) {
-            System.out.println("Parabéns, você se tornou um cliente especialista!");
+        if (tipo == null && verificarEspecialista()) { 
             tipo = EnumTipoCliente.Especialista;
         }
     }

@@ -18,18 +18,17 @@ public class PlataformaStreamingTest {
   @Test
   public void testaCadastro() {
     ps = new PlataformaStreaming();
-    ps.cadastro("joão kleber", "jk123", "12345");
+    ps.cadastro("joão kleber", "jk123", "12345", "Profissional");
     Cliente c = ps.login("jk123", "12345");
-
+    System.out.println(c.getTipo());
     Assertions.assertNotNull(c);
   }
 
   @Test
   public void testaLogin() {
     ps = new PlataformaStreaming();
-    ps.cadastro("joaozinho", "user", "senha");
+    ps.cadastro("joaozinho", "user", "senha", "Comum");
     Cliente c = ps.login("user", "senha");
-
     Assertions.assertNotNull(c);
   }
 
@@ -42,7 +41,7 @@ public class PlataformaStreamingTest {
   @Test
   public void testaAdicionarCliente() {
     ps = new PlataformaStreaming();
-    Assertions.assertDoesNotThrow(() -> ps.cadastro("joaozinho", "user", "senha"));
+    Assertions.assertDoesNotThrow(() -> ps.cadastro("joaozinho", "user", "senha", "Comum"));
   }
 
   @Test

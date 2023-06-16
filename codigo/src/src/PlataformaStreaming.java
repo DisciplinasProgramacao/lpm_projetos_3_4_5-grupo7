@@ -82,8 +82,15 @@ public class PlataformaStreaming extends Thread {
      * @param login String
      * @param senha String
      */
-    public void cadastro(String nome, String login, String senha) {
-        Cliente cliente = new Cliente(nome, login, senha);
+    public void cadastro(String nome, String login, String senha, String tipo) {
+        Cliente cliente;
+
+        if(tipo == "Comum"){
+            cliente = new Cliente(nome, login, senha);
+        } else {
+
+            cliente = new Cliente(nome, login, senha, EnumTipoCliente.Profissional);
+        }
         adicionarCliente(cliente);
     }
 
