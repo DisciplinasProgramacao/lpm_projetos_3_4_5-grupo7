@@ -39,9 +39,9 @@ public class SerieTest {
     Serie serie = new Serie(123, "serie", "01/02/2003");
 
     try {
-      cliente1.avaliar(serie, 2, "");
-      cliente2.avaliar(serie, 5, "");
-      cliente3.avaliar(serie, 2, "");
+      cliente1.adicionarAvaliacao(serie, 2, "");
+      cliente2.adicionarAvaliacao(serie, 5, "");
+      cliente3.adicionarAvaliacao(serie, 2, "");
     } catch (Exception e) {
     }
 

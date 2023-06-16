@@ -103,7 +103,7 @@ public class App {
             comentario = scanner.nextLine();
 
             try {
-                clientAutenticado.avaliar(ver, nota, comentario);
+                clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
                 System.out.println("Avaliação cadastrada");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
