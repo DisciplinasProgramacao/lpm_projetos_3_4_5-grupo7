@@ -40,7 +40,7 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
   @Override
   public String stringSalvar() {
     char tipo = getTipo().charAt(0);
-    return String.format("%o;%s;%s;%o;%c", this.getId(), this.getNome(), this.getDataLancamento(), this.getDuracao(),
+    return String.format("%d;%s;%s;%o;%c", this.getId(), this.getNome(), this.getDataLancamento(), this.getDuracao(),
         tipo);
   }
 
@@ -53,13 +53,21 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
   @Override
   public Filme loadObject(String linha) {
     String[] dados = linha.split(";");
-
     int id = Integer.parseInt(dados[0].trim().replaceAll("\\p{C}", ""));
     String nome = dados[1].trim();
     String dataLancamento = dados[2].trim();
     int duracao = Integer.parseInt(dados[3].trim());
+    Tipo tipo = Tipo.REGULAR;
 
-    return new Filme(id, nome, dataLancamento, duracao);
+    switch(dados[4].trim()){
+      case "P": 
+        tipo = Tipo.PRELANCAMENTO;
+      break;
+      default: 
+        tipo = Tipo.REGULAR;
+      break;
+    }
+    return new Filme(id, nome, dataLancamento, duracao, tipo);
   }
 
   // #region get/set

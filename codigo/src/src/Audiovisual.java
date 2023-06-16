@@ -113,7 +113,7 @@ public class Audiovisual {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public HashMap<String, Avaliacao> getAvaliacoes() {

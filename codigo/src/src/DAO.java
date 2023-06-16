@@ -35,7 +35,8 @@ public class DAO<T extends IDAO<T>> {
      * Método que adiciona uma linha no final do arquivo
      * 
      * @param objeto T
-     * @throws IOException - Caso haja algum problema durante a inserção da linha ao final do arquivo
+     * @throws IOException - Caso haja algum problema durante a inserção da linha ao
+     *                     final do arquivo
      */
     public void append(T objeto) throws IOException {
         try (FileWriter arquivo = new FileWriter(urlArquivo, true)) {
@@ -57,9 +58,9 @@ public class DAO<T extends IDAO<T>> {
      *          Se sim, atualiza os dados dessa linha com a nova lista de dados.
      *          Caso contrário, adiciona uma nova linha contendo o identificador,
      *          campo e dados.
-     * @param key String
+     * @param key    String
      * @param column String
-     * @param data List<String>
+     * @param data   List<String>
      * @throws IOException Caso haja algum problema durante a execução do método
      * 
      * 
@@ -89,7 +90,7 @@ public class DAO<T extends IDAO<T>> {
 
         try (BufferedReader leitura = new BufferedReader(new FileReader(this.urlArquivo))) {
             String linha;
-            while ((linha = leitura.readLine()) != null) {
+            while ((linha = leitura.readLine()) != null && !linha.isEmpty()) {
                 linha = linha.replace("ï»¿", "");
 
                 if (!linha.contains("#")) {

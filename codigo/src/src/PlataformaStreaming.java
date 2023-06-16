@@ -99,7 +99,13 @@ public class PlataformaStreaming extends Thread {
      * @param filme Filme
      */
     public void adicionarFilme(Filme filme) {
-        this.filmes.put(filme.getId(), filme);
+        try {
+            this.filmes.put(filme.getId(), filme);
+            DAO<Filme> dao = new DAO<>("codigo/src/files/POO_Filmes.csv");
+            dao.append(filme);
+        } catch (Exception cast) {
+
+        }
     }
 
     /**

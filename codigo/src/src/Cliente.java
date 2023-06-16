@@ -24,6 +24,15 @@ public class Cliente implements IDAO<Cliente> {
         this.listaJaVistas = new HashMap<>();
     }
 
+    public void init(String usuario, String senha, String nome, EnumTipoCliente tipo) {
+        this.nomeDeUsuario = nome;
+        this.login = usuario;
+        this.senha = senha;
+        this.listaParaVer = new HashMap<>();
+        this.listaJaVistas = new HashMap<>();
+        this.tipo = tipo;
+    }
+
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
      * vazias
@@ -139,8 +148,19 @@ public class Cliente implements IDAO<Cliente> {
         String nome = dados[0].trim();
         String login = dados[1].trim();
         String senha = dados[2].trim();
+        EnumTipoCliente tipo = null;
+        if (dados.length > 3) {
+            switch (dados[3].trim()) {
+                case "P":
+                    tipo = EnumTipoCliente.PROFISSIONAL;
+                    break;
+                case "E":
+                    tipo = EnumTipoCliente.ESPECIALISTA;
+                    break;
+            }
+        }
 
-        return new Cliente(nome, login, senha);
+        return new Cliente(nome, login, senha, tipo);
     }
 
     /**
@@ -200,12 +220,11 @@ public class Cliente implements IDAO<Cliente> {
 
     @Override
     public String toString() {
-        String tipo;
+        String tipo = "Regular";
 
         try {
             tipo = getTipo();
         } catch (Exception e) {
-            tipo = "Regular";
         }
 
         return String.format("Bem vindo " + this.getNomeUsuario() + "! Seu login é "

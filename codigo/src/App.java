@@ -95,7 +95,6 @@ public class App {
 
         Filme filme = new Filme(id, nome, anoLancamento, duracao, Tipo.values()[tipo]);
         plataforma.adicionarFilme(filme);
-        plataforma.salvarFilme();
     }
 
     private static void adicionarSerie() {
