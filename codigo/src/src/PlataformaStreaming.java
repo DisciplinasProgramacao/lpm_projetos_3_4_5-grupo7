@@ -276,7 +276,11 @@ public class PlataformaStreaming extends Thread {
                 if (opc.equals("F"))
                     cliente.adicionarNaLista(audiovisual);
                 else
-                    cliente.adicionarNaListaJaVistas(audiovisual);
+                    try {
+                        cliente.adicionarNaListaJaVistas(audiovisual);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
             }
 
         }

@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -23,11 +22,14 @@ public class ClienteTest {
     @Test()
     public void avaliacaoClienteEspecialista() {
         Cliente c = new Cliente("joao caram", "123");
-        c.adicionarNaListaJaVistas(new Serie(1, "a", "b"));
-        c.adicionarNaListaJaVistas(new Serie(2, "a", "b"));
-        c.adicionarNaListaJaVistas(new Serie(3, "a", "b"));
-        c.adicionarNaListaJaVistas(new Serie(4, "a", "b"));
-        c.adicionarNaListaJaVistas(new Serie(5, "a", "b"));
+        try {
+            c.adicionarNaListaJaVistas(new Serie(1, "a", "b"));
+            c.adicionarNaListaJaVistas(new Serie(2, "a", "b"));
+            c.adicionarNaListaJaVistas(new Serie(3, "a", "b"));
+            c.adicionarNaListaJaVistas(new Serie(4, "a", "b"));
+            c.adicionarNaListaJaVistas(new Serie(5, "a", "b"));
+        } catch (Exception e) {
+        }
 
         Serie s = new Serie(6, "a", "b");
 

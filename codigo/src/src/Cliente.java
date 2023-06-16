@@ -49,16 +49,16 @@ public class Cliente implements IDAO<Cliente> {
 
     public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
         Avaliacao avaliacao = new Avaliacao(nota);
-        IComentarista tipo2;
+        IComentarista tipoEspecialista;
         aud.adicionarAvaliacao(this, avaliacao);
-        try{
-        tipo2 = (IComentarista) tipo;
-        tipo2.comentar(avaliacao, comentario);
-        }catch(Exception e){
-            System.out.println(e);
+
+        try {
+            tipoEspecialista = (IComentarista) tipo;
+            tipoEspecialista.comentar(avaliacao, comentario);
+        } catch (Exception e) {
+            System.out.println("Cliente não é especialista, não é possivel comentar!");
         }
     }
-    
 
     /**
      * Adiciona uma série em uma lista de séries para serem assistidas
@@ -75,10 +75,16 @@ public class Cliente implements IDAO<Cliente> {
      *
      * @param audiovisual Audiovisual
      */
-    public void adicionarNaListaJaVistas(Audiovisual audiovisual) {
+    public void adicionarNaListaJaVistas(Audiovisual audiovisual) throws Exception {
+
+        if (audiovisual.getTipo() == "LANCAMENTO" && this.getTipo() != "Profissional")
+            throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
+
         audiovisual.setDataAssistido();
         listaJaVistas.put(audiovisual.getId(), audiovisual);
+
         if (tipo == null && verificarEspecialista()) {
+            System.out.println("Parabéns, você se tornou um cliente especialista!");
             tipo = new ClienteEspecialista();
         }
     }
@@ -187,6 +193,16 @@ public class Cliente implements IDAO<Cliente> {
 
     @Override
     public String toString() {
-        return String.format("Nome: %s - Login: %s", this.nomeDeUsuario, this.login);
+        String tipo;
+
+        try {
+            tipo = this.tipo.getDescricao();
+        } catch (Exception e) {
+            tipo = "Regular";
+        }
+
+        return String.format("Bem vindo " + this.getNomeUsuario() + "! Seu login é "
+                + this.getLogin() + " e sua senha é " + this.getSenha() + ".\n" + "Você é um cliente "
+                + tipo);
     }
 }

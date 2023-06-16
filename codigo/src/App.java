@@ -122,7 +122,11 @@ public class App {
         if (aud == null) {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
         } else {
-            clientAutenticado.adicionarNaListaJaVistas(aud);
+            try {
+                clientAutenticado.adicionarNaListaJaVistas(aud);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             plataforma.salvarListasCliente(clientAutenticado);
             aud.registrarAudiencia();
 
@@ -186,12 +190,7 @@ public class App {
     }
 
     private static void identificaCliente() {
-        System.out.println("Bem vindo " + clientAutenticado.getNomeUsuario() + "! Seu login é "
-                + clientAutenticado.getLogin() + " e sua senha é " + clientAutenticado.getSenha() + ".");
-        System.out.println(
-                "Você é um cliente "
-                        + (clientAutenticado.getTipo() == null ? "Regular. " : clientAutenticado.getTipo() + "."));
-
+        System.out.println(clientAutenticado.toString());
     }
 
     private static void verPerfil() {

@@ -1,11 +1,13 @@
 package test;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.Test;
+
 import src.Serie;
+import src.Audiovisual.Tipo;
 import src.Cliente;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 import java.time.LocalDate;
 
@@ -53,5 +55,15 @@ public class SerieTest {
     Serie serie = new Serie(123, "serie", "01/02/2003");
 
     assertEquals(0.0, serie.gerarMediaAvaliacoes(), 0.1);
+  }
+
+  @Test
+  public void testeMidiaRestritaException() {
+    Serie serie = new Serie(123, "serie", "01/02/2003");
+    serie.setTipo(Tipo.values()[1]);
+
+    Cliente cliente1 = new Cliente("123", "123");
+
+    assertThrows(IllegalArgumentException.class, () -> cliente1.adicionarNaListaJaVistas(serie));
   }
 }
