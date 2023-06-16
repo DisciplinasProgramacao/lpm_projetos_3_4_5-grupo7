@@ -34,6 +34,7 @@ public class App {
         System.out.println("11 - Mostrar para ver mais tarde");
         System.out.println("12 - Avaliação avulsa");
         System.out.println("13 - Relatórios");
+        System.out.println("14 - Logoff");
         System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -319,12 +320,13 @@ public class App {
         scanner.nextLine();
     }
 
-    public static void main(String[] args) {
-        int opcfiltro;
-        int opcao;
-        int opcaoInicial;
-        new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
+    public static void logoff() {
+        clientAutenticado = null;
+        logar();
+    }
 
+    public static void logar() {
+        int opcaoInicial;
         do {
 
             opcaoInicial = menuInicialLogin();
@@ -337,6 +339,15 @@ public class App {
                     break;
             }
         } while (clientAutenticado == null);
+    }
+
+    public static void main(String[] args) {
+        int opcfiltro;
+        int opcao;
+
+        new Thread(() -> plataforma.carregarDados(), "segundoPlano").start();
+
+        logar();
 
         do {
             limparTela();
@@ -415,6 +426,9 @@ public class App {
                 case 13:
                     System.out.println("Relatório");
                     relatorio(plataforma);
+                case 14:
+                    System.out.println("Logoff");
+                    logoff();
                 default:
                     System.out.println("Opção inválida!");
                     break;
