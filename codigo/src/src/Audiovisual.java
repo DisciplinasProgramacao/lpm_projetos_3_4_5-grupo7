@@ -19,18 +19,6 @@ public class Audiovisual {
     public Audiovisual() {
     }
 
-    public enum Tipo {
-        REGULAR, LANCAMENTO
-    }
-
-    public enum Generos {
-        TERROR, COMEDIA, ROMANCE, SUSPENSE, ACAO, FICCAO_CIENTIFICA, DRAMA
-    }
-
-    public enum Idiomas {
-        PORTUGUES, ITALIANO, FRANCES, INGLES, ESPANHOL
-    }
-
     /**
      * Construtor audiovisual que recebe as informações básicas do filme ou série
      * 
@@ -39,7 +27,24 @@ public class Audiovisual {
      * @param dataLancamento String
      */
     Audiovisual(int id, String nome, String dataLancamento) {
+        init(id, nome, dataLancamento);
+        setTipo(Tipo.REGULAR);
+    }
 
+    /**
+     * Construtor audiovisual que recebe o audiovisual e o tipo (Restrito ou
+     * regular)
+     * 
+     * @param id             int
+     * @param nome           String
+     * @param dataLancamento String
+     */
+    Audiovisual(int id, String nome, String dataLancamento, Tipo tipo) {
+        init(id, nome, dataLancamento);
+        setTipo(tipo);
+    }
+
+    public void init(int id, String nome, String dataLancamento) {
         Random random = new Random();
 
         this.genero = (Generos.values()[random.nextInt(Generos.values().length)].toString());
@@ -49,7 +54,6 @@ public class Audiovisual {
         setId(id);
         this.avaliacoes = new HashMap<>();
         this.audiencia = 0;
-        setTipo(Tipo.values()[0]);
     }
 
     /**

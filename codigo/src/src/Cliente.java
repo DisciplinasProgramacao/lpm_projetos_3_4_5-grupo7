@@ -16,6 +16,14 @@ public class Cliente implements IDAO<Cliente> {
     public Cliente() {
     }
 
+    public void init(String usuario, String senha, String nome) {
+        this.nomeDeUsuario = nome;
+        this.login = usuario;
+        this.senha = senha;
+        this.listaParaVer = new HashMap<>();
+        this.listaJaVistas = new HashMap<>();
+    }
+
     /**
      * Construtor do cliente, recebendo usuário e senha e inicializando as listas
      * vazias
@@ -24,11 +32,7 @@ public class Cliente implements IDAO<Cliente> {
      * @param senha   String
      */
     public Cliente(String usuario, String senha) {
-        this.nomeDeUsuario = usuario;
-        this.login = usuario;
-        this.senha = senha;
-        this.listaParaVer = new HashMap<>();
-        this.listaJaVistas = new HashMap<>();
+        init(usuario, senha, usuario);
     }
 
     /**
@@ -40,19 +44,11 @@ public class Cliente implements IDAO<Cliente> {
      * @param senha   String
      */
     public Cliente(String nome, String usuario, String senha) {
-        this.nomeDeUsuario = nome;
-        this.login = usuario;
-        this.senha = senha;
-        this.listaParaVer = new HashMap<>();
-        this.listaJaVistas = new HashMap<>();
+        init(usuario, senha, nome);
     }
 
     public Cliente(String nome, String usuario, String senha, EnumTipoCliente tipo) {
-        this.nomeDeUsuario = nome;
-        this.login = usuario;
-        this.senha = senha;
-        this.listaParaVer = new HashMap<>();
-        this.listaJaVistas = new HashMap<>();
+        init(usuario, senha, nome);
         this.tipo = tipo;
     }
 
@@ -86,14 +82,14 @@ public class Cliente implements IDAO<Cliente> {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) throws Exception {
 
-        if (audiovisual.getTipo() == "LANCAMENTO" && this.getTipo() != "Profissional")
+        if (audiovisual.getTipo() == "LANCAMENTO" && this.tipo != EnumTipoCliente.PROFISSIONAL)
             throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
 
         audiovisual.setDataAssistido();
         listaJaVistas.put(audiovisual.getId(), audiovisual);
 
-        if (tipo == null && verificarEspecialista()) { 
-            tipo = EnumTipoCliente.Especialista;
+        if (tipo == null && verificarEspecialista()) {
+            tipo = EnumTipoCliente.ESPECIALISTA;
         }
     }
 

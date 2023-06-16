@@ -9,21 +9,31 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
     public Serie() {
         super();
         Random randomSerie = new Random();
-        QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12};
+        QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12 };
         setQuantidadeEpisodios(QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
     }
+
     /**
      * Construtor da src.Serie - recebe as informações báiscas da série presentes no
      * arquivo;
      *
-     * @param id int
-     * @param nome String
+     * @param id             int
+     * @param nome           String
      * @param dataLancamento String
      */
     public Serie(int id, String nome, String dataLancamento) {
         super(id, nome, dataLancamento);
+        init();
+    }
+
+    public Serie(int id, String nome, String dataLancamento, Tipo tipo) {
+        super(id, nome, dataLancamento, tipo);
+        init();
+    }
+
+    public void init() {
         Random randomSerie = new Random();
-        QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12};
+        QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12 };
         setQuantidadeEpisodios(QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
     }
 

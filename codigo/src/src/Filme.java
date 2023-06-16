@@ -6,17 +6,30 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
   /**
    * Construtor do filme - recebe suas informações básicas presentes no arquivo
    *
-   * @param id int
-   * @param nome String
+   * @param id             int
+   * @param nome           String
    * @param dataLancamento String
-   * @param duracao int
+   * @param duracao        int
    */
   public Filme(int id, String nome, String dataLancamento, int duracao) {
     super(id, nome, dataLancamento);
     setDuracao(duracao);
   }
 
-  public Filme(){
+  /**
+   * Construtor do filme - cria um filme recebendo um tipo
+   *
+   * @param id             int
+   * @param nome           String
+   * @param dataLancamento String
+   * @param duracao        int
+   */
+  public Filme(int id, String nome, String dataLancamento, int duracao, Tipo tipo) {
+    super(id, nome, dataLancamento, tipo);
+    setDuracao(duracao);
+  }
+
+  public Filme() {
     super();
   }
 

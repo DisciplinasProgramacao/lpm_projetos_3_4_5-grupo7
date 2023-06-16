@@ -3,11 +3,13 @@ package test;
 import org.junit.jupiter.api.*;
 
 import src.Serie;
-import src.Audiovisual.Tipo;
+import src.Tipo;
 import src.Cliente;
+import src.EnumTipoCliente;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.time.LocalDate;
 
@@ -59,11 +61,19 @@ public class SerieTest {
 
   @Test
   public void testeMidiaRestritaException() {
-    Serie serie = new Serie(123, "serie", "01/02/2003");
-    serie.setTipo(Tipo.values()[1]);
+    Serie serie = new Serie(123, "serie", "01/02/2003", Tipo.LANCAMENTO);
 
     Cliente cliente1 = new Cliente("123", "123");
 
     assertThrows(IllegalArgumentException.class, () -> cliente1.adicionarNaListaJaVistas(serie));
+  }
+
+  @Test
+  public void testeMidiaRestritaClienteProf() {
+    Serie serie = new Serie(123, "serie", "01/02/2003", Tipo.LANCAMENTO);
+
+    Cliente cliente1 = new Cliente("123", "123", "123", EnumTipoCliente.PROFISSIONAL);
+
+    assertDoesNotThrow(() -> cliente1.adicionarNaListaJaVistas(serie));
   }
 }

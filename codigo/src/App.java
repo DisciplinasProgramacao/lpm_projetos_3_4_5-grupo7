@@ -223,17 +223,16 @@ public class App {
 
     private static void cadastrarNovoUsuario() {
         int opcaoInicial;
-        
+
         System.out.println("Digite seu nome de exibição:");
         String nomeUsuarioCadastro = scanner.nextLine();
         System.out.println("Digite seu login:");
         String loginCadastro = scanner.nextLine();
         System.out.println("Digite sua senha:");
         String senhaCadastro = scanner.nextLine();
-        System.out.println("S:");
 
         opcaoInicial = menuTipoCadastro();
-        
+
         switch (opcaoInicial) {
             case 1:
                 plataforma.cadastro(nomeUsuarioCadastro, loginCadastro, senhaCadastro, "Comum");
@@ -269,7 +268,7 @@ public class App {
         System.out.println("4 - Inglês");
         System.out.println("5 - Espanhol");
 
-        resultado = Audiovisual.Idiomas.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
+        resultado = Idiomas.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
 
         return resultado;
     }
@@ -285,7 +284,7 @@ public class App {
         System.out.println("6 - Ficção Científica");
         System.out.println("7 - Drama");
 
-        resultado = Audiovisual.Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
+        resultado = Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
 
         return resultado;
     }

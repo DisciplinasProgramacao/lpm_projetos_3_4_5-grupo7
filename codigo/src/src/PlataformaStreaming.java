@@ -85,11 +85,10 @@ public class PlataformaStreaming extends Thread {
     public void cadastro(String nome, String login, String senha, String tipo) {
         Cliente cliente;
 
-        if(tipo == "Comum"){
+        if (tipo == "Comum") {
             cliente = new Cliente(nome, login, senha);
         } else {
-
-            cliente = new Cliente(nome, login, senha, EnumTipoCliente.Profissional);
+            cliente = new Cliente(nome, login, senha, EnumTipoCliente.PROFISSIONAL);
         }
         adicionarCliente(cliente);
     }

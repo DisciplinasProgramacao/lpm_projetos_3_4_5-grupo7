@@ -5,10 +5,11 @@ import java.util.function.Predicate;
 
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
-import src.Audiovisual;
 import src.Cliente;
 import src.Filtro;
 import src.FiltroPersonalizado;
+import src.Generos;
+import src.Idiomas;
 import src.PlataformaStreaming;
 import src.Serie;
 
@@ -46,12 +47,12 @@ public class PlataformaStreamingTest {
 
   @Test
   public void testeEnumGeneros() {
-    Assertions.assertEquals("ROMANCE", Audiovisual.Generos.values()[2].toString());
+    Assertions.assertEquals("ROMANCE", Generos.ROMANCE.toString());
   }
 
   @Test
   public void testaFiltrarIdioma() {
-    Assertions.assertEquals("PORTUGUES", Audiovisual.Idiomas.values()[0].toString());
+    Assertions.assertEquals("PORTUGUES", Idiomas.PORTUGUES.toString());
   }
 
   @Test

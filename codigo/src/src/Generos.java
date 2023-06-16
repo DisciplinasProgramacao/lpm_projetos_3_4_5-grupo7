@@ -1,0 +1,5 @@
+package src;
+
+public enum Generos {
+  TERROR, COMEDIA, ROMANCE, SUSPENSE, ACAO, FICCAO_CIENTIFICA, DRAMA
+}
