@@ -1,7 +1,6 @@
 package src;
 
 public interface IComentarista {
-  public String getDescricao();
 
   /**
    * Adiciona a avaliação no hash de avaliações do cliente

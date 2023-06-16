@@ -11,7 +11,7 @@ public class Cliente implements IDAO<Cliente> {
     private HashMap<Integer, Audiovisual> listaParaVer;
     private HashMap<Integer, Audiovisual> listaJaVistas;
     private HashSet<Avaliacao> avaliacoes;
-    private IComentarista tipo;
+    private EnumTipoCliente tipo;
 
     public Cliente() {
     }
@@ -85,7 +85,7 @@ public class Cliente implements IDAO<Cliente> {
 
         if (tipo == null && verificarEspecialista()) {
             System.out.println("Parabéns, você se tornou um cliente especialista!");
-            tipo = new ClienteEspecialista();
+            tipo = EnumTipoCliente.Especialista;
         }
     }
 
@@ -175,7 +175,7 @@ public class Cliente implements IDAO<Cliente> {
     }
 
     public String getTipo() {
-        return this.tipo == null ? null : this.tipo.getDescricao();
+        return this.tipo.name();
     }
 
     public HashMap<Integer, Audiovisual> getParaVer() {
@@ -196,7 +196,7 @@ public class Cliente implements IDAO<Cliente> {
         String tipo;
 
         try {
-            tipo = this.tipo.getDescricao();
+            tipo = getTipo();
         } catch (Exception e) {
             tipo = "Regular";
         }
