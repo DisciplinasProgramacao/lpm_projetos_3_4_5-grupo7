@@ -47,6 +47,15 @@ public class Cliente implements IDAO<Cliente> {
         this.listaJaVistas = new HashMap<>();
     }
 
+    public Cliente(String nome, String usuario, String senha, EnumTipoCliente tipo) {
+        this.nomeDeUsuario = nome;
+        this.login = usuario;
+        this.senha = senha;
+        this.listaParaVer = new HashMap<>();
+        this.listaJaVistas = new HashMap<>();
+        this.tipo = tipo;
+    }
+
     public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
         Avaliacao avaliacao = new Avaliacao(nota);
         IComentarista tipoEspecialista;
