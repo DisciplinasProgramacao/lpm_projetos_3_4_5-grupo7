@@ -39,7 +39,9 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
    */
   @Override
   public String stringSalvar() {
-    return String.format("%o;%s;%s;%o", this.getId(), this.getNome(), this.getDataLancamento(), this.getDuracao());
+    char tipo = getTipo().charAt(0);
+    return String.format("%o;%s;%s;%o;%c", this.getId(), this.getNome(), this.getDataLancamento(), this.getDuracao(),
+        tipo);
   }
 
   /**

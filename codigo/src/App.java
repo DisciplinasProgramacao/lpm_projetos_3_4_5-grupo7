@@ -84,7 +84,16 @@ public class App {
         System.out.println("Digite a duração do filme:");
         int duracao = scanner.nextInt();
         scanner.nextLine();
-        Filme filme = new Filme(id, nome, anoLancamento, duracao);
+
+        System.out.println("O filme e de pre-lancamento? (0 - não, 1 - sim)");
+        int tipo = scanner.nextInt();
+
+        if (tipo != 0 && tipo != 1) {
+            System.out.println("Opção inválida. A mídia foi definida como regular");
+            tipo = 0;
+        }
+
+        Filme filme = new Filme(id, nome, anoLancamento, duracao, Tipo.values()[tipo]);
         plataforma.adicionarFilme(filme);
         plataforma.salvarFilme();
     }
@@ -97,7 +106,15 @@ public class App {
         String nomeSerie = scanner.next();
         System.out.println("Digite a data de lançamento:");
         String anoLancamentoSerie = scanner.next();
-        Serie serie = new Serie(idSerie, nomeSerie, anoLancamentoSerie);
+        System.out.println("A serie e de pre-lancamento? (0 - não, 1 - sim)");
+        int tipo = scanner.nextInt();
+
+        if (tipo != 0 && tipo != 1) {
+            System.out.println("Opção inválida. A mídia foi definida como regular");
+            tipo = 0;
+        }
+
+        Serie serie = new Serie(idSerie, nomeSerie, anoLancamentoSerie, Tipo.values()[tipo]);
         plataforma.adicionarSerie(serie);
         plataforma.salvarSerie();
     }

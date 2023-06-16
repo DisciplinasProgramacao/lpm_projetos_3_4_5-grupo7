@@ -82,7 +82,7 @@ public class Cliente implements IDAO<Cliente> {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) throws Exception {
 
-        if (audiovisual.getTipo() == "LANCAMENTO" && this.tipo != EnumTipoCliente.PROFISSIONAL)
+        if (audiovisual.getTipo() == "PRELANCAMENTO" && this.tipo != EnumTipoCliente.PROFISSIONAL)
             throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
 
         audiovisual.setDataAssistido();
@@ -119,7 +119,10 @@ public class Cliente implements IDAO<Cliente> {
      */
     @Override
     public String stringSalvar() {
-        return String.format("%s;%s;%s", this.nomeDeUsuario, this.login, this.senha);
+
+        char tipoCliente = tipo == null ? 'R' : getTipo().charAt(0);
+
+        return String.format("%s;%s;%s;%c", this.nomeDeUsuario, this.login, this.senha, tipoCliente);
     }
 
     /**

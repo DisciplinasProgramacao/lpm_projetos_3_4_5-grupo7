@@ -61,7 +61,7 @@ public class SerieTest {
 
   @Test
   public void testeMidiaRestritaException() {
-    Serie serie = new Serie(123, "serie", "01/02/2003", Tipo.LANCAMENTO);
+    Serie serie = new Serie(123, "serie", "01/02/2003", Tipo.PRELANCAMENTO);
 
     Cliente cliente1 = new Cliente("123", "123");
 
@@ -70,7 +70,7 @@ public class SerieTest {
 
   @Test
   public void testeMidiaRestritaClienteProf() {
-    Serie serie = new Serie(123, "serie", "01/02/2003", Tipo.LANCAMENTO);
+    Serie serie = new Serie(123, "serie", "01/02/2003", Tipo.PRELANCAMENTO);
 
     Cliente cliente1 = new Cliente("123", "123", "123", EnumTipoCliente.PROFISSIONAL);
 

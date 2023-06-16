@@ -42,7 +42,8 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
      */
     @Override
     public String stringSalvar() {
-        return String.format("%o;%s;%s", this.getId(), this.getNome(), this.getDataLancamento());
+        char tipo = this.getTipo().charAt(0);
+        return String.format("%o;%s;%s;%c", this.getId(), this.getNome(), this.getDataLancamento(), tipo);
     }
 
     /**
