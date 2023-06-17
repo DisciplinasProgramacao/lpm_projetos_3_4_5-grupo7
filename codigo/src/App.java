@@ -1,4 +1,7 @@
 import src.*;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -497,14 +500,16 @@ public class App {
         System.out.println("Você deseja ver qual tipo de relatório? ");
         int tipoRelatorio = scanner.nextInt();
 
-        Relatorio relatorio = new Relatorio(plataforma);
+        Relatorio relatorio = new Relatorio(plataforma.getClientes(), plataforma.getHashMapAudioVisual());
 
         switch (tipoRelatorio) {
             case 1:
-                System.out.println(relatorio.gerarRelatorioDeMidia());
+                Comparator<Cliente> clienteComMaisMidiasAssistidas = Comparator.comparingInt(c -> c.getAssistidas().size());
+                System.out.println(relatorio.gerarRelatorioDeMidia(clienteComMaisMidiasAssistidas));
                 break;
             case 2:
-                System.out.println(relatorio.gerarRelatorioAvaliacao());
+                Comparator<Cliente> clientesComMaisAvaliacoesFeitas = Comparator.comparingInt(c -> c.getAvaliacoes().size());
+                System.out.println(relatorio.gerarRelatorioAvaliacao(clientesComMaisAvaliacoesFeitas));
                 break;
             case 3:
                 System.out.println(relatorio.gerarRelatorioClientes15Avaliacoes());

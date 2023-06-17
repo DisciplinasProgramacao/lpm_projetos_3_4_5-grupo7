@@ -1,44 +1,54 @@
 package src;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+
 import static java.util.stream.Collectors.joining;
 
 public class Relatorio {
-    private final PlataformaStreaming plataforma;
+    private final HashMap<String, Cliente> clientes;
+    private final HashMap<Integer, Audiovisual> audiovisuais;
 
-    public Relatorio(PlataformaStreaming plataforma) {
-        this.plataforma = plataforma;
+    /**
+     * Construtor da classe Relatorio, que é inicializado com HashMap de Cliente e de Audiovisual
+     *
+     * @param cliente HashMap<String, Cliente>
+     * @param audiovisuais HashMap<Integer, Audiovisual>
+     * */
+    public Relatorio(HashMap<String, Cliente> cliente, HashMap<Integer, Audiovisual> audiovisuais) {
+        this.clientes = cliente;
+        this.audiovisuais = audiovisuais;
     }
 
-    public String gerarRelatorioDeMidia() {
-
-        Cliente clienteTopMidia = plataforma.getClientes().values().stream()
-                .max(Comparator.comparingInt(cliente -> cliente.getAssistidas().size())).get();
-
-        return "O cliente que assistiu mais mídias foi o " + clienteTopMidia.getLogin() + ", com "
-                + clienteTopMidia.getAssistidas().size() + " assistidos";
+    /**
+     * Gera relatório de cliente que teve mais mídias assistidas
+     *
+     * @param comparator Comparator<Cliente>
+     * @return Relatorio com o cliente que teve mais mídias assistidas
+     * */
+    public String gerarRelatorioDeMidia(Comparator<Cliente> comparator) {
+        Cliente cliente = Collections.max(clientes.values(), comparator);
+        return "O cliente que assistiu mais mídias foi o " + cliente.getLogin() + ", com "
+                + cliente.getAssistidas().size() + " assistidos";
     }
 
-    // TODO - corrigir: gerando null pointer exception
-    public String gerarRelatorioAvaliacao() {
-        // giving null pointer exception
-
-        Cliente clienteTopAvaliacao = plataforma.getClientes().values().stream()
-                .filter(cliente -> cliente.getAvaliacoes() != null)
-                .max(Comparator.comparingInt(cliente -> cliente.getAvaliacoes().size())).get();
-
-        return "O cliente que avaliou mais mídias foi o " + clienteTopAvaliacao.getLogin() + ", com "
-                + clienteTopAvaliacao.getAvaliacoes().size() + " avalidadas";
+    /**
+     * Gera relatório de cliente que teve mais mídias avaliadas
+     *
+     * @param comparator Comparator<Cliente>
+     * @return Relatorio com o cliente que teve mais mídias avaliadas
+     * */
+    public String gerarRelatorioAvaliacao(Comparator<Cliente> comparator) {
+        Cliente cliente = Collections.max(clientes.values(), comparator);
+        return "O cliente que avaliou mais mídias foi o " + cliente.getLogin() + ", com "
+                + cliente.getAvaliacoes().size() + " avalidadas";
     }
 
     // TODO - corrigir: gerando null pointer exception
     public String gerarRelatorioClientes15Avaliacoes() {
-        List<Cliente> clientes15Avaliacoes = plataforma.getClientes().values().stream()
-                .filter(cliente -> cliente.getAvaliacoes().size() >= 15).collect(Collectors.toList());
+        List<Cliente> clientes15Avaliacoes = clientes.values().stream()
+                .filter(cliente -> cliente.getAvaliacoes().size() >= 15).toList();
 
-        double porcentagem = (double) clientes15Avaliacoes.size() / plataforma.getClientes().size() * 100;
+        double porcentagem = (double) clientes15Avaliacoes.size() / clientes.size() * 100;
         return "A porcentagem de clientes que avaliaram mais de 15 mídias é de " + porcentagem + "%";
     }
 
@@ -47,10 +57,10 @@ public class Relatorio {
         // Quais são as 10 mídias de melhor avaliação, com pelo menos 100 avaliações, em
         // ordem decrescente;
 
-        String lista10Audiovisuais = plataforma.getListaAudioVisual().stream()
+        String lista10Audiovisuais = this.audiovisuais.values().stream()
                 .filter(audiovisual -> audiovisual.getAvaliacoes().size() >= 100)
                 .sorted(Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed()).limit(10)
-                .map(audiovisual -> audiovisual.toString()).collect(joining(", "));
+                .map(Audiovisual::toString).collect(joining(", "));
 
         return "As 10 midias de melhor avaliacao são: " + lista10Audiovisuais;
     }

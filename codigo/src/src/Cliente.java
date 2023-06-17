@@ -22,6 +22,7 @@ public class Cliente implements IDAO<Cliente> {
         this.senha = senha;
         this.listaParaVer = new HashMap<>();
         this.listaJaVistas = new HashMap<>();
+        this.avaliacoes = new HashSet<>();
     }
 
     public void init(String usuario, String senha, String nome, EnumTipoCliente tipo) {
@@ -30,6 +31,7 @@ public class Cliente implements IDAO<Cliente> {
         this.senha = senha;
         this.listaParaVer = new HashMap<>();
         this.listaJaVistas = new HashMap<>();
+        this.avaliacoes = new HashSet<>();
         this.tipo = tipo;
     }
 
@@ -64,7 +66,9 @@ public class Cliente implements IDAO<Cliente> {
     public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
         Avaliacao avaliacao = new Avaliacao(nota);
         IComentarista tipoEspecialista;
+
         aud.adicionarAvaliacao(this, avaliacao);
+        this.avaliacoes.add(avaliacao);
 
         try {
             tipoEspecialista = (IComentarista) tipo;
