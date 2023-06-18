@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -504,11 +505,13 @@ public class App {
 
         switch (tipoRelatorio) {
             case 1:
-                Comparator<Cliente> clienteComMaisMidiasAssistidas = Comparator.comparingInt(c -> c.getAssistidas().size());
+                Comparator<Cliente> clienteComMaisMidiasAssistidas = Comparator
+                        .comparingInt(c -> c.getAssistidas().size());
                 System.out.println(relatorio.gerarRelatorioDeMidia(clienteComMaisMidiasAssistidas));
                 break;
             case 2:
-                Comparator<Cliente> clientesComMaisAvaliacoesFeitas = Comparator.comparingInt(c -> c.getAvaliacoes().size());
+                Comparator<Cliente> clientesComMaisAvaliacoesFeitas = Comparator
+                        .comparingInt(c -> c.getAvaliacoes().size());
                 System.out.println(relatorio.gerarRelatorioAvaliacao(clientesComMaisAvaliacoesFeitas));
                 break;
             case 3:
@@ -518,7 +521,7 @@ public class App {
                 System.out.println(relatorio.gerarRelatorioDezMelhores());
                 break;
             case 5:
-                System.out.println(relatorio.gerarRelatorioMaisVistas());
+                System.out.println(relatorio.gerarRelatorio10MaisVistas());
                 break;
             case 6:
                 System.out.println(relatorio.gerarRelatorioDezMelhoresGenero());
