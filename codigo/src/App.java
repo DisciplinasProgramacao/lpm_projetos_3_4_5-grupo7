@@ -466,9 +466,11 @@ public class App {
                 case 13:
                     System.out.println("Relatório");
                     relatorio(plataforma);
+                    break;
                 case 14:
                     System.out.println("Logoff");
                     logoff();
+                    break;
                 default:
                     System.out.println("Opção inválida!");
                     break;
