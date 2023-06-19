@@ -57,8 +57,17 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
         int id = Integer.parseInt(dados[0].trim().replaceAll("\\p{C}", ""));
         String nome = dados[1].trim();
         String dataLancamento = dados[2].trim();
+        Tipo tipo = Tipo.REGULAR;
 
-        return new Serie(id, nome, dataLancamento);
+        switch (dados[3].trim()) {
+            case "P":
+                tipo = Tipo.PRELANCAMENTO;
+                break;
+            default:
+                tipo = Tipo.REGULAR;
+                break;
+        }
+        return new Serie(id, nome, dataLancamento, tipo);
     }
 
     public int getQuantidadeEpisodios() {
