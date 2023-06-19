@@ -1,11 +1,9 @@
 import src.*;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -535,7 +533,7 @@ public class App {
         }
 
         scanner.nextLine();
-        scanner.nextLine();
+        pausa();
     }
 
 }

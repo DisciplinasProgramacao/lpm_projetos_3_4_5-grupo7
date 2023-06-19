@@ -10,7 +10,7 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
         super();
         Random randomSerie = new Random();
         QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12 };
-        setQuantidadeEpisodios(QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
+        this.quantidadeEpisodios = (QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
     public void init() {
         Random randomSerie = new Random();
         QUANTIDADEEPISODIOS = new int[] { 4, 5, 8, 10, 12 };
-        setQuantidadeEpisodios(QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
+        this.quantidadeEpisodios = (QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
     @Override
     public String stringSalvar() {
         char tipo = this.getTipo().charAt(0);
-        return String.format("%d;%s;%s;%c", this.getId(), this.getNome(), this.getDataLancamento(), tipo);
+        return String.format("%d;%s;%s;%c", this.id, this.nome, this.dataLancamento, tipo);
     }
 
     /**
@@ -61,13 +61,8 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
         return new Serie(id, nome, dataLancamento);
     }
 
-    // #region get/set
     public int getQuantidadeEpisodios() {
         return quantidadeEpisodios;
     }
 
-    public void setQuantidadeEpisodios(int quantidadeEpisodios) {
-        this.quantidadeEpisodios = quantidadeEpisodios;
-    }
-    // #endregion
 }

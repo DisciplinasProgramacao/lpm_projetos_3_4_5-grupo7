@@ -79,14 +79,15 @@ public class Relatorio {
     }
 
     public String gerarRelatorio10MaisVistas() {
-        // Quais são as 10 mídias mais vistas, em ordem decrescente;
-        String lista10Audiovisuais = this.audiovisuais.values().stream()
-                .sorted(Comparator.comparingInt(Audiovisual::getAudiencia).reversed())
-                .limit(10)
-                .map(Audiovisual::toString)
-                .collect(Collectors.joining(", "));
+        // // Quais são as 10 mídias mais vistas, em ordem decrescente;
+        // String lista10Audiovisuais = this.audiovisuais.values().stream()
+        // .sorted(Comparator.comparingInt(Audiovisual::getAudiencia).reversed())
+        // .limit(10)
+        // .map(Audiovisual::toString)
+        // .collect(Collectors.joining(", "));
 
-        return "As 10 mídias mais vistas são: " + lista10Audiovisuais;
+        // return "As 10 mídias mais vistas são: " + lista10Audiovisuais;
+        return "";
     }
 
     public String gerarRelatorioDezMelhoresGenero() {
@@ -107,18 +108,21 @@ public class Relatorio {
     }
 
     public String gerarRelatorioMaisVistasGenero() {
-        // Quais são as 10 mídias mais vistas, em ordem decrescente separadas por
-        // gênero;
-        Map<String, String> maisVistasPorGenero = this.audiovisuais.values().stream()
-                .sorted(Comparator.comparingInt(Audiovisual::getAudiencia).reversed())
-                .limit(10)
-                .collect(Collectors.groupingBy(Audiovisual::getGenero,
-                        Collectors.mapping(Audiovisual::toString, Collectors.joining(", "))));
+        // // Quais são as 10 mídias mais vistas, em ordem decrescente separadas por
+        // // gênero;
+        // Map<String, String> maisVistasPorGenero = this.audiovisuais.values().stream()
+        // .sorted(Comparator.comparingInt(Audiovisual::getAudiencia).reversed())
+        // .limit(10)
+        // .collect(Collectors.groupingBy(Audiovisual::getGenero,
+        // Collectors.mapping(Audiovisual::toString, Collectors.joining(", "))));
 
-        StringBuilder relatorio = new StringBuilder("As 10 mídias mais vistas por gênero são:\n");
-        maisVistasPorGenero.forEach(
-                (genero, audiovisuais) -> relatorio.append(genero).append(": ").append(audiovisuais).append("\n"));
+        // StringBuilder relatorio = new StringBuilder("As 10 mídias mais vistas por
+        // gênero são:\n");
+        // maisVistasPorGenero.forEach(
+        // (genero, audiovisuais) -> relatorio.append(genero).append(":
+        // ").append(audiovisuais).append("\n"));
 
-        return relatorio.toString();
+        // return relatorio.toString();
+        return "";
     }
 }

@@ -13,7 +13,7 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
    */
   public Filme(int id, String nome, String dataLancamento, int duracao) {
     super(id, nome, dataLancamento);
-    setDuracao(duracao);
+    this.duracao = (duracao);
   }
 
   /**
@@ -26,7 +26,7 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
    */
   public Filme(int id, String nome, String dataLancamento, int duracao, Tipo tipo) {
     super(id, nome, dataLancamento, tipo);
-    setDuracao(duracao);
+    this.duracao = (duracao);
   }
 
   public Filme() {
@@ -40,7 +40,7 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
   @Override
   public String stringSalvar() {
     char tipo = getTipo().charAt(0);
-    return String.format("%d;%s;%s;%o;%c", this.getId(), this.getNome(), this.getDataLancamento(), this.getDuracao(),
+    return String.format("%d;%s;%s;%o;%c", this.id, this.nome, this.dataLancamento, this.duracao,
         tipo);
   }
 
@@ -59,24 +59,15 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
     int duracao = Integer.parseInt(dados[3].trim());
     Tipo tipo = Tipo.REGULAR;
 
-    switch(dados[4].trim()){
-      case "P": 
+    switch (dados[4].trim()) {
+      case "P":
         tipo = Tipo.PRELANCAMENTO;
-      break;
-      default: 
+        break;
+      default:
         tipo = Tipo.REGULAR;
-      break;
+        break;
     }
     return new Filme(id, nome, dataLancamento, duracao, tipo);
   }
 
-  // #region get/set
-  public int getDuracao() {
-    return this.duracao;
-  }
-
-  public void setDuracao(int duracao) {
-    this.duracao = duracao;
-  }
-  // #endregion
 }

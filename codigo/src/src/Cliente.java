@@ -63,6 +63,14 @@ public class Cliente implements IDAO<Cliente> {
         this.tipo = tipo;
     }
 
+    /**
+     * Adiciona uma avaliação a um audiovisual
+     * 
+     * @param aud
+     * @param nota
+     * @param comentario
+     * @throws Exception
+     */
     public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
         Avaliacao avaliacao = new Avaliacao(nota);
         IComentarista tipoEspecialista;
@@ -95,7 +103,7 @@ public class Cliente implements IDAO<Cliente> {
      */
     public void adicionarNaListaJaVistas(Audiovisual audiovisual) throws Exception {
 
-        if (audiovisual.getTipo() == "PRELANCAMENTO" && this.tipo != EnumTipoCliente.PROFISSIONAL)
+        if (audiovisual.getTipo() != "REGULAR" && this.tipo != EnumTipoCliente.PROFISSIONAL)
             throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
 
         audiovisual.setDataAssistido();
@@ -133,7 +141,7 @@ public class Cliente implements IDAO<Cliente> {
     @Override
     public String stringSalvar() {
 
-        char tipoCliente = tipo == null ? 'R' : getTipo().charAt(0);
+        char tipoCliente = tipo == null ? 'R' : this.tipo.name().charAt(0);
 
         return String.format("%s;%s;%s;%c", this.nomeDeUsuario, this.login, this.senha, tipoCliente);
     }
@@ -193,20 +201,14 @@ public class Cliente implements IDAO<Cliente> {
     }
 
     // #region getters
-    public String getNomeUsuario() {
-        return this.nomeDeUsuario;
-    }
 
+    // utilizada para Login na plataforma
     public String getSenha() {
         return this.senha;
     }
 
     public String getLogin() {
         return this.login;
-    }
-
-    public String getTipo() {
-        return this.tipo.name();
     }
 
     public HashMap<Integer, Audiovisual> getParaVer() {
@@ -227,12 +229,12 @@ public class Cliente implements IDAO<Cliente> {
         String tipo = "Regular";
 
         try {
-            tipo = getTipo();
+            tipo = this.tipo.name();
         } catch (Exception e) {
         }
 
-        return String.format("Bem vindo " + this.getNomeUsuario() + "! Seu login é "
-                + this.getLogin() + " e sua senha é " + this.getSenha() + ".\n" + "Você é um cliente "
+        return String.format("Bem vindo " + this.nomeDeUsuario + "! Seu login é "
+                + this.login + " e sua senha é " + this.senha + ".\n" + "Você é um cliente "
                 + tipo);
     }
 }

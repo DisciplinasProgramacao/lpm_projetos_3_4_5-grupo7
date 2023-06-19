@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.io.*;
-import java.util.Objects;
 
 public class PlataformaStreaming extends Thread {
     private String nome;
@@ -140,8 +139,7 @@ public class PlataformaStreaming extends Thread {
      * @param filme Filme
      */
     public void registrarAudienciaFilme(Filme filme) {
-        filmes.values().stream().filter(x -> Objects.equals(x.getNome(), filme.getNome())).findFirst().get()
-                .registrarAudiencia();
+        filme.registrarAudiencia();
     }
 
     /**
@@ -152,8 +150,7 @@ public class PlataformaStreaming extends Thread {
      * @param serie Serie
      */
     public void registrarAudienciaSerie(Serie serie) {
-        series.values().stream().filter(x -> Objects.equals(x.getNome(), serie.getNome())).findFirst().get()
-                .registrarAudiencia();
+        serie.registrarAudiencia();
     }
 
     /**
