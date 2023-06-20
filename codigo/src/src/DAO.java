@@ -39,6 +39,7 @@ public class DAO<T extends IDAO<T>> {
      */
     public void save(List<String> objeto) throws IOException {
         FileWriter arquivo = new FileWriter(this.urlArquivo);
+        arquivo.append("#Cadastro");
         for (String obj : objeto)
             arquivo.append("\n").append(obj);
 
@@ -102,7 +103,7 @@ public class DAO<T extends IDAO<T>> {
         List<String> lista = new Stack<>();
         try (BufferedReader leitura = new BufferedReader(new FileReader(this.urlArquivo))) {
             String linha;
-            while ((linha = leitura.readLine()) != null) {
+            while ((linha = leitura.readLine()) != null && !linha.isEmpty()) {
                 linha = linha.replace("ï»¿", "");
                 if (!linha.contains("#")) {
                     lista.add(linha);
