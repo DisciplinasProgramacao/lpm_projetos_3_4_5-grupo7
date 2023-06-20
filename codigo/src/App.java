@@ -37,11 +37,12 @@ public class App {
         System.out.println("7  - Assistir");
         System.out.println("8  - Filtrar");
         System.out.println("9 - Cadastrar um novo usuário");
-        System.out.println("10 - Adicionar para ver mais tarde");
-        System.out.println("11 - Mostrar para ver mais tarde");
-        System.out.println("12 - Avaliação avulsa");
-        System.out.println("13 - Relatórios");
-        System.out.println("14 - Logoff");
+        System.out.println("10 - Adicionar na Lista para ver mais tarde");
+        System.out.println("11 - Mostrar Lista: ver mais tarde");
+        System.out.println("12 - Mostrar Lista: assistidos");
+        System.out.println("13 - Avaliação avulsa");
+        System.out.println("14 - Relatórios");
+        System.out.println("15 - Logoff");
         System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(scanner.nextLine());
@@ -285,11 +286,9 @@ public class App {
     private static String menuLinguagem() {
         String resultado;
         System.out.println("Linguagens disponiveis");
-        System.out.println("1 - Português");
-        System.out.println("2 - Italiano");
-        System.out.println("3 - Francês");
-        System.out.println("4 - Inglês");
-        System.out.println("5 - Espanhol");
+        for (Idiomas g : Idiomas.values()) {
+            System.out.println((g.ordinal() + 1) + " - " + g.toString());
+        }
 
         resultado = Idiomas.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
 
@@ -334,9 +333,7 @@ public class App {
         }
     }
 
-    private static void avaliacaoAvulsa() {
-        Audiovisual midia = null;
-
+    public static void verListaAssistidos() {
         if (clientAutenticado.getAssistidas().size() == 0) {
             System.out.println("Não há mídias assistidas!");
             return;
@@ -345,6 +342,12 @@ public class App {
         System.out.println("======= MÍDIAS ASSISTIDAS =======");
         clientAutenticado.getAssistidas().values().forEach(x -> System.out.println(x.toString()));
         System.out.println("=================================");
+    }
+
+    private static void avaliacaoAvulsa() {
+        Audiovisual midia = null;
+
+        verListaAssistidos();
 
         System.out.println("Digite o Id da mídia:");
         int idMidia = scanner.nextInt();
@@ -460,15 +463,21 @@ public class App {
                     System.out.println("Lista de assistir mais tarde:");
                     verListaAssistirMaisTarde();
                     break;
+
                 case 12:
+                    System.out.println("Lista de assistidos:");
+                    verListaAssistidos();
+                    break;
+
+                case 13:
                     System.out.println("Avaliação Avulsa:");
                     avaliacaoAvulsa();
                     break;
-                case 13:
+                case 14:
                     System.out.println("Relatório");
                     relatorio(plataforma);
                     break;
-                case 14:
+                case 15:
                     System.out.println("Logoff");
                     logoff();
                     break;
