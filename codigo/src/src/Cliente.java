@@ -1,5 +1,6 @@
 package src;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -91,24 +92,46 @@ public class Cliente implements IDAO<Cliente> {
      * 
      * @param audiovisual Audiovisual
      */
-    public void adicionarNaLista(Audiovisual audiovisual) {
-        listaParaVer.put(audiovisual.getId(), audiovisual);
+    public void adicionarNaLista(Audiovisual audiovisual, boolean salvar) {
+        if (listaParaVer.get(audiovisual.getId()) == null) {
+            listaParaVer.put(audiovisual.getId(), audiovisual);
+            if (salvar) {
+                try {
+                    DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Audiencia.csv");
+                    daoCliente.appendData(this.login + ";" + "F;" + audiovisual.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
      * Adiciona uma série em uma lista de séries que já foram assistidas pelo
      * cliente
-     *
+     * 
+     * @param salvar      Indica se os dados devem ser salvos (padrão: false)
      * @param audiovisual Audiovisual
      */
-    public void adicionarNaListaJaVistas(Audiovisual audiovisual) throws Exception {
+    public void adicionarNaListaJaVistas(Audiovisual audiovisual, boolean salvar) throws Exception {
 
         if (audiovisual.getTipo() != "REGULAR" && this.tipo != EnumTipoCliente.PROFISSIONAL)
             throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
 
         audiovisual.setDataAssistido();
         audiovisual.registrarAudiencia();
-        listaJaVistas.put(audiovisual.getId(), audiovisual);
+
+        if (listaJaVistas.get(audiovisual.getId()) == null) {
+            listaJaVistas.put(audiovisual.getId(), audiovisual);
+            if (salvar) {
+                try {
+                    DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Audiencia.csv");
+                    daoCliente.appendData(this.login + ";" + "A;" + audiovisual.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         if (tipo == null && verificarEspecialista()) {
             tipo = EnumTipoCliente.ESPECIALISTA;

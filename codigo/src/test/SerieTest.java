@@ -55,7 +55,7 @@ public class SerieTest {
 
     Cliente cliente1 = new Cliente("123", "123");
 
-    assertThrows(IllegalArgumentException.class, () -> cliente1.adicionarNaListaJaVistas(serie));
+    assertThrows(IllegalArgumentException.class, () -> cliente1.adicionarNaListaJaVistas(serie, false));
   }
 
   @Test
@@ -64,6 +64,6 @@ public class SerieTest {
 
     Cliente cliente1 = new Cliente("123", "123", "123", EnumTipoCliente.PROFISSIONAL);
 
-    assertDoesNotThrow(() -> cliente1.adicionarNaListaJaVistas(serie));
+    assertDoesNotThrow(() -> cliente1.adicionarNaListaJaVistas(serie, false));
   }
 }

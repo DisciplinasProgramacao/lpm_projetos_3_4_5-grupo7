@@ -3,6 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
 import java.io.*;
 
 public class PlataformaStreaming extends Thread {
@@ -197,32 +198,18 @@ public class PlataformaStreaming extends Thread {
         }
     }
 
-    /**
-     * Salva as listas de Assistidas e ParaAssistir de cada cliente em um arquivo
-     * 
-     * @param cliente Cliente
-     */
-    public void salvarListasCliente(Cliente cliente) {
+    public void salvarAudiencia() {
         try {
-            DAO<Cliente> daoCliente = new DAO<>("codigo/src/files/POO_Audiencia.csv");
+            DAO<Cliente> dao = new DAO<>("codigo/src/files/POO_Audiencia.csv");
+            List<String> listaSave = new ArrayList<>();
 
-            // for (Cliente cliente : this.clientes.values()) {
-            List<String> listaParaAssistir = new ArrayList<>();
-            List<String> listaJaVistas = new ArrayList<>();
+            this.clientes.values().forEach(cliente -> {
+                cliente.getParaVer().values().forEach(x -> listaSave.add(cliente.getLogin() + ";" + "F;" + x.getId()));
+                cliente.getAssistidas().values()
+                        .forEach(x -> listaSave.add(cliente.getLogin() + ";" + "A;" + x.getId()));
+            });
 
-            for (Audiovisual audiovisual : cliente.getParaVer().values()) {
-                String item = String.valueOf(audiovisual.getId());
-                listaParaAssistir.add(item);
-            }
-
-            for (Audiovisual audiovisual : cliente.getAssistidas().values()) {
-                String item = String.valueOf(audiovisual.getId());
-                listaJaVistas.add(item);
-            }
-
-            daoCliente.appendData(cliente.getLogin(), "F", listaParaAssistir);
-            daoCliente.appendData(cliente.getLogin(), "A", listaJaVistas);
-            // }
+            dao.save(listaSave);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -265,10 +252,10 @@ public class PlataformaStreaming extends Thread {
 
             if (cliente != null && audiovisual != null) {
                 if (opc.equals("F"))
-                    cliente.adicionarNaLista(audiovisual);
+                    cliente.adicionarNaLista(audiovisual, false);
                 else
                     try {
-                        cliente.adicionarNaListaJaVistas(audiovisual);
+                        cliente.adicionarNaListaJaVistas(audiovisual, false);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -32,6 +32,20 @@ public class DAO<T extends IDAO<T>> {
     }
 
     /**
+     * Método que salva um conjunto de Strings
+     * 
+     * @param objeto Collection<String>
+     * @throws IOException Caso haja algum problema durante a execução do método
+     */
+    public void save(List<String> objeto) throws IOException {
+        FileWriter arquivo = new FileWriter(this.urlArquivo);
+        for (String obj : objeto)
+            arquivo.append("\n").append(obj);
+
+        arquivo.close();
+    }
+
+    /**
      * Método que adiciona uma linha no final do arquivo
      * 
      * @param objeto T
@@ -46,35 +60,9 @@ public class DAO<T extends IDAO<T>> {
         }
     }
 
-    /**
-     * método appendData que recebe um identificador (key), um campo (column)
-     * e uma lista de dados (data) a serem adicionados ao arquivo CSV.
-     * 
-     * @apiNote Se o arquivo ainda não existir, ele cria um novo arquivo e escreve a
-     *          linha contendo o identificador, campo e dados.
-     * @apiNote Se o arquivo já existir, ele lê todas as linhas do arquivo e
-     *          verifica
-     *          se já há uma linha com o mesmo identificador e campo fornecidos.
-     *          Se sim, atualiza os dados dessa linha com a nova lista de dados.
-     *          Caso contrário, adiciona uma nova linha contendo o identificador,
-     *          campo e dados.
-     * @param key    String
-     * @param column String
-     * @param data   List<String>
-     * @throws IOException Caso haja algum problema durante a execução do método
-     * 
-     * 
-     */
-    public void appendData(String key, String column, List<String> data) throws IOException {
+    public void appendData(String linha) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(urlArquivo, true));
-
-        // Escreve cada item da lista no arquivo CSV
-        for (String item : data) {
-            if (data.size() > 0)
-                writer.newLine();
-            writer.write(key + ";" + column + ";" + item);
-        }
-
+        writer.write("\n" + linha);
         writer.close();
     }
 

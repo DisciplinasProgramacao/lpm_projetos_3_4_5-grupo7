@@ -36,7 +36,7 @@ public class App {
         System.out.println("6  - Adicionar Serie");
         System.out.println("7  - Assistir");
         System.out.println("8  - Filtrar");
-        System.out.println("9 - Cadastrar um novo usuário");
+        System.out.println("9  - Cadastrar um novo usuário");
         System.out.println("10 - Adicionar na Lista para ver mais tarde");
         System.out.println("11 - Mostrar Lista: ver mais tarde");
         System.out.println("12 - Mostrar Lista: assistidos");
@@ -102,7 +102,7 @@ public class App {
             System.out.println("Opção inválida. A mídia foi definida como regular");
             tipo = 0;
         }
-        
+
         if (tipoAudio) {
             Filme filme = new Filme(id, nome, anoLancamento, duracao, Tipo.values()[tipo]);
             plataforma.adicionarFilme(filme);
@@ -112,7 +112,6 @@ public class App {
         }
 
     }
-
 
     private static void avaliar(Audiovisual ver) {
         if (ver.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
@@ -143,12 +142,13 @@ public class App {
         if (aud == null) {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
         } else {
+            System.out.println(aud.toString());
+            
             try {
-                clientAutenticado.adicionarNaListaJaVistas(aud);
+                clientAutenticado.adicionarNaListaJaVistas(aud, true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            plataforma.salvarListasCliente(clientAutenticado);
 
             if (aud.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
 
@@ -301,9 +301,8 @@ public class App {
         if (ver == null) {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
         } else {
-            clientAutenticado.adicionarNaLista(ver);
+            clientAutenticado.adicionarNaLista(ver, true);
             System.out.println("Obrigado, foi adicionado na sua lista para assistir mais tarde.");
-            plataforma.salvarListasCliente(clientAutenticado);
         }
         scanner.nextLine();
     }
@@ -313,8 +312,10 @@ public class App {
             clientAutenticado.getParaVer().values().forEach(x -> System.out.println(x.toString()));
             System.out.println("Deseja remover algum item dessa lista? Id - Sim ou 0 - Não");
             int opc = scanner.nextInt();
-            if (opc != 0)
+            if (opc != 0) {
                 clientAutenticado.retirarDaLista(opc);
+                plataforma.salvarAudiencia();
+            }
         } else {
             System.out.println("Nenhum item encontrado");
         }

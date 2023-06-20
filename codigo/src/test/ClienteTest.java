@@ -23,11 +23,11 @@ public class ClienteTest {
     public void avaliacaoClienteEspecialista() {
         Cliente c = new Cliente("joao caram", "123");
         try {
-            c.adicionarNaListaJaVistas(new Serie(1, "a", "b"));
-            c.adicionarNaListaJaVistas(new Serie(2, "a", "b"));
-            c.adicionarNaListaJaVistas(new Serie(3, "a", "b"));
-            c.adicionarNaListaJaVistas(new Serie(4, "a", "b"));
-            c.adicionarNaListaJaVistas(new Serie(5, "a", "b"));
+            c.adicionarNaListaJaVistas(new Serie(1, "a", "b"), false);
+            c.adicionarNaListaJaVistas(new Serie(2, "a", "b"), false);
+            c.adicionarNaListaJaVistas(new Serie(3, "a", "b"), false);
+            c.adicionarNaListaJaVistas(new Serie(4, "a", "b"), false);
+            c.adicionarNaListaJaVistas(new Serie(5, "a", "b"), false);
         } catch (Exception e) {
         }
 
