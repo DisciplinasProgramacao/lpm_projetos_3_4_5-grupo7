@@ -5,8 +5,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.joining;
-
 public class Relatorio {
     private final HashMap<String, Cliente> clientes;
     private final HashMap<Integer, Audiovisual> audiovisuais;
@@ -56,11 +54,11 @@ public class Relatorio {
      */
     public String gerarRelatorioClientes15Avaliacoes(Predicate<Cliente> filtro) {
         List<Cliente> listaClientes = new ArrayList<>(clientes.values());
-        int quantidadeCliente = (int)listaClientes.stream()
+        int quantidadeCliente = (int) listaClientes.stream()
                 .filter(filtro)
                 .count();
 
-        double porcentagem = (double)quantidadeCliente / listaClientes.size() * 100;
+        double porcentagem = (double) quantidadeCliente / listaClientes.size() * 100;
         return "A porcentagem de clientes com no mínimo 15 avaliações é de: " + porcentagem + "%";
     }
 
@@ -68,7 +66,7 @@ public class Relatorio {
      * Gera relatório das 10 mídias de melhor avaliação
      *
      * @param filtro Predicate<Audiovisual>
-     * @param media Comparator<Audiovisual>
+     * @param media  Comparator<Audiovisual>
      * @return Relatório das 10 mídias de melhor avaliação
      */
     public String gerarRelatorioDezMelhores(Predicate<Audiovisual> filtro, Comparator<Audiovisual> media) {
@@ -101,16 +99,15 @@ public class Relatorio {
     /**
      * Gera relatório com os 10 melhores gêneros
      *
-     * @param filtro Predicate<Audiovisual>
-     * @param comparator Comparator<Audiovisual>
+     * @param filtro                Predicate<Audiovisual>
+     * @param comparator            Comparator<Audiovisual>
      * @param groupingByAudiovisual Collector<Audiovisual, ?, Map<String, String>>
      * @return Relatório dos 10 melhore gêneros
-     * */
+     */
     public String gerarRelatorioDezMelhoresGenero(
             Predicate<Audiovisual> filtro,
             Comparator<Audiovisual> comparator,
-            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual
-    ) {
+            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual) {
         Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
                 .filter(filtro)
                 .sorted(comparator)
@@ -129,14 +126,13 @@ public class Relatorio {
     /**
      * Gera relatório com os gêneros mais vistos
      *
-     * @param comparator Comparator<Audiovisual>
+     * @param comparator            Comparator<Audiovisual>
      * @param groupingByAudiovisual Collector<Audiovisual, ?, Map<String, String>>
      * @return Relatório dos gêneros mais vistos
-     * */
+     */
     public String gerarRelatorioMaisVistasGenero(
             Comparator<Audiovisual> comparator,
-            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual
-    ) {
+            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual) {
         Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
                 .sorted(comparator)
                 .limit(10)

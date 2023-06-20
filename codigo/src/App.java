@@ -299,14 +299,10 @@ public class App {
     private static String menuGenero() {
         String resultado;
         System.out.println("Generos disponiveis");
-        System.out.println("1 - Terror");
-        System.out.println("2 - Comédia");
-        System.out.println("3 - Romance");
-        System.out.println("4 - Suspense");
-        System.out.println("5 - Ação");
-        System.out.println("6 - Ficção Científica");
-        System.out.println("7 - Drama");
 
+        for (Generos g : Generos.values()) {
+            System.out.println((g.ordinal() + 1) + " - " + g.toString());
+        }
         resultado = Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
 
         return resultado;
@@ -543,13 +539,12 @@ public class App {
                 comparatorAudiovisual = Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed();
 
                 mappingAudiovisual = Collectors.mapping(Audiovisual::toString, Collectors.joining(", "));
-                groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero,mappingAudiovisual);
+                groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero, mappingAudiovisual);
 
                 System.out.println(relatorio.gerarRelatorioDezMelhoresGenero(
                         filtroAudiovisual,
                         comparatorAudiovisual,
-                        groupingByAudiovisual
-                ));
+                        groupingByAudiovisual));
                 break;
             case 7:
                 comparatorAudiovisual = Comparator.comparingInt(Audiovisual::getAudiencia).reversed();
@@ -557,7 +552,8 @@ public class App {
                 mappingAudiovisual = Collectors.mapping(Audiovisual::toString, joining(", "));
                 groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero, mappingAudiovisual);
 
-                System.out.println(relatorio.gerarRelatorioMaisVistasGenero(comparatorAudiovisual, groupingByAudiovisual));
+                System.out.println(
+                        relatorio.gerarRelatorioMaisVistasGenero(comparatorAudiovisual, groupingByAudiovisual));
                 break;
             default:
                 System.out.println("A opção digitada não existe");
