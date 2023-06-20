@@ -5,6 +5,6 @@ public enum EnumTipoCliente implements IComentarista {
   PROFISSIONAL;
 
   public void comentar(Avaliacao avaliacao, String comentario) {
-    avaliacao.comentar(comentario);
+        avaliacao.comentar(comentario);
   }
 }

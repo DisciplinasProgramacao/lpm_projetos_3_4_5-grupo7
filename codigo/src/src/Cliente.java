@@ -1,6 +1,7 @@
 package src;
 
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -82,8 +83,8 @@ public class Cliente implements IDAO<Cliente> {
         try {
             tipoEspecialista = (IComentarista) tipo;
             tipoEspecialista.comentar(avaliacao, comentario);
-        } catch (Exception e) {
-            System.out.println("Cliente não é especialista, não é possivel comentar!");
+        } catch (ClassCastException e) {
+            throw  new InvalidClassException("Este cliente não pode comentar");
         }
     }
 

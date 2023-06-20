@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.io.*;
+import java.util.Objects;
 
 public class PlataformaStreaming extends Thread {
     private String nome;
@@ -81,7 +82,7 @@ public class PlataformaStreaming extends Thread {
     public void cadastro(String nome, String login, String senha, String tipo) {
         Cliente cliente;
 
-        if (tipo == "Comum") {
+        if (Objects.equals(tipo, "Comum")) {
             cliente = new Cliente(nome, login, senha);
         } else {
             cliente = new Cliente(nome, login, senha, EnumTipoCliente.PROFISSIONAL);
