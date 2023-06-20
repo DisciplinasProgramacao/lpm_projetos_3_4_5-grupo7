@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class Audiovisual {
+public abstract class Audiovisual {
     protected String nome;
-    protected String genero;
-    protected String idioma;
+    protected Generos genero;
+    protected Idiomas idioma;
     protected LocalDate dataAssistido;
     protected int audiencia;
     protected int id;
@@ -47,8 +47,8 @@ public class Audiovisual {
     public void init(int idAudiovisual, String nome, String lancamento) {
         Random random = new Random();
 
-        this.genero = (Generos.values()[random.nextInt(Generos.values().length)].toString());
-        this.idioma = (Idiomas.values()[random.nextInt(Idiomas.values().length)].toString());
+        this.genero = (Generos.values()[random.nextInt(Generos.values().length)]);
+        this.idioma = (Idiomas.values()[random.nextInt(Idiomas.values().length)]);
         this.nome = nome;
         this.dataLancamento = lancamento;
         this.id = idAudiovisual;
@@ -67,12 +67,13 @@ public class Audiovisual {
 
     // #region getters para FILTROS
     public String getIdioma() {
-        return idioma;
+        return idioma.name();
     }
 
     public String getGenero() {
-        return genero;
+        return genero.name();
     }
+
     public int getAudiencia() {
         return audiencia;
     }
@@ -101,14 +102,6 @@ public class Audiovisual {
 
     public HashMap<String, Avaliacao> getAvaliacoes() {
         return this.avaliacoes;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\nTipo: %s\n",
-                this.id, this.nome, this.dataLancamento, gerarMediaAvaliacoes(), this.genero,
-                this.idioma, this.audiencia, this.tipo.toString());
     }
     // #endregion
 

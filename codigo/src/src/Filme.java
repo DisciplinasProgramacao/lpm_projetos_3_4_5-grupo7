@@ -33,6 +33,14 @@ public class Filme extends Audiovisual implements IDAO<Filme> {
     super();
   }
 
+  @Override
+  public String toString() {
+    return String.format(
+        "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\nDuração: %d\nTipo: %s\n",
+        this.id, this.nome, this.dataLancamento, gerarMediaAvaliacoes(), this.genero,
+        this.idioma, this.audiencia, this.duracao, this.tipo.toString());
+  }
+
   /**
    * Implementação do método da interface: salva no arquivo de maneira formatada a
    * linha dos dados do filme

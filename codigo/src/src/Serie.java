@@ -37,6 +37,14 @@ public class Serie extends Audiovisual implements IDAO<Serie> {
         this.quantidadeEpisodios = (QUANTIDADEEPISODIOS[(randomSerie.nextInt(5))]);
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "\nId: %d\nNome: %s\nData de Lançamento: %s\nAvaliação: %s\nGênero: %s\nIdioma: %s\nStreams: %d\nQuantidade de EPs: %d\nTipo: %s\n",
+                this.id, this.nome, this.dataLancamento, gerarMediaAvaliacoes(), this.genero,
+                this.idioma, this.audiencia, this.quantidadeEpisodios, this.tipo.toString());
+    }
+
     /**
      * Implementação da DAO - salva a série formatada no arquivo POO_Series.cvs
      */
