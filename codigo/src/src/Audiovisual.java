@@ -73,6 +73,9 @@ public class Audiovisual {
     public String getGenero() {
         return genero;
     }
+    public int getAudiencia() {
+        return audiencia;
+    }
 
     public String getNome() {
         return nome;

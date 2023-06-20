@@ -222,6 +222,10 @@ public class Cliente implements IDAO<Cliente> {
     public HashSet<Avaliacao> getAvaliacoes() {
         return this.avaliacoes;
     }
+
+    public int getTotalAvaliacoes() {
+        return this.avaliacoes.size();
+    }
     // #endregion
 
     @Override

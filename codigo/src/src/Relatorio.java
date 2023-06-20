@@ -1,6 +1,8 @@
 package src;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
@@ -29,6 +31,7 @@ public class Relatorio {
      */
     public String gerarRelatorioDeMidia(Comparator<Cliente> comparator) {
         Cliente cliente = Collections.max(clientes.values(), comparator);
+
         return "O cliente que assistiu mais mídias foi o " + cliente.getLogin() + ", com "
                 + cliente.getAssistidas().size() + " assistidos";
     }
@@ -41,88 +44,111 @@ public class Relatorio {
      */
     public String gerarRelatorioAvaliacao(Comparator<Cliente> comparator) {
         Cliente cliente = Collections.max(clientes.values(), comparator);
+
         return "O cliente que avaliou mais mídias foi o " + cliente.getLogin() + ", com "
                 + cliente.getAvaliacoes().size() + " avalidadas";
     }
 
-    // TODO - corrigir: gerando null pointer exception
-    public String gerarRelatorioClientes15Avaliacoes() {
+    /**
+     * Gera relatório de cliente que fez mais de 15 avaliações
+     *
+     * @return Relatorio com o cliente que fez mais de 15 avaliações
+     */
+    public String gerarRelatorioClientes15Avaliacoes(Predicate<Cliente> filtro) {
         List<Cliente> listaClientes = new ArrayList<>(clientes.values());
+        int quantidadeCliente = (int)listaClientes.stream()
+                .filter(filtro)
+                .count();
 
-        // Calcular a quantidade de clientes com pelo menos 15 avaliações
-        int clientesCom15Avaliacoes = 0;
-        for (Cliente cliente : listaClientes) {
-            if (cliente.getAvaliacoes().size() >= 15) {
-                clientesCom15Avaliacoes++;
-            }
-        }
-
-        // Calcular a porcentagem de clientes com pelo menos 15 avaliações
-        double porcentagem = (double) clientesCom15Avaliacoes / listaClientes.size() * 100;
-
+        double porcentagem = (double)quantidadeCliente / listaClientes.size() * 100;
         return "A porcentagem de clientes com no mínimo 15 avaliações é de: " + porcentagem + "%";
-
     }
 
-    // TODO - corrigir: não está imprimindo os audiovisuais
-    public String gerarRelatorioDezMelhores() {
-        // Quais são as 10 mídias de melhor avaliação, com pelo menos 100 avaliações, em
-        // ordem decrescente;
-        String lista10Audiovisuais = this.audiovisuais.values().stream()
-                .filter(audiovisual -> audiovisual.getAvaliacoes().size() >= 100)
-                .sorted(Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed())
+    /**
+     * Gera relatório das 10 mídias de melhor avaliação
+     *
+     * @param filtro Predicate<Audiovisual>
+     * @param media Comparator<Audiovisual>
+     * @return Relatório das 10 mídias de melhor avaliação
+     */
+    public String gerarRelatorioDezMelhores(Predicate<Audiovisual> filtro, Comparator<Audiovisual> media) {
+        String audiovisualList = this.audiovisuais.values().stream()
+                .filter(filtro)
+                .sorted(media)
                 .limit(10)
                 .map(Audiovisual::toString)
                 .collect(Collectors.joining(", "));
 
-        return "As 10 mídias de melhor avaliação são: " + lista10Audiovisuais;
+        return "As 10 mídias de melhor avaliação são: " + audiovisualList;
     }
 
-    public String gerarRelatorio10MaisVistas() {
-        // // Quais são as 10 mídias mais vistas, em ordem decrescente;
-        // String lista10Audiovisuais = this.audiovisuais.values().stream()
-        // .sorted(Comparator.comparingInt(Audiovisual::getAudiencia).reversed())
-        // .limit(10)
-        // .map(Audiovisual::toString)
-        // .collect(Collectors.joining(", "));
-
-        // return "As 10 mídias mais vistas são: " + lista10Audiovisuais;
-        return "";
-    }
-
-    public String gerarRelatorioDezMelhoresGenero() {
-        // Quais são as 10 mídias de melhor avaliação, com pelo menos 100 avaliações, em
-        // ordem decrescente separadas por gênero;
-        Map<String, String> melhoresPorGenero = this.audiovisuais.values().stream()
-                .filter(audiovisual -> audiovisual.getAvaliacoes().size() >= 100)
-                .sorted(Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed())
+    /**
+     * Gera relatório das 10 mídias mais vistas
+     *
+     * @param comparator Comparator<Audiovisual>
+     * @return Relatório das 10 mídias mais vistas
+     */
+    public String gerarRelatorio10MaisVistas(Comparator<Audiovisual> comparator) {
+        String audiovisualList = this.audiovisuais.values().stream()
+                .sorted(comparator)
                 .limit(10)
-                .collect(Collectors.groupingBy(Audiovisual::getGenero,
-                        Collectors.mapping(Audiovisual::toString, Collectors.joining(", "))));
+                .map(Audiovisual::toString)
+                .collect(Collectors.joining(", "));
+
+        return "As 10 mídias mais vistas são: " + audiovisualList;
+    }
+
+    /**
+     * Gera relatório com os 10 melhores gêneros
+     *
+     * @param filtro Predicate<Audiovisual>
+     * @param comparator Comparator<Audiovisual>
+     * @param groupingByAudiovisual Collector<Audiovisual, ?, Map<String, String>>
+     * @return Relatório dos 10 melhore gêneros
+     * */
+    public String gerarRelatorioDezMelhoresGenero(
+            Predicate<Audiovisual> filtro,
+            Comparator<Audiovisual> comparator,
+            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual
+    ) {
+        Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
+                .filter(filtro)
+                .sorted(comparator)
+                .limit(10)
+                .collect(groupingByAudiovisual);
 
         StringBuilder relatorio = new StringBuilder("As 10 mídias de melhor avaliação por gênero são:\n");
-        melhoresPorGenero.forEach(
-                (genero, audiovisuais) -> relatorio.append(genero).append(": ").append(audiovisuais).append("\n"));
+        audiovisualMap.forEach((genero, audiovisuais) -> relatorio.append(genero)
+                .append(": ")
+                .append(audiovisuais)
+                .append("\n"));
 
         return relatorio.toString();
     }
 
-    public String gerarRelatorioMaisVistasGenero() {
-        // // Quais são as 10 mídias mais vistas, em ordem decrescente separadas por
-        // // gênero;
-        // Map<String, String> maisVistasPorGenero = this.audiovisuais.values().stream()
-        // .sorted(Comparator.comparingInt(Audiovisual::getAudiencia).reversed())
-        // .limit(10)
-        // .collect(Collectors.groupingBy(Audiovisual::getGenero,
-        // Collectors.mapping(Audiovisual::toString, Collectors.joining(", "))));
+    /**
+     * Gera relatório com os gêneros mais vistos
+     *
+     * @param comparator Comparator<Audiovisual>
+     * @param groupingByAudiovisual Collector<Audiovisual, ?, Map<String, String>>
+     * @return Relatório dos gêneros mais vistos
+     * */
+    public String gerarRelatorioMaisVistasGenero(
+            Comparator<Audiovisual> comparator,
+            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual
+    ) {
+        Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
+                .sorted(comparator)
+                .limit(10)
+                .collect(groupingByAudiovisual);
 
-        // StringBuilder relatorio = new StringBuilder("As 10 mídias mais vistas por
-        // gênero são:\n");
-        // maisVistasPorGenero.forEach(
-        // (genero, audiovisuais) -> relatorio.append(genero).append(":
-        // ").append(audiovisuais).append("\n"));
+        StringBuilder relatorio = new StringBuilder("As 10 mídias mais vistas por gênero são:\n");
 
-        // return relatorio.toString();
-        return "";
+        audiovisualMap.forEach((genero, audiovisuais) -> relatorio.append(genero)
+                .append(":")
+                .append(audiovisuais)
+                .append("\n"));
+
+        return relatorio.toString();
     }
 }

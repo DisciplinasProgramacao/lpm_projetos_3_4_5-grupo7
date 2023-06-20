@@ -2,8 +2,13 @@ import src.*;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -381,7 +386,7 @@ public class App {
         } while (clientAutenticado == null);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int opcfiltro;
         int opcao;
 
@@ -483,7 +488,14 @@ public class App {
         scanner.close();
     }
 
-    private static void relatorio(PlataformaStreaming plataforma) {
+    private static void relatorio(PlataformaStreaming plataforma) throws Exception {
+        Comparator<Audiovisual> comparatorAudiovisual;
+        Comparator<Cliente> comparatorCliente;
+        Predicate<Audiovisual> filtroAudiovisual;
+        Predicate<Cliente> filtroCliente;
+        Collector<Audiovisual, ?, String> mappingAudiovisual;
+        Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual;
+
         String[] tiposRelatorio = new String[] {
                 "Qual cliente assistiu mais mídias, e quantas mídias",
                 "Qual cliente tem mais avaliações, e quantas avaliações",
@@ -505,29 +517,47 @@ public class App {
 
         switch (tipoRelatorio) {
             case 1:
-                Comparator<Cliente> clienteComMaisMidiasAssistidas = Comparator
-                        .comparingInt(c -> c.getAssistidas().size());
-                System.out.println(relatorio.gerarRelatorioDeMidia(clienteComMaisMidiasAssistidas));
+                comparatorCliente = Comparator.comparingInt(c -> c.getAssistidas().size());
+                System.out.println(relatorio.gerarRelatorioDeMidia(comparatorCliente));
                 break;
             case 2:
-                Comparator<Cliente> clientesComMaisAvaliacoesFeitas = Comparator
-                        .comparingInt(c -> c.getAvaliacoes().size());
-                System.out.println(relatorio.gerarRelatorioAvaliacao(clientesComMaisAvaliacoesFeitas));
+                comparatorCliente = Comparator.comparingInt(c -> c.getAvaliacoes().size());
+                System.out.println(relatorio.gerarRelatorioAvaliacao(comparatorCliente));
                 break;
             case 3:
-                System.out.println(relatorio.gerarRelatorioClientes15Avaliacoes());
+                filtroCliente = c -> c.getTotalAvaliacoes() >= 15;
+                System.out.println(relatorio.gerarRelatorioClientes15Avaliacoes(filtroCliente));
                 break;
             case 4:
-                System.out.println(relatorio.gerarRelatorioDezMelhores());
+                filtroAudiovisual = a -> a.getAvaliacoes().size() >= 100;
+                comparatorAudiovisual = Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed();
+                System.out.println(relatorio.gerarRelatorioDezMelhores(filtroAudiovisual, comparatorAudiovisual));
                 break;
             case 5:
-                System.out.println(relatorio.gerarRelatorio10MaisVistas());
+                comparatorAudiovisual = Comparator.comparingInt(Audiovisual::getAudiencia).reversed();
+
+                System.out.println(relatorio.gerarRelatorio10MaisVistas(comparatorAudiovisual));
                 break;
             case 6:
-                System.out.println(relatorio.gerarRelatorioDezMelhoresGenero());
+                filtroAudiovisual = a -> a.getAvaliacoes().size() >= 100;
+                comparatorAudiovisual = Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed();
+
+                mappingAudiovisual = Collectors.mapping(Audiovisual::toString, Collectors.joining(", "));
+                groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero,mappingAudiovisual);
+
+                System.out.println(relatorio.gerarRelatorioDezMelhoresGenero(
+                        filtroAudiovisual,
+                        comparatorAudiovisual,
+                        groupingByAudiovisual
+                ));
                 break;
             case 7:
-                System.out.println(relatorio.gerarRelatorioMaisVistasGenero());
+                comparatorAudiovisual = Comparator.comparingInt(Audiovisual::getAudiencia).reversed();
+
+                mappingAudiovisual = Collectors.mapping(Audiovisual::toString, joining(", "));
+                groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero, mappingAudiovisual);
+
+                System.out.println(relatorio.gerarRelatorioMaisVistasGenero(comparatorAudiovisual, groupingByAudiovisual));
                 break;
             default:
                 System.out.println("A opção digitada não existe");
