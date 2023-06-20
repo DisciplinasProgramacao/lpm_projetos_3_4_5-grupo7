@@ -20,9 +20,6 @@ public class PlataformaStreaming extends Thread {
     }
 
     // #region Get Set
-    public Cliente getClienteAtual() {
-        return this.clienteAtual;
-    }
 
     public String getNome() {
         return this.nome;
@@ -161,41 +158,7 @@ public class PlataformaStreaming extends Thread {
     }
 
     // #region persistem - salvamento em arquivo
-    /**
-     * Salva um filme no arquivo
-     */
-    public void salvarFilme() {
-        try {
-            DAO<Filme> dao = new DAO<>("codigo/src/files/POO_Filmes.csv");
-            dao.save(this.filmes.values());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * Salva uma série no arquivo
-     */
-    public void salvarSerie() {
-        try {
-            DAO<Serie> dao = new DAO<>("codigo/src/files/POO_Series.csv");
-            dao.save(this.series.values());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Salva um cliente no arquivo
-     */
-    public void salvarClientes() {
-        try {
-            DAO<Cliente> dao = new DAO<>("codigo/src/files/POO_Espectadores.csv");
-            dao.save(this.clientes.values());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void salvarAudiencia() {
         try {

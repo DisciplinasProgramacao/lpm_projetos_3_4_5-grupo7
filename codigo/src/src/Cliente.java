@@ -138,14 +138,6 @@ public class Cliente implements IDAO<Cliente> {
         }
     }
 
-    /**
-     * Remove uma série em uma lista de séries para serem assistidas
-     * 
-     * @param nomeAudiovisual String
-     */
-    public void retirarDaLista(String nomeAudiovisual) {
-        listaParaVer.values().removeIf(x -> x.getNome().equals(nomeAudiovisual));
-    }
 
     /**
      * Remove uma série em uma lista de séries para serem assistidas

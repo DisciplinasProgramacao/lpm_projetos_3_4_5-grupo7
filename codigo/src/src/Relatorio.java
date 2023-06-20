@@ -22,29 +22,13 @@ public class Relatorio {
     }
 
     /**
-     * Gera relatório de cliente que teve mais mídias assistidas
+     * Gerar relatório paramétrico
      *
      * @param comparator Comparator<Cliente>
-     * @return Relatorio com o cliente que teve mais mídias assistidas
-     */
-    public String gerarRelatorioDeMidia(Comparator<Cliente> comparator) {
-        Cliente cliente = Collections.max(clientes.values(), comparator);
-
-        return "O cliente que assistiu mais mídias foi o " + cliente.getLogin() + ", com "
-                + cliente.getAssistidas().size() + " assistidos";
-    }
-
-    /**
-     * Gera relatório de cliente que teve mais mídias avaliadas
-     *
-     * @param comparator Comparator<Cliente>
-     * @return Relatorio com o cliente que teve mais mídias avaliadas
-     */
-    public String gerarRelatorioAvaliacao(Comparator<Cliente> comparator) {
-        Cliente cliente = Collections.max(clientes.values(), comparator);
-
-        return "O cliente que avaliou mais mídias foi o " + cliente.getLogin() + ", com "
-                + cliente.getAvaliacoes().size() + " avalidadas";
+     * @return Cliente
+     * */
+    public Cliente gerar(Comparator<Cliente> comparator) {
+        return Collections.max(clientes.values(), comparator);
     }
 
     /**

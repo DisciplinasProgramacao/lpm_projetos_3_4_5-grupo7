@@ -30,7 +30,7 @@ public class App {
         System.out.println("Escolha uma opção:");
         System.out.println("1  - Ver catálogo de filmes");
         System.out.println("2  - Ver catálogo de séries");
-        System.out.println("3  - Buscar conteúdo:");
+        System.out.println("3  - Buscar conteúdo por nome:");
         System.out.println("4  - Ver perfil");
         System.out.println("5  - Adicionar Filme");
         System.out.println("6  - Adicionar Serie");
@@ -40,7 +40,7 @@ public class App {
         System.out.println("10 - Adicionar na Lista para ver mais tarde");
         System.out.println("11 - Mostrar Lista: ver mais tarde");
         System.out.println("12 - Mostrar Lista: assistidos");
-        System.out.println("13 - Avaliação avulsa");
+        System.out.println("13 - Avaliar mídia");
         System.out.println("14 - Relatórios");
         System.out.println("15 - Logoff");
         System.out.println("0  - Sair");
@@ -147,7 +147,10 @@ public class App {
             try {
                 clientAutenticado.adicionarNaListaJaVistas(aud, true);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
+                scanner.nextLine();
+                return;
+
             }
 
             if (aud.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
@@ -444,7 +447,7 @@ public class App {
                     cadastrarNovoUsuario();
                     break;
                 case 10:
-                    System.out.println("Lista de assistir mais tarde:");
+                    System.out.println("Adicionar na lista de assistir mais tarde:");
                     assistirMaisTarde();
                     break;
                 case 11:
@@ -458,7 +461,7 @@ public class App {
                     break;
 
                 case 13:
-                    System.out.println("Avaliação Avulsa:");
+                    System.out.println("Avaliando");
                     avaliacaoAvulsa();
                     break;
                 case 14:
@@ -488,6 +491,7 @@ public class App {
         Predicate<Cliente> filtroCliente;
         Collector<Audiovisual, ?, String> mappingAudiovisual;
         Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual;
+        Cliente cliente;
 
         String[] tiposRelatorio = new String[] {
                 "Qual cliente assistiu mais mídias, e quantas mídias",
@@ -511,11 +515,15 @@ public class App {
         switch (tipoRelatorio) {
             case 1:
                 comparatorCliente = Comparator.comparingInt(c -> c.getAssistidas().size());
-                System.out.println(relatorio.gerarRelatorioDeMidia(comparatorCliente));
+                cliente = relatorio.gerar(comparatorCliente);
+                System.out.println("O cliente que assistiu mais mídias foi o " + cliente.getLogin() + ", com "
+                        + cliente.getAssistidas().size() + " assistidos");
                 break;
             case 2:
                 comparatorCliente = Comparator.comparingInt(c -> c.getAvaliacoes().size());
-                System.out.println(relatorio.gerarRelatorioAvaliacao(comparatorCliente));
+                cliente = relatorio.gerar(comparatorCliente);
+                System.out.println("O cliente que avaliou mais mídias foi o " + cliente.getLogin() + ", com "
+                        + cliente.getAvaliacoes().size() + " avalidadas");
                 break;
             case 3:
                 filtroCliente = c -> c.getTotalAvaliacoes() >= 15;
@@ -528,7 +536,6 @@ public class App {
                 break;
             case 5:
                 comparatorAudiovisual = Comparator.comparingInt(Audiovisual::getAudiencia).reversed();
-
                 System.out.println(relatorio.gerarRelatorio10MaisVistas(comparatorAudiovisual));
                 break;
             case 6:
