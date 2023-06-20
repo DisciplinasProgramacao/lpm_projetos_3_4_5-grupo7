@@ -569,7 +569,6 @@ public class App {
         }
 
         scanner.nextLine();
-        pausa();
     }
 
 }
