@@ -113,7 +113,12 @@ public class PlataformaStreaming extends Thread {
      * @param serie Serie
      */
     public void adicionarSerie(Serie serie) {
-        this.series.put(serie.getId(), serie);
+        try {
+            this.series.put(serie.getId(), serie);
+            DAO<Serie> dao = new DAO<>("codigo/src/files/POO_Series.csv");
+            dao.append(serie);
+        } catch (Exception cast) {
+        }
     }
 
     /**

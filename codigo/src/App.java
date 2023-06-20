@@ -80,51 +80,39 @@ public class App {
         return opcao;
     }
 
-    private static void adicionarFilme() {
-        System.out.println("Adicionar Filme...");
-        System.out.println("Digite o ID do filme");
+    private static void criarAudioVisual(boolean tipoAudio) {
+        int duracao = 0;
+        System.out.println("Adicionar " + (tipoAudio ? "Filme" : "Serie"));
+        System.out.println("Digite o ID");
         int id = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Digite o nome do filme:");
+        System.out.println("Digite o nome:");
         String nome = scanner.nextLine();
         System.out.println("Digite a data de lançamento:");
         String anoLancamento = scanner.nextLine();
-        System.out.println("Digite a duração do filme:");
-        int duracao = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("O filme e de pre-lancamento? (0 - não, 1 - sim)");
+        if (tipoAudio) {
+            System.out.println("Digite a duração:");
+            duracao = scanner.nextInt();
+            scanner.nextLine();
+        }
+        System.out.println("Pre-lancamento? (0 - não, 1 - sim)");
         int tipo = scanner.nextInt();
 
         if (tipo != 0 && tipo != 1) {
             System.out.println("Opção inválida. A mídia foi definida como regular");
             tipo = 0;
         }
-
-        Filme filme = new Filme(id, nome, anoLancamento, duracao, Tipo.values()[tipo]);
-        plataforma.adicionarFilme(filme);
-    }
-
-    private static void adicionarSerie() {
-        System.out.println("Adicionar src.Serie...");
-        System.out.println("Digite o ID da serie");
-        int idSerie = scanner.nextInt();
-        System.out.println("Digite o nome da serie:");
-        String nomeSerie = scanner.next();
-        System.out.println("Digite a data de lançamento:");
-        String anoLancamentoSerie = scanner.next();
-        System.out.println("A serie e de pre-lancamento? (0 - não, 1 - sim)");
-        int tipo = scanner.nextInt();
-
-        if (tipo != 0 && tipo != 1) {
-            System.out.println("Opção inválida. A mídia foi definida como regular");
-            tipo = 0;
+        
+        if (tipoAudio) {
+            Filme filme = new Filme(id, nome, anoLancamento, duracao, Tipo.values()[tipo]);
+            plataforma.adicionarFilme(filme);
+        } else {
+            Serie serie = new Serie(id, nome, anoLancamento, Tipo.values()[tipo]);
+            plataforma.adicionarSerie(serie);
         }
 
-        Serie serie = new Serie(idSerie, nomeSerie, anoLancamentoSerie, Tipo.values()[tipo]);
-        plataforma.adicionarSerie(serie);
-        plataforma.salvarSerie();
     }
+
 
     private static void avaliar(Audiovisual ver) {
         if (ver.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
@@ -426,11 +414,11 @@ public class App {
                     verPerfil();
                     break;
                 case 5:
-                    adicionarFilme();
+                    criarAudioVisual(true);
                     break;
 
                 case 6:
-                    adicionarSerie();
+                    criarAudioVisual(false);
                     break;
                 case 7:
                     assistir();
