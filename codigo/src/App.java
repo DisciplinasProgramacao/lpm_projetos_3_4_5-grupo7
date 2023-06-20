@@ -161,7 +161,6 @@ public class App {
                 e.printStackTrace();
             }
             plataforma.salvarListasCliente(clientAutenticado);
-            aud.registrarAudiencia();
 
             if (aud.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
 

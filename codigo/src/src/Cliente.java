@@ -107,6 +107,7 @@ public class Cliente implements IDAO<Cliente> {
             throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
 
         audiovisual.setDataAssistido();
+        audiovisual.registrarAudiencia();
         listaJaVistas.put(audiovisual.getId(), audiovisual);
 
         if (tipo == null && verificarEspecialista()) {
@@ -189,15 +190,6 @@ public class Cliente implements IDAO<Cliente> {
                     || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
         }
         return contador >= 5;
-    }
-
-    /**
-     * Registra audiência a partir da classe Audiovisual
-     * 
-     * @param audiovisual Audiovisual
-     */
-    public void registrarAudiencia(Audiovisual audiovisual) {
-        audiovisual.registrarAudiencia();
     }
 
     // #region getters

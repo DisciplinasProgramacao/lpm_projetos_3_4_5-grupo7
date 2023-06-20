@@ -132,28 +132,6 @@ public class PlataformaStreaming extends Thread {
     }
 
     /**
-     *
-     * Método responsavel por registrar audiencia de acordo com o
-     * objeto Audiovisual passado
-     *
-     * @param filme Filme
-     */
-    public void registrarAudienciaFilme(Filme filme) {
-        filme.registrarAudiencia();
-    }
-
-    /**
-     *
-     * Método responsavel por registrar audiencia de acordo com o
-     * objeto Audiovisual passado
-     *
-     * @param serie Serie
-     */
-    public void registrarAudienciaSerie(Serie serie) {
-        serie.registrarAudiencia();
-    }
-
-    /**
      * O método acima retorna uma série de acordo com o nome informado
      * 
      * @param nomeAudiovisual String
