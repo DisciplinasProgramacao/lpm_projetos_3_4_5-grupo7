@@ -1,5 +1,7 @@
 package src;
 
+import java.io.InvalidClassException;
+
 public interface IComentarista {
 
   /**
@@ -8,5 +10,5 @@ public interface IComentarista {
    * @param avaliacao  Avaliacao
    * @param comentario String
    */
-  void comentar(Avaliacao avaliacao, String comentario);
+  void comentar(Avaliacao avaliacao, String comentario) throws InvalidClassException;
 }
