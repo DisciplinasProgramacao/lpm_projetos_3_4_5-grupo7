@@ -214,6 +214,10 @@ public class Cliente implements IDAO<Cliente> {
         return this.senha;
     }
 
+    public Audiovisual getMidiaAssistida(int idmidia) {
+        return this.listaJaVistas.get(idmidia);
+    }
+
     public String getNome() {
         return this.nomeDeUsuario;
     }

@@ -439,7 +439,7 @@ public class App {
             return;
         }
 
-        midia = clientAutenticado.getAssistidas().get(idMidia);
+        midia = clientAutenticado.getMidiaAssistida(idMidia);
 
         if (midia == null) {
             System.out.println("A midia referente ao Id informado não existe");
