@@ -2,7 +2,6 @@ package src;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -16,6 +15,7 @@ public class Cliente implements IDAO<Cliente> {
     private EnumTipoCliente tipo;
 
     public Cliente() {
+        this.tipo = EnumTipoCliente.REGULAR;
     }
 
     public void init(String usuario, String senha, String nome) {
@@ -83,7 +83,7 @@ public class Cliente implements IDAO<Cliente> {
         try {
             tipoEspecialista = (IComentarista) tipo;
             tipoEspecialista.comentar(avaliacao, comentario);
-        } catch (NullPointerException e) {
+        } catch (InvalidClassException e) {
             throw new InvalidClassException("Este cliente não pode comentar");
         }
     }
@@ -134,9 +134,11 @@ public class Cliente implements IDAO<Cliente> {
             }
         }
 
-        if (tipo == null && verificarEspecialista()) {
-            tipo = EnumTipoCliente.ESPECIALISTA;
+        if (tipo == null) {
+            tipo = EnumTipoCliente.REGULAR;
         }
+
+        this.tipo = tipo.verificarEspecialista(listaJaVistas);
     }
 
     /**
@@ -191,21 +193,6 @@ public class Cliente implements IDAO<Cliente> {
         return new Cliente(nome, login, senha, tipo);
     }
 
-    /**
-     * Método responsavel por verificar se um cliente e especialista
-     * 
-     * @return true se a lista de assistidos tiver mais de 5
-     */
-    private boolean verificarEspecialista() {
-        LocalDate dataAtual = LocalDate.now();
-        LocalDate dataLimite = dataAtual.minusMonths(1);
-        int contador = 0;
-        for (Audiovisual audiovisual : listaJaVistas.values()) {
-            contador += (audiovisual.getDataAssistido().isAfter(dataLimite)
-                    || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
-        }
-        return contador >= 5;
-    }
 
     // #region getters
 
