@@ -11,13 +11,11 @@ public class PlataformaStreaming extends Thread {
     private final HashMap<Integer, Serie> series;
     private final HashMap<Integer, Filme> filmes;
     private final HashMap<String, Cliente> clientes;
-    private Cliente clienteAtual;
 
     public PlataformaStreaming() {
         this.series = new HashMap<>();
         this.filmes = new HashMap<>();
         this.clientes = new HashMap<>();
-        this.clienteAtual = null;
     }
 
     // #region Get Set
@@ -159,7 +157,6 @@ public class PlataformaStreaming extends Thread {
     }
 
     // #region persistem - salvamento em arquivo
-
 
     public void salvarAudiencia() {
         try {

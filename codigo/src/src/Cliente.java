@@ -73,7 +73,7 @@ public class Cliente implements IDAO<Cliente> {
      * @param comentario
      * @throws Exception
      */
-    public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws Exception {
+    public void adicionarAvaliacao(Audiovisual aud, double nota, String comentario) throws InvalidClassException {
         Avaliacao avaliacao = new Avaliacao(nota);
         IComentarista tipoEspecialista;
 
@@ -83,8 +83,8 @@ public class Cliente implements IDAO<Cliente> {
         try {
             tipoEspecialista = (IComentarista) tipo;
             tipoEspecialista.comentar(avaliacao, comentario);
-        } catch (ClassCastException e) {
-            throw  new InvalidClassException("Este cliente não pode comentar");
+        } catch (NullPointerException e) {
+            throw new InvalidClassException("Este cliente não pode comentar");
         }
     }
 
@@ -114,7 +114,7 @@ public class Cliente implements IDAO<Cliente> {
      * @param salvar      Indica se os dados devem ser salvos (padrão: false)
      * @param audiovisual Audiovisual
      */
-    public void adicionarNaListaJaVistas(Audiovisual audiovisual, boolean salvar) throws Exception {
+    public void adicionarNaListaJaVistas(Audiovisual audiovisual, boolean salvar) throws IllegalArgumentException {
 
         if (audiovisual.getTipo() != "REGULAR" && this.tipo != EnumTipoCliente.PROFISSIONAL)
             throw new IllegalArgumentException("Apenas clientes profissionais podem assistir lançamentos!");
@@ -138,7 +138,6 @@ public class Cliente implements IDAO<Cliente> {
             tipo = EnumTipoCliente.ESPECIALISTA;
         }
     }
-
 
     /**
      * Remove uma série em uma lista de séries para serem assistidas
@@ -213,6 +212,10 @@ public class Cliente implements IDAO<Cliente> {
     // utilizada para Login na plataforma
     public String getSenha() {
         return this.senha;
+    }
+
+    public String getNome() {
+        return this.nomeDeUsuario;
     }
 
     public String getLogin() {

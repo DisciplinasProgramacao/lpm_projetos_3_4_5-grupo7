@@ -1,6 +1,7 @@
 import src.*;
 
 import java.util.Comparator;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -9,6 +10,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
+
+import java.io.InvalidClassException;
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -26,6 +29,7 @@ public class App {
     }
 
     private static int menu() {
+        int opcao;
         System.out.println("Bem-vindo ao StreamingApp!");
         System.out.println("Escolha uma opção:");
         System.out.println("1  - Ver catálogo de filmes");
@@ -45,46 +49,78 @@ public class App {
         System.out.println("15 - Logoff");
         System.out.println("0  - Sair");
         System.out.print("\nSua opção: ");
-        int opcao = Integer.parseInt(scanner.nextLine());
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return menu();
+        }
         limparTela();
         return opcao;
     }
 
     private static int menuFiltros() {
+        int opcao;
         System.out.println("Escolha o que quer filtrar!");
         System.out.println("1 - Filtrar mídia por Gênero");
         System.out.println("2 - Filtrar mídia por Idioma");
         System.out.println("3 - Filtrar série por episódio");
 
-        int opcao = Integer.parseInt(scanner.nextLine());
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return menuFiltros();
+        }
         limparTela();
         return opcao;
     }
 
     private static int menuInicialLogin() {
+        int opcao;
         System.out.println("Bem-vindo ao StreamingApp!");
         System.out.println("Escolha uma opção:");
         System.out.println("1 - Criar um novo perfil");
         System.out.println("2 - Fazer login");
-        int opcao = Integer.parseInt(scanner.nextLine());
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return menuInicialLogin();
+        }
         limparTela();
         return opcao;
     }
 
     private static int menuTipoCadastro() {
+        int opcao;
         System.out.println("Escolha o tipo de cliente:");
         System.out.println("1 - Cliente");
         System.out.println("2 - Cliente Profissional");
-        int opcao = Integer.parseInt(scanner.nextLine());
+        try {
+            opcao = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return menuTipoCadastro();
+        }
         limparTela();
         return opcao;
     }
 
     private static void criarAudioVisual(boolean tipoAudio) {
         int duracao = 0;
+        int tipo;
+        int id;
+
         System.out.println("Adicionar " + (tipoAudio ? "Filme" : "Serie"));
         System.out.println("Digite o ID");
-        int id = scanner.nextInt();
+
+        try {
+            id = scanner.nextInt();
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
         scanner.nextLine();
         System.out.println("Digite o nome:");
         String nome = scanner.nextLine();
@@ -92,11 +128,22 @@ public class App {
         String anoLancamento = scanner.nextLine();
         if (tipoAudio) {
             System.out.println("Digite a duração:");
-            duracao = scanner.nextInt();
+            try {
+                duracao = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Opção inválida. Digite um número");
+                return;
+            }
             scanner.nextLine();
         }
         System.out.println("Pre-lancamento? (0 - não, 1 - sim)");
-        int tipo = scanner.nextInt();
+
+        try {
+            tipo = scanner.nextInt();
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
 
         if (tipo != 0 && tipo != 1) {
             System.out.println("Opção inválida. A mídia foi definida como regular");
@@ -126,7 +173,7 @@ public class App {
             try {
                 clientAutenticado.adicionarAvaliacao(ver, nota, comentario);
                 System.out.println("Avaliação cadastrada");
-            } catch (Exception e) {
+            } catch (InvalidClassException e) {
                 System.out.println(e.getMessage());
             }
             System.out.println("Obrigado.");
@@ -136,27 +183,41 @@ public class App {
     }
 
     private static void assistir() {
+        int opcao;
+        Audiovisual aud;
         System.out.println("Digite o id que deseja assistir.");
-        Audiovisual aud = plataforma.buscarAudiovisual(scanner.nextInt());
+
+        try {
+            aud = plataforma.buscarAudiovisual(scanner.nextInt());
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
 
         if (aud == null) {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
         } else {
             System.out.println(aud.toString());
-            
+
             try {
                 clientAutenticado.adicionarNaListaJaVistas(aud, true);
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 System.err.println(e.getMessage());
                 scanner.nextLine();
                 return;
-
             }
 
             if (aud.getAvaliacoes().get(clientAutenticado.getLogin()) == null) {
 
                 System.out.println("Deseja avaliar o audiovisual? 0 -> Não   1 -> Sim");
-                int opcao = scanner.nextInt();
+
+                try {
+                    opcao = scanner.nextInt();
+                } catch (InputMismatchException ex) {
+                    System.out.println("Opção inválida. Digite um número");
+                    return;
+                }
+
                 if (opcao == 1)
                     avaliar(aud);
                 else
@@ -237,6 +298,7 @@ public class App {
 
     private static void cadastrarNovoUsuario() {
         int opcaoInicial;
+        int opc;
 
         System.out.println("Digite seu nome de exibição:");
         String nomeUsuarioCadastro = scanner.nextLine();
@@ -260,7 +322,12 @@ public class App {
         }
 
         System.out.println("você deseja logar como este cliente agora? 1 para Sim | 0 para Não");
-        int opc = scanner.nextInt();
+        try {
+            opc = scanner.nextInt();
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
 
         if (opc == 1) {
             clientAutenticado = plataforma.login(loginCadastro, senhaCadastro);
@@ -280,7 +347,12 @@ public class App {
             System.out.println((g.ordinal() + 1) + " - " + g.toString());
         }
 
-        resultado = Idiomas.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
+        try {
+            resultado = Idiomas.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
+        } catch (NumberFormatException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return menuLinguagem();
+        }
 
         return resultado;
     }
@@ -292,14 +364,26 @@ public class App {
         for (Generos g : Generos.values()) {
             System.out.println((g.ordinal() + 1) + " - " + g.toString());
         }
-        resultado = Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
+
+        try {
+            resultado = Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
+        } catch (NumberFormatException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return menuLinguagem();
+        }
 
         return resultado;
     }
 
     private static void assistirMaisTarde() {
+        Audiovisual ver;
         System.out.println("Digite o id que deseja adicionar na lista para assistir.");
-        Audiovisual ver = plataforma.buscarAudiovisual(scanner.nextInt());
+        try {
+            ver = plataforma.buscarAudiovisual(scanner.nextInt());
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
 
         if (ver == null) {
             System.out.println("Não foi encontrado nenhum audiovisual com esse id. Tente novamente");
@@ -311,10 +395,17 @@ public class App {
     }
 
     private static void verListaAssistirMaisTarde() {
+        int opc;
         if (clientAutenticado.getParaVer().size() > 0) {
             clientAutenticado.getParaVer().values().forEach(x -> System.out.println(x.toString()));
             System.out.println("Deseja remover algum item dessa lista? Id - Sim ou 0 - Não");
-            int opc = scanner.nextInt();
+            try {
+                opc = scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Opção inválida. Digite um número");
+                return;
+            }
+
             if (opc != 0) {
                 clientAutenticado.retirarDaLista(opc);
                 plataforma.salvarAudiencia();
@@ -337,11 +428,16 @@ public class App {
 
     private static void avaliacaoAvulsa() {
         Audiovisual midia = null;
-
+        int idMidia;
         verListaAssistidos();
 
         System.out.println("Digite o Id da mídia:");
-        int idMidia = scanner.nextInt();
+        try {
+            idMidia = scanner.nextInt();
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
 
         midia = clientAutenticado.getAssistidas().get(idMidia);
 
@@ -492,6 +588,7 @@ public class App {
         Collector<Audiovisual, ?, String> mappingAudiovisual;
         Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual;
         Cliente cliente;
+        int tipoRelatorio;
 
         String[] tiposRelatorio = new String[] {
                 "Qual cliente assistiu mais mídias, e quantas mídias",
@@ -508,7 +605,12 @@ public class App {
         }
 
         System.out.println("Você deseja ver qual tipo de relatório? ");
-        int tipoRelatorio = scanner.nextInt();
+        try {
+            tipoRelatorio = scanner.nextInt();
+        } catch (InputMismatchException ex) {
+            System.out.println("Opção inválida. Digite um número");
+            return;
+        }
 
         Relatorio relatorio = new Relatorio(plataforma.getClientes(), plataforma.getHashMapAudioVisual());
 
@@ -516,13 +618,13 @@ public class App {
             case 1:
                 comparatorCliente = Comparator.comparingInt(c -> c.getAssistidas().size());
                 cliente = relatorio.gerar(comparatorCliente);
-                System.out.println("O cliente que assistiu mais mídias foi o " + cliente.getLogin() + ", com "
+                System.out.println("O cliente que assistiu mais mídias foi o " + cliente.getNome() + ", com "
                         + cliente.getAssistidas().size() + " assistidos");
                 break;
             case 2:
                 comparatorCliente = Comparator.comparingInt(c -> c.getAvaliacoes().size());
                 cliente = relatorio.gerar(comparatorCliente);
-                System.out.println("O cliente que avaliou mais mídias foi o " + cliente.getLogin() + ", com "
+                System.out.println("O cliente que avaliou mais mídias foi o " + cliente.getNome() + ", com "
                         + cliente.getAvaliacoes().size() + " avalidadas");
                 break;
             case 3:
