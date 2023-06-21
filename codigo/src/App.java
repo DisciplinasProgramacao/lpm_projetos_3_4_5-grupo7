@@ -364,12 +364,11 @@ public class App {
         for (Generos g : Generos.values()) {
             System.out.println((g.ordinal() + 1) + " - " + g.toString());
         }
-
         try {
             resultado = Generos.values()[(Integer.parseInt(scanner.nextLine())) - 1].toString();
         } catch (NumberFormatException ex) {
             System.out.println("Opção inválida. Digite um número");
-            return menuLinguagem();
+            return menuGenero();
         }
 
         return resultado;
@@ -641,6 +640,7 @@ public class App {
                 System.out.println(relatorio.gerarRelatorio10MaisVistas(comparatorAudiovisual));
                 break;
             case 6:
+                String generoEscolhido = menuGenero();
                 filtroAudiovisual = a -> a.getAvaliacoes().size() >= 100;
                 comparatorAudiovisual = Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed();
 
@@ -648,6 +648,7 @@ public class App {
                 groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero, mappingAudiovisual);
 
                 System.out.println(relatorio.gerarRelatorioDezMelhoresGenero(
+                        generoEscolhido.toString(),
                         filtroAudiovisual,
                         comparatorAudiovisual,
                         groupingByAudiovisual));

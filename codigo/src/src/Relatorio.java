@@ -26,7 +26,7 @@ public class Relatorio {
      *
      * @param comparator Comparator<Cliente>
      * @return Cliente
-     * */
+     */
     public Cliente gerar(Comparator<Cliente> comparator) {
         return Collections.max(clientes.values(), comparator);
     }
@@ -89,16 +89,18 @@ public class Relatorio {
      * @return Relatório dos 10 melhore gêneros
      */
     public String gerarRelatorioDezMelhoresGenero(
+            String generoFiltrar,
             Predicate<Audiovisual> filtro,
             Comparator<Audiovisual> comparator,
             Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual) {
         Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
+                .filter(audiovisual -> audiovisual.getGenero().equals(generoFiltrar))
                 .filter(filtro)
                 .sorted(comparator)
                 .limit(10)
                 .collect(groupingByAudiovisual);
 
-        StringBuilder relatorio = new StringBuilder("As 10 mídias de melhor avaliação por gênero são:\n");
+        StringBuilder relatorio = new StringBuilder("As 10 mídias de melhor avaliação para o gênero " + generoFiltrar + " são:\n");
         audiovisualMap.forEach((genero, audiovisuais) -> relatorio.append(genero)
                 .append(": ")
                 .append(audiovisuais)
