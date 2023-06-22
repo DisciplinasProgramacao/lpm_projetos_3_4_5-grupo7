@@ -588,6 +588,7 @@ public class App {
         Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual;
         Cliente cliente;
         int tipoRelatorio;
+        int quantidade;
 
         String[] tiposRelatorio = new String[] {
                 "Qual cliente assistiu mais mídias, e quantas mídias",
@@ -633,34 +634,40 @@ public class App {
             case 4:
                 filtroAudiovisual = a -> a.getAvaliacoes().size() >= 100;
                 comparatorAudiovisual = Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed();
-                System.out.println(relatorio.gerarRelatorioDezMelhores(filtroAudiovisual, comparatorAudiovisual));
+                quantidade = 10;
+                System.out.println(relatorio.gerarRelatorioDezMelhores(filtroAudiovisual, comparatorAudiovisual, quantidade));
                 break;
             case 5:
                 comparatorAudiovisual = Comparator.comparingInt(Audiovisual::getAudiencia).reversed();
-                System.out.println(relatorio.gerarRelatorio10MaisVistas(comparatorAudiovisual));
+                quantidade = 10;
+                System.out.println(relatorio.gerarRelatorio10MaisVistas(comparatorAudiovisual,quantidade));
                 break;
             case 6:
+                scanner.nextLine();
                 String generoEscolhido = menuGenero();
                 filtroAudiovisual = a -> a.getAvaliacoes().size() >= 100;
                 comparatorAudiovisual = Comparator.comparingDouble(Audiovisual::gerarMediaAvaliacoes).reversed();
-
+                quantidade = 10;
                 mappingAudiovisual = Collectors.mapping(Audiovisual::toString, Collectors.joining(", "));
                 groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero, mappingAudiovisual);
 
                 System.out.println(relatorio.gerarRelatorioDezMelhoresGenero(
-                        generoEscolhido.toString(),
+                        generoEscolhido,
                         filtroAudiovisual,
                         comparatorAudiovisual,
-                        groupingByAudiovisual));
+                        groupingByAudiovisual,
+                        quantidade));
                 break;
             case 7:
                 comparatorAudiovisual = Comparator.comparingInt(Audiovisual::getAudiencia).reversed();
-
+                quantidade = 10;
                 mappingAudiovisual = Collectors.mapping(Audiovisual::toString, joining(", "));
                 groupingByAudiovisual = Collectors.groupingBy(Audiovisual::getGenero, mappingAudiovisual);
 
-                System.out.println(
-                        relatorio.gerarRelatorioMaisVistasGenero(comparatorAudiovisual, groupingByAudiovisual));
+                System.out.println(relatorio.gerarRelatorioMaisVistasGenero(
+                        comparatorAudiovisual,
+                        groupingByAudiovisual,
+                        quantidade));
                 break;
             default:
                 System.out.println("A opção digitada não existe");

@@ -53,15 +53,15 @@ public class Relatorio {
      * @param media  Comparator<Audiovisual>
      * @return Relatório das 10 mídias de melhor avaliação
      */
-    public String gerarRelatorioDezMelhores(Predicate<Audiovisual> filtro, Comparator<Audiovisual> media) {
+    public String gerarRelatorioDezMelhores(Predicate<Audiovisual> filtro, Comparator<Audiovisual> media, int quantidade) {
         String audiovisualList = this.audiovisuais.values().stream()
                 .filter(filtro)
                 .sorted(media)
-                .limit(10)
+                .limit(quantidade)
                 .map(Audiovisual::toString)
                 .collect(Collectors.joining(", "));
 
-        return "As 10 mídias de melhor avaliação são: " + audiovisualList;
+        return "As " + quantidade + " mídias de melhor avaliação são: " + audiovisualList;
     }
 
     /**
@@ -70,14 +70,14 @@ public class Relatorio {
      * @param comparator Comparator<Audiovisual>
      * @return Relatório das 10 mídias mais vistas
      */
-    public String gerarRelatorio10MaisVistas(Comparator<Audiovisual> comparator) {
+    public String gerarRelatorio10MaisVistas(Comparator<Audiovisual> comparator, int quantidade) {
         String audiovisualList = this.audiovisuais.values().stream()
                 .sorted(comparator)
-                .limit(10)
+                .limit(quantidade)
                 .map(Audiovisual::toString)
                 .collect(Collectors.joining(", "));
 
-        return "As 10 mídias mais vistas são: " + audiovisualList;
+        return "As " + quantidade + " mídias mais vistas são: " + audiovisualList;
     }
 
     /**
@@ -92,15 +92,16 @@ public class Relatorio {
             String generoFiltrar,
             Predicate<Audiovisual> filtro,
             Comparator<Audiovisual> comparator,
-            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual) {
+            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual,
+            int quantidade) {
         Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
                 .filter(audiovisual -> audiovisual.getGenero().equals(generoFiltrar))
                 .filter(filtro)
                 .sorted(comparator)
-                .limit(10)
+                .limit(quantidade)
                 .collect(groupingByAudiovisual);
 
-        StringBuilder relatorio = new StringBuilder("As 10 mídias de melhor avaliação para o gênero " + generoFiltrar + " são:\n");
+        StringBuilder relatorio = new StringBuilder("As " + quantidade + " mídias de melhor avaliação para o gênero " + generoFiltrar + " são:\n");
         audiovisualMap.forEach((genero, audiovisuais) -> relatorio.append(genero)
                 .append(": ")
                 .append(audiovisuais)
@@ -118,13 +119,14 @@ public class Relatorio {
      */
     public String gerarRelatorioMaisVistasGenero(
             Comparator<Audiovisual> comparator,
-            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual) {
+            Collector<Audiovisual, ?, Map<String, String>> groupingByAudiovisual,
+            int quantidade) {
         Map<String, String> audiovisualMap = this.audiovisuais.values().stream()
                 .sorted(comparator)
-                .limit(10)
+                .limit(quantidade)
                 .collect(groupingByAudiovisual);
 
-        StringBuilder relatorio = new StringBuilder("As 10 mídias mais vistas por gênero são:\n");
+        StringBuilder relatorio = new StringBuilder("As " + quantidade + " mídias mais vistas por gênero são:\n");
 
         audiovisualMap.forEach((genero, audiovisuais) -> relatorio.append(genero)
                 .append(":")

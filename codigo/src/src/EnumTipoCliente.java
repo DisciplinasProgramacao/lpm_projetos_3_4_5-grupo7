@@ -26,7 +26,6 @@ public enum EnumTipoCliente implements IComentarista {
                     || audiovisual.getDataAssistido().isEqual(dataLimite)) ? 1 : 0;
         }
         if(contador>= 5){
-          System.out.println("Você se tornou um Cliente Especialista");
           return EnumTipoCliente.ESPECIALISTA;
         }else {
           return EnumTipoCliente.REGULAR;
